@@ -1,0 +1,102 @@
+[global_config]
+  always_on_top = True
+  enabled_plugins = APTURLHandler, LaunchpadBugURLHandler
+  hide_from_taskbar = True
+  hide_on_lose_focus = True
+  inactive_color_offset = 0.73
+  sticky = True
+  suppress_multiple_term_dialog = True
+  title_inactive_bg_color = "#6b6a6a"
+  title_receive_bg_color = "#ffc600"
+  title_transmit_bg_color = "#e97b20"
+  window_state = maximise
+[keybindings]
+  broadcast_all = <Primary>a
+  broadcast_group = <Primary>g
+  broadcast_off = <Primary>o
+  close_term = <Primary>e
+  go_down = <Primary><Shift>Down
+  go_left = <Primary><Shift>Left
+  go_right = <Primary><Shift>Right
+  go_up = <Primary><Shift>Up
+  hide_window = F12
+  move_tab_left = None
+  move_tab_right = None
+  new_tab = <Primary>t
+  next_tab = <Shift>Right
+  prev_tab = <Shift>Left
+  resize_down = None
+  resize_left = None
+  resize_right = None
+  resize_up = None
+[layouts]
+  [[default]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 1971:24
+      size = 1869, 1056
+      title = dawidkotarba: ~
+      type = Window
+    [[[child1]]]
+      active_page = 0
+      labels = None, None, None
+      last_active_term = 24156ff3-394c-4118-9aad-028da54370b3, 5973c880-3329-4d91-b986-b90e7345ddc5, 4e4b6670-be81-4673-b127-a722d781f2b6
+      order = 0
+      parent = child0
+      type = Notebook
+    [[[child4]]]
+      order = 2
+      parent = child1
+      position = 1342
+      ratio = 0.719636169074
+      type = HPaned
+    [[[child6]]]
+      order = 1
+      parent = child4
+      position = 746
+      ratio = 0.72859922179
+      type = VPaned
+    [[[terminal2]]]
+      order = 0
+      parent = child1
+      profile = default
+      type = Terminal
+      uuid = 24156ff3-394c-4118-9aad-028da54370b3
+    [[[terminal3]]]
+      command = ranger
+      order = 1
+      parent = child1
+      profile = default
+      type = Terminal
+      uuid = 5973c880-3329-4d91-b986-b90e7345ddc5
+    [[[terminal5]]]
+      order = 0
+      parent = child4
+      profile = default
+      type = Terminal
+      uuid = 4e4b6670-be81-4673-b127-a722d781f2b6
+    [[[terminal7]]]
+      order = 0
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = 154cf33d-666b-430e-aac3-503dae6c9f5e
+    [[[terminal8]]]
+      order = 1
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = e1689a21-e60c-4f91-b3c5-7be6616f634e
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#2b2b2b"
+    background_image = None
+    cursor_color = "#bbbbbb"
+    foreground_color = "#f1f1f1"
+    login_shell = True
+    palette = "#2b2b2b:#ff615a:#b1e969:#ebd99c:#5da9f6:#e86aff:#82fff7:#f1f1f1:#2b2b2b:#f58c80:#ddf88f:#eee5b2:#a5c7ff:#ddaaff:#b7fff9:#ffffff"

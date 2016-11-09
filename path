@@ -1,0 +1,3 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/dev/jdk1.8.0_92/bin/"
+JAVA_HOME=/usr/dev/jdk1.8.0_92/
+JREBEL_HOME=/usr/dev/jrebel
