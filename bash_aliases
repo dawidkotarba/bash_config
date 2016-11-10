@@ -379,8 +379,11 @@ __openconnect_vpn_kill_signal(){
 source $BASH_CONFIG_FOLDER_PATH/path
 
 ### PROJECT SPECIFIC ###
-source $BASH_PROJECTS_PATH/a
-source $BASH_PROJECTS_PATH/e
+source $BASH_PROJECTS_PATH/epm
+source $BASH_PROJECTS_PATH/amw
+
+### AUTOSTART ###
+. $BASH_CONFIG_FOLDER_PATH/autostart.sh
 
 ### PROGRAMS ###
 #z https://github.com/rupa/z.git
