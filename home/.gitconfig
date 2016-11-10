@@ -136,7 +136,8 @@
 		# moje
 		amend = "commit -a --amend -C HEAD"
 		pushall = "push && push --tags"
-		cf = checkout -f
+		hidden = !git ls-files -v | grep "^[[:lower:]]"
+		cf = "checkout -f"
 
 [apply]
     whitespace = nowarn
