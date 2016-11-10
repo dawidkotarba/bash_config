@@ -101,6 +101,8 @@
     # Ignore files only locally
     hide = update-index --assume-unchanged
     unhide = update-index --no-assume-unchanged
+		unhide-all = update-index --really-refresh
+		hidden = !git ls-files -v | grep "^[[:lower:]]"
 
     #OTHER
 
@@ -133,10 +135,8 @@
     # Fetch PR from GitHub by number/id
     fetchpr = "!sh -c 'git fetch origin pull/$0/head:pr/$0'"
 
-		# moje
 		amend = "commit -a --amend -C HEAD"
 		pushall = "push && push --tags"
-		hidden = !git ls-files -v | grep "^[[:lower:]]"
 		cf = "checkout -f"
 
 [apply]
