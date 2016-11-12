@@ -1,13 +1,9 @@
 ### EXPORTS ###
 export TERM='xterm-256color'
 
-### PATHS ###
-BASH_CONFIG_FOLDER_PATH=~/bash_config
-BASH_ALIASES_PATH=$BASH_CONFIG_FOLDER_PATH/bash_aliases
-BASH_APPS_PATH=$BASH_CONFIG_FOLDER_PATH/apps
-BASH_PROJECTS_PATH=$BASH_CONFIG_FOLDER_PATH/projects
-NOTES_PATH=~/.kde/share/apps/basket/baskets
-REPOSITORY_PATH=~/REPOSITORY
+### DIRS ###
+BASH_CONFIG_PATH=~/bash_config
+source $BASH_CONFIG_PATH/dirs
 
 ### aliases ###
 alias idea='sh /usr/local/bin/idea/bin/idea.sh &'
@@ -25,6 +21,17 @@ __git_add_commit_folder(){
  git -C $FOLDER_NAME commit -a -m "update"
 }
 
+__source_if_exists(){
+ local FILE=$1
+ if [ -f $FILE  ]
+  then source $FILE
+ fi
+}
+
+pssh(){
+ parallel-ssh -h $BASH_CONFIG_PATH/pssh_hosts -t -1 -l pi -A $@
+}
+
 kk-bash-edit(){
  atom $BASH_ALIASES_PATH
 }
@@ -34,11 +41,11 @@ kk-bash-show(){
 }
 
 kk-bash-commit(){
- __git_add_commit_folder $BASH_CONFIG_FOLDER_PATH
+ __git_add_commit_folder $BASH_CONFIG_PATH
 }
 
 kk-bash-push(){
- git -C $BASH_CONFIG_FOLDER_PATH push
+ git -C $BASH_CONFIG_PATH push
 }
 
 kk-bash-commit-push(){
@@ -47,7 +54,7 @@ kk-bash-commit-push(){
 }
 
 kk-bash-revert(){
-  git -C $BASH_CONFIG_FOLDER_PATH checkout -f
+  git -C $BASH_CONFIG_PATH checkout -f
 }
 
 kk-bak(){
@@ -376,18 +383,18 @@ __openconnect_vpn_kill_signal(){
 }
 
 ### PATH ###
-source $BASH_CONFIG_FOLDER_PATH/path
+source $BASH_CONFIG_PATH/path
 
 ### PROJECT SPECIFIC ###
-source $BASH_PROJECTS_PATH/epm
-source $BASH_PROJECTS_PATH/amw
+__source_if_exists $BASH_PROJECTS_PATH/epm
+__source_if_exists $BASH_PROJECTS_PATH/amw
 
 ### AUTOSTART ###
-. $BASH_CONFIG_FOLDER_PATH/autostart.sh
+source $BASH_SCRIPTS_PATH/autostart.sh
 
 ### PROGRAMS ###
 #z https://github.com/rupa/z.git
-. $BASH_APPS_PATH/z/z.sh
+source $BASH_APPS_PATH/z/z.sh
 
 # liquidprompt https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
