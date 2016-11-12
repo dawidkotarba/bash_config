@@ -32,6 +32,19 @@ __source_if_exists(){
  fi
 }
 
+# echo
+__echo_err(){
+ local color=`tput setaf 1`
+ local reset=`tput sgr0`
+ echo "${color}$@${reset}"
+}
+
+__echo_ok(){
+ local color=`tput setaf 2`
+ local reset=`tput sgr0`
+ echo "${color}$@${reset}"
+}
+
 kk-bash-edit(){
  atom $BASH_ALIASES_PATH
 }
@@ -124,245 +137,7 @@ restclient(){
  (cd /usr/bin && java -jar restclient.jar &)
 }
 
-# HYBRIS
-### conts ###
-HYBRIS_LOG=hy.log
-
-### generic ###
-__on_hybris_platform(){
- rm -f $HYBRIS_LOG_PATH
- (cd $HYBRIS_HOME/bin/platform && $@ >> $HYBRIS_LOG_PATH &)
- sleep 1
- yy-log $@
-}
-
-__on_hybris_process(){
- local result=`ps -aux | grep hybris`
- echo "Operating on Hybris processes: $result"
- echo $result | awk {'print $2'} | xargs $@
-}
-# echo
-__echo_err(){
- local color=`tput setaf 1`
- local reset=`tput sgr0`
- echo "${color}$@${reset}"
-}
-
-__echo_ok(){
- local color=`tput setaf 2`
- local reset=`tput sgr0`
- echo "${color}$@${reset}"
-}
-
-### yy ###
-yy-home(){
- export HYBRIS_FOLDER_SUFFIX=$1
- export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
- export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
-}
-
-__check_hybris_suffix(){
-  if [[ ! $HYBRIS_FOLDER_SUFFIX ]]
-   then __echo_err "HYBRIS SUFFIX NOT SET!"
-  fi
-}
-
-__get_hybris_process(){
-  jcmd | grep tanukisoftware | awk {'print $1'}
-}
-
-yy-ps(){
- local HYBRIS_PS=`__get_hybris_process`
- if [[ ! $HYBRIS_PS ]]
-  then __echo_err "HYBRIS IS NOT RUNNING"
-  else __echo_ok "HYBRIS IS RUNNING: $HYBRIS_PS"
-
- fi
-}
-
-yy-navigate(){
- __check_hybris_suffix
- cd $HYBRIS_HOME
-}
-
-yy-navigate-custom(){
- __check_hybris_suffix
- cd $HYBRIS_HOME/bin/custom
-}
-
-yy-navigate-config(){
- __check_hybris_suffix
- cd $HYBRIS_HOME/config
-}
-
-yy-navigate-platform(){
- __check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
-}
-
-yy-log(){
- if [[ $@ != *'-nolog'* ]]
-  then tail -f $HYBRIS_LOG_PATH
- fi
-}
-
-yy-log-show(){
- vim -R $HYBRIS_LOG_PATH
-}
-
-yy-log-tomcat(){
- (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs tail -f)
-}
-
-yy-setenv(){
- (yy-navigate-platform && sh setantenv.sh)
-}
-
-__hybris-start(){
- __check_and_start_hybris_mysql
- __on_hybris_platform sh hybrisserver.sh debug $@
-}
-
-yy-kill(){
- ps aux | grep hybris | grep -v $HYBRIS_LOG | awk '{print $2}' | xargs kill
- yy-log $@
-}
-
-yy-kill9(){
- killall hybris -9
- yy-log $@
-}
-
-yy-visualvm(){
- jvisualvm --openpid `__get_hybris_process` &
-}
-
-yy-jcmd(){
- jcmd `__get_hybris_process` help
-}
-
-yy-config-local-properties(){
- __check_hybris_suffix
- atom $HYBRIS_HOME/config/local.properties
-}
-
-yy-config-local-extensions(){
- __check_hybris_suffix
- atom $HYBRIS_HOME/config/localextensions.xml
-}
-
-### HYBRIS ANT ###
-yy-ant-all(){
-  __on_hybris_platform ant all $@
-}
-
-yy-ant-clean(){
- __on_hybris_platform ant clean
-}
-
-yy-ant-clean-all(){
- __on_hybris_platform ant clean all $@
-}
-
-yy-ant-build(){
- __on_hybris_platform ant build $@
-}
-
-yy-jrebel(){
- local EXT_PATH=$1
- if [[ $EXT_PATH ]]
-  then (cd $EXT_PATH && ant build)
-  else ant build
- fi
-}
-
-yy-grunt(){
-   local EXT_PATH=$1
-    (cd $EXT_PATH && grunt)
-}
-
-yy-ant-updatesystem(){
- __on_hybris_platform ant updatesystem $@
-}
-
-yy-ant-junit(){
- __on_hybris_platform ant yunitinit
-}
-
-yy-ant-extgen(){
- __check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
- ant extgen
-}
-
-yy-ant-modulegen(){
- __check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
- ant modulegen
-}
-
-yy-ant-initialize(){
-  __check_and_start_hybris_mysql
-  __on_hybris_platform ant initialize $@
-}
-
-yy-ant-test(){
-  __on_hybris_platform ant clean all yunitinit alltests
-}
-
-yy-ant-server(){
- __on_hybris_platform ant server
-}
-
-yy-copy-dbdriver(){
- __check_hybris_suffix
- cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
-}
-
-yy-docker-mysql-start(){
-  __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-start $MYSQL_CONTAINER_NAME
-}
-
-yy-docker-mysql-ip(){
-  __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-ip $MYSQL_CONTAINER_NAME
-}
-
-yy-docker-mysql-create(){
-  __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  local MYSQL_VERSION=""
-  if [[ $1 ]]
-   then MYSQL_VERSION=:$1
-  fi
-
-  sudo docker run --name $MYSQL_CONTAINER_NAME -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$MYSQL_VERSION --innodb_flush_log_at_trx_commit=0
-}
-
-__check_hybris_mysql_running(){
-  local IS_MYSQL_RUNNING=$(yy-docker-mysql-ip)
-    if [[ $IS_MYSQL_RUNNING ]]
-    then
-      __echo_ok "hybris MYSQL is running"
-      export HYBRIS_MYSQL_RUNNING=true
-    else
-      __echo_err "hybris MYSQL is NOT running"
-      export HYBRIS_MYSQL_RUNNING=false
-    fi
-}
-
-__check_and_start_hybris_mysql(){
-  if [[ ! $HYBRIS_MYSQL_RUNNING ]]
-   then
-    yy-docker-mysql-start
-    __check_hybris_mysql_running
-  fi
-}
-
-### VPN ###
+### OPENCONNECT VPN ###
 __openconnect_vpn(){
  local USER=$1
  local VPN_URL=$2
@@ -392,7 +167,9 @@ __source_module(){
 }
 
 __source_module rpi
-__source_module hyb 
+__source_module hyb
+
+# OPTIONAL
 __source_module epm 
 __source_module amw 
 
