@@ -1,0 +1,4 @@
+pssh(){
+ parallel-ssh -h $(dirname $0)/pssh_hosts -t -1 -l pi -A $@
+}
+

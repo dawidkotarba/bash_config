@@ -24,12 +24,12 @@ __git_add_commit_folder(){
 __source_if_exists(){
  local FILE=$1
  if [ -f $FILE  ]
-  then source $FILE
+  then
+   source $FILE
+   __echo_ok "Sourced $FILE"
+  else
+   __echo_err "Cannot source $FILE" 
  fi
-}
-
-pssh(){
- parallel-ssh -h $BASH_CONFIG_PATH/pssh_hosts -t -1 -l pi -A $@
 }
 
 kk-bash-edit(){
@@ -385,9 +385,16 @@ __openconnect_vpn_kill_signal(){
 ### PATH ###
 source $BASH_CONFIG_PATH/path
 
-### PROJECT SPECIFIC ###
-__source_if_exists $BASH_PROJECTS_PATH/epm
-__source_if_exists $BASH_PROJECTS_PATH/amw
+### MODULES ###
+__source_module(){
+ local MODULE_FOLDER=$1
+ __source_if_exists $BASH_MODULES_PATH/$MODULE_FOLDER/aliases
+}
+
+__source_module rpi
+__source_module hyb 
+__source_module epm 
+__source_module amw 
 
 ### AUTOSTART ###
 source $BASH_SCRIPTS_PATH/autostart.sh
