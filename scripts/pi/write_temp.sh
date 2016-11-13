@@ -4,15 +4,15 @@ source $(dirname $0)/shared
 LOG_DIR=/logs
 
 write-temp(){
- local fileName=$LOG_DIR/temp.log
+ local file_name=$LOG_DIR/temp.log
 
  echo "Writing temperature to file..."
- count-file-lines $fileName
+ count-file-lines $file_name
  local currentEntries=$?
 
  if [ $currentEntries -gt 100 ];
-  then get-temp > $fileName
-  else get-temp >> $fileName
+  then get-temp > $file_name
+  else get-temp >> $file_name
  fi
 }
 
