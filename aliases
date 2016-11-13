@@ -175,18 +175,15 @@ __openconnect_vpn_kill_signal(){
 ### PATH ###
 source $BASH_CONFIG_PATH/path
 
-### MODULES ###
-__source_module(){
- local module_folder=$1
- __source_if_exists $BASH_MODULES_PATH/$module_folder/aliases
+### SOURCE MODULES ###
+source_modules_aliases(){
+ local aliases_files=`find modules -type f -name aliases`
+ for i in $aliases_files
+  do __source_if_exists $i
+  done
 }
 
-__source_module rpi
-__source_module hyb
-
-# OPTIONAL
-__source_module epm 
-__source_module amw 
+source_modules_aliases
 
 ### AUTOSTART ###
 source $BASH_SCRIPTS_PATH/autostart.sh
