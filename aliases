@@ -45,6 +45,16 @@ __echo_ok(){
  echo "${color}$@${reset}"
 }
 
+kk-bash-create-module(){
+ local MODULE_NAME=$1
+ local MODULE_PATH=$BASH_MODULES_PATH/$MODULE_NAME
+ 
+ if [[ ! -d $MODULE_NAME ]]
+  then mkdir $BASH_MODULES_PATH/$MODULE_NAME
+ fi
+ echo "#!/bin/bash" > $MODULE_PATH/aliases
+}
+
 kk-bash-edit(){
  atom $BASH_ALIASES_PATH
 }
