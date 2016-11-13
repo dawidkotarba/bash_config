@@ -32,8 +32,8 @@ __hybris-start(){
 }
 
 __check_hybris_mysql_running(){
-  local IS_MYSQL_RUNNING=$(yy-docker-mysql-ip)
-    if [[ $IS_MYSQL_RUNNING ]]
+  local is_mysql_running=$(yy-docker-mysql-ip)
+    if [[ $is_mysql_running ]]
     then
       __echo_ok "hybris MYSQL is running"
       export HYBRIS_MYSQL_RUNNING=true
@@ -59,10 +59,10 @@ yy-home(){
 }
 
 yy-ps(){
- local HYBRIS_PS=`__get_hybris_process`
- if [[ ! $HYBRIS_PS ]]
+ local hybris_process=`__get_hybris_process`
+ if [[ ! $hybris_process ]]
   then __echo_err "HYBRIS IS NOT RUNNING"
-  else __echo_ok "HYBRIS IS RUNNING: $HYBRIS_PS"
+  else __echo_ok "HYBRIS IS RUNNING: $hybris_process"
 
  fi
 }
@@ -151,16 +151,16 @@ yy-ant-build(){
 }
 
 yy-jrebel(){
- local EXT_PATH=$1
- if [[ $EXT_PATH ]]
-  then (cd $EXT_PATH && ant build)
+ local ext_path=$1
+ if [[ $ext_path ]]
+  then (cd $ext_path && ant build)
   else ant build
  fi
 }
 
 yy-grunt(){
-   local EXT_PATH=$1
-    (cd $EXT_PATH && grunt)
+   local ext_path=$1
+    (cd $ext_path && grunt)
 }
 
 yy-ant-updatesystem(){
@@ -203,23 +203,23 @@ yy-copy-dbdriver(){
 
 yy-docker-mysql-start(){
   __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-start $MYSQL_CONTAINER_NAME
+  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
+  kk-docker-start $mysql_container_name
 }
 
 yy-docker-mysql-ip(){
   __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-ip $MYSQL_CONTAINER_NAME
+  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
+  kk-docker-ip $mysql_container_name
 }
 
 yy-docker-mysql-create(){
   __check_hybris_suffix
-  local MYSQL_CONTAINER_NAME=mysql_$HYBRIS_FOLDER_SUFFIX
-  local MYSQL_VERSION=""
+  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
+  local mysql_version=""
   if [[ $1 ]]
-   then MYSQL_VERSION=:$1
+   then mysql_version=:$1
   fi
 
-  sudo docker run --name $MYSQL_CONTAINER_NAME -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$MYSQL_VERSION --innodb_flush_log_at_trx_commit=0
+  sudo docker run --name $mysql_container_name -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
 }

@@ -17,18 +17,18 @@ alias r='ranger'
 
 ### Functions ###
 __git_add_commit_folder(){
- local FOLDER_NAME=$1
- git -C $FOLDER_NAME commit -a -m "update"
+ local folder_name=$1
+ git -C $folder_name commit -a -m "update"
 }
 
 __source_if_exists(){
- local FILE=$1
- if [ -f $FILE  ]
+ local file=$1
+ if [ -f $file ]
   then
-   source $FILE
-   __echo_ok "Sourced $FILE"
+   source $file
+   __echo_ok "Sourced $file"
   else
-   __echo_err "Cannot source $FILE" 
+   __echo_err "Cannot source $file" 
  fi
 }
 
@@ -46,20 +46,20 @@ __echo_ok(){
 }
 
 kk-bash-create-module(){
- local MODULE_NAME=$1
- local MODULE_PATH=$BASH_MODULES_PATH/$MODULE_NAME
+ local module_name=$1
+ local module_path=$BASH_MODULES_PATH/$module_name
  
- if [[ ! -d $MODULE_NAME ]]
-  then mkdir $BASH_MODULES_PATH/$MODULE_NAME
+ if [[ ! -d $module_name ]]
+  then mkdir $BASH_MODULES_PATH/$module_name
  fi
- echo "#!/bin/bash" > $MODULE_PATH/aliases
+ echo "#!/bin/bash" > $module_path/aliases
 }
 
 kk-bash-edit(){
- local MODULE_NAME=$1
+ local module_name=$1
 
- if [[ $MODULE_NAME ]]
-  then atom $BASH_MODULES_PATH/$MODULE_NAME/aliases
+ if [[ $module_name ]]
+  then atom $BASH_MODULES_PATH/$module_name/aliases
   else atom $BASH_ALIASES_PATH
  fi
 }
@@ -92,8 +92,8 @@ kk-bak(){
 alias bak='kk-bak'
 
 kk-killall(){
-  local PROCESS_NAME=$1
-  ps aux | grep $PROCESS_NAME | awk '{print $2}' | xargs kill
+  local process_name=$1
+  ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
 alias killall='kk-killall'
 
@@ -108,16 +108,16 @@ k(){
 
 # DOCKER
 kk-docker-start(){
-  local CONTAINER_NAME=$1
+  local container_name=$1
   echo "Starting docker container: $1"
-  sudo docker start $CONTAINER_NAME
-  kk-docker-ip $CONTAINER_NAME
+  sudo docker start $container_name
+  kk-docker-ip $container_name
 }
 alias docker-start='kk-docker-start'
 
 kk-docker-ip(){
-  local CONTAINER_NAME=$1
-  sudo docker inspect $CONTAINER_NAME | grep '"IPAddress"' | tail -n1
+  local container_name=$1
+  sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }
 alias docker-ip='kk-docker-ip'
 
@@ -129,17 +129,17 @@ kk-git-parent(){
 alias git-parent='kk-git-parent'
 
 kk-git-makediff(){
- local DIFF_FILE_PATH=~/diff
+ local diff_file_path=~/diff
  for commit in "$@"
   do
-   git show $commit >> $DIFF_FILE_PATH
+   git show $commit >> $diff_file_path
   done
 }
 
 kk-git-difftask(){
-  local COMMITS=$(git llog | grep Kotarba | grep $1 | awk '{print $1}')
-  local CMD="kk-git-makediff $COMMITS"
-  echo kk-git-makediff $COMMITS
+  local commits=$(git llog | grep Kotarba | grep $1 | awk '{print $1}')
+  local cmd="kk-git-makediff $commits"
+  echo kk-git-makediff $commits
 }
 
 ### NAVIGATE ###
@@ -154,21 +154,21 @@ restclient(){
 
 ### OPENCONNECT VPN ###
 __openconnect_vpn(){
- local USER=$1
- local VPN_URL=$2
- local PARAMS=$3
- sudo openconnect -u $USER $VPN_URL $PARAMS
+ local user=$1
+ local vpn_url=$2
+ local params=$3
+ sudo openconnect -u $user $vpn_url $params
 }
 
 __openconnect_vpn_kill_signal(){
-  local SIGNAL=$1
-  local PATTERN=$2
-  local PS=`ps aux | grep "sudo openconnect" | grep $PATTERN | awk '{print $2}' | head -1`
+  local signal=$1
+  local pattern=$2
+  local PS=`ps aux | grep "sudo openconnect" | grep $pattern | awk '{print $2}' | head -1`
   if [[ $PS ]]
    then
-    __echo_ok "$SIGNAL for VPN: $PATTERN"
-    sudo kill -$SIGNAL $PS
-   else __echo_err "Not connected to VPN: $PATTERN"
+    __echo_ok "$signal for VPN: $pattern"
+    sudo kill -$signal $PS
+   else __echo_err "Not connected to VPN: $pattern"
   fi
 }
 
@@ -177,8 +177,8 @@ source $BASH_CONFIG_PATH/path
 
 ### MODULES ###
 __source_module(){
- local MODULE_FOLDER=$1
- __source_if_exists $BASH_MODULES_PATH/$MODULE_FOLDER/aliases
+ local module_folder=$1
+ __source_if_exists $BASH_MODULES_PATH/$module_folder/aliases
 }
 
 __source_module rpi
