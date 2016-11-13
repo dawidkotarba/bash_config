@@ -1,8 +1,8 @@
 ping-host(){
- ping -c 1 $1 &> /dev/null && echo 1 || echo 0
+ ping -c 1 $1 &> /dev/null && return 0 || return 1
 }
 
-create-folder() {
+create-folder(){
  local destination=$1
  local destination_rights=$2
 
@@ -14,7 +14,16 @@ create-folder() {
  fi
 }
 
-count-file-lines() {
+count-file-lines(){
  local filePath=$1
  return `cat $filePath | wc -l`
+}
+
+ssmtp_send_email(){
+ {
+    echo To: $1
+    echo Subject: $2
+    echo
+    $3
+ } | ssmtp $1
 }
