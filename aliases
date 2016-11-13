@@ -186,7 +186,7 @@ source_modules_aliases(){
  local aliases_files=`find modules -type f -name aliases`
  for i in $aliases_files
   do __source_if_exists $i
-  done
+ done
 }
 
 source_modules_aliases
