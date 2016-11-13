@@ -56,7 +56,12 @@ kk-bash-create-module(){
 }
 
 kk-bash-edit(){
- atom $BASH_ALIASES_PATH
+ local MODULE_NAME=$1
+
+ if [[ $MODULE_NAME ]]
+  then atom $BASH_MODULES_PATH/$MODULE_NAME/aliases
+  else atom $BASH_ALIASES_PATH
+ fi
 }
 
 kk-bash-show(){
