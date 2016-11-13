@@ -1,5 +1,5 @@
 ### RPI ###
 
 pssh(){
- parallel-ssh -h $(dirname $0)/pssh_hosts -t -1 -l pi -A $@
+ parallel-ssh -h $BASH_MODULES_PATH/rpi/pssh_hosts -t -1 -l pi -A $@
 }
