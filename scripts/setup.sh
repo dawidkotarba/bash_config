@@ -5,10 +5,10 @@ CONFIG=$CONFIG_PATH
 
 ### CREATE SYMLINKS ###
 create_symlink(){
- local TARGET=$1
- local SHORTCUT=$2
- rm -rf $SHORTCUT
- ln -s $TARGET $SHORTCUT
+ local target=$1
+ local shortcut=$2
+ rm -rf $shortcut
+ ln -s $target $shortcut
 }
 
 create_symlink $CONFIG/.gitconfig ~/.gitconfig 

@@ -3,13 +3,13 @@ ping-host(){
 }
 
 create-folder() {
- local DESTINATION=$1
- local DESTINATION_RIGHTS=$2
+ local destination=$1
+ local destination_rights=$2
 
- if [ ! -d "$DESTINATION" ]; then
-   echo "Folder $DESTINATION is not present. Creating a folder..."
-   mkdir $DESTINATION
-   chmod $DESTINATION_RIGHTS $DESTINATION
+ if [ ! -d "$destination" ]; then
+   echo "Folder $destination is not present. Creating a folder..."
+   mkdir $destination
+   chmod $destination_rights $destination
    echo "Folder created."
  fi
 }
