@@ -94,7 +94,7 @@
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#2b2b2b"
+    background_color = "#1e1e1e"
     background_image = None
     cursor_color = "#bbbbbb"
     foreground_color = "#f1f1f1"

@@ -14,6 +14,7 @@ create_symlink(){
 create_symlink $CONFIG/.gitconfig ~/.gitconfig 
 create_symlink $CONFIG/.vim ~/.vim
 create_symlink $CONFIG/.vimrc ~/.vimrc
+create_symlink $CONFIG/terminator/config ~/.config/terminator/config
 
 ### CLONE APPS ###
 clone_app(){
