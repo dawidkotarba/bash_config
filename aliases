@@ -28,7 +28,7 @@ __source_if_exists(){
    source $file
    __echo_ok "Sourced $file"
   else
-   __echo_err "Cannot source $file" 
+   __echo_err "Cannot source $file"
  fi
 }
 
@@ -54,11 +54,11 @@ __echo_warn(){
 kk-bash-create-module(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
- 
+
  if [[ ! -d $module_name ]]
   then mkdir $BASH_MODULES_PATH/$module_name
  fi
- echo "#!/bin/bash" > $module_path/aliases
+ echo "### $module_name ###" > $module_path/aliases
 }
 
 kk-bash-edit(){
