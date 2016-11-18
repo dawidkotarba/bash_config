@@ -6,14 +6,15 @@ BASH_CONFIG_PATH=~/bash_config
 source $BASH_CONFIG_PATH/dirs
 
 ### aliases ###
-alias idea='sh /usr/local/bin/idea/bin/idea.sh &'
 alias ll='ls -alh'
 alias h='history'
 alias j='jobs -l'
 alias du='du -h'
-alias top='htop'
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
+# apps aliases
 alias r='ranger'
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias top='htop'
 
 ### Functions ###
 __git_add_commit_folder(){
