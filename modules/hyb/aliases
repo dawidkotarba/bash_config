@@ -107,7 +107,6 @@ yy-setenv(){
 
 yy-kill(){
  ps aux | grep hybris | grep -v $HYBRIS_LOG | awk '{print $2}' | xargs kill
- yy-log $@
 }
 
 yy-kill9(){
