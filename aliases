@@ -179,9 +179,6 @@ __openconnect_vpn_kill_signal(){
   fi
 }
 
-### PATH ###
-source $BASH_CONFIG_PATH/path
-
 ### SOURCE MODULES ###
 source_modules_aliases(){
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases`
