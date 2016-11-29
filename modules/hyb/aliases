@@ -134,6 +134,15 @@ yy-config-local-extensions(){
 }
 
 ### HYBRIS ANT ###
+yy-req(){
+ local rev_back=$1
+ local changes_count=`git diff --name-only HEAD..HEAD~$rev_back | egrep '.impex|items.xml' | wc -l`
+ if [[ $changes_count > 0 ]]
+  then echo "ant initialize"
+  else echo "ant clean all"
+fi
+}
+
 yy-ant-all(){
   __on_hybris_platform ant all $@
 }
