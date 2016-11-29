@@ -145,7 +145,7 @@ kk-git-makediff(){
 
 kk-git-makebranch(){
   local ticket_name=$1;
-  local origin_branch_name=`git br -r | grep $ticket_name`
+  local origin_branch_name=`git br -r | grep $ticket_name | xargs`
   local local_branch_name=`echo $origin_branch_name | sed -r 's/^.{7}//'`
   echo "Doing: git checkout -b $local_branch_name $origin_branch_name"
   `git checkout -b $local_branch_name $origin_branch_name`
