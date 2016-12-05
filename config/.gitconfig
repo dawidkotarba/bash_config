@@ -38,6 +38,7 @@
     co = checkout
     br = branch -vv
     ci = commit
+		cim = commit -m
     st = status
 
     #BETTER VERSIONS OF BASIC COMMANDS
