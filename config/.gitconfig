@@ -36,6 +36,7 @@
     #LAZY VERSIONS OF BASIC COMMANDS
 
     co = checkout
+    cof = checkout -f
     br = branch -vv
     ci = commit
 		cim = commit -m
@@ -138,7 +139,6 @@
 
 		amend = "commit -a --amend -C HEAD"
 		pushall = "push && push --tags"
-		cf = "checkout -f"
 
 [apply]
     whitespace = nowarn
