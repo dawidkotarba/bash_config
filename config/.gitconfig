@@ -41,6 +41,7 @@
     ci = commit
 		cim = commit -m
     st = status
+		cp = cherry-pick
 
     #BETTER VERSIONS OF BASIC COMMANDS
 
