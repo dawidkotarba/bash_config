@@ -63,6 +63,8 @@ kk-bash-create-module(){
  echo "### $module_name ###" > $module_path/aliases
 }
 
+# Edits "aliases" file from provided module.
+# If no module is specified, then edits a root "aliases" file.
 kk-bash-edit(){
  local module_name=$1
 
@@ -114,7 +116,9 @@ k(){
   exec bash
 }
 
-# DOCKER
+### DOCKER ###
+
+# Starts a docker container with provided name
 kk-docker-start(){
   local container_name=$1
   echo "Starting docker container: $1"
@@ -123,19 +127,23 @@ kk-docker-start(){
 }
 alias docker-start='kk-docker-start'
 
+# Prints ip of provided docker container
 kk-docker-ip(){
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }
 alias docker-ip='kk-docker-ip'
 
-# GIT
+### GIT ###
+
+# Finds parents of current branch
 kk-git-parent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 alias git-parent='kk-git-parent'
 
+# Creates a diff file from commits with provided pattern
 kk-git-makediff(){
  local diff_file_path=~/diff
  for commit in "$@"
@@ -144,9 +152,10 @@ kk-git-makediff(){
   done
 }
 
+# Creates local branches for all found remote branches with provided pattern
 kk-git-branch(){
-  local ticket_name=$1;
-  local remote_branch_names=`git br -r | grep $ticket_name | awk '{print $1}'`
+  local pattern=$1;
+  local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
 
   for remote_branch_name in $remote_branch_names
    do
@@ -156,8 +165,14 @@ kk-git-branch(){
    done
 }
 
+# Deletes all local branches except develop
+kk-git-deletebranches(){
+  `git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D`
+}
+
 kk-git-difftask(){
-  local commits=$(git llog | grep Kotarba | grep $1 | awk '{print $1}')
+  local pattern=$1
+  local commits=$(git llog | grep Kotarba | grep $pattern | awk '{print $1}')
   local cmd="kk-git-makediff $commits"
   echo kk-git-makediff $commits
 }
