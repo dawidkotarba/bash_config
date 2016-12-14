@@ -160,8 +160,8 @@ kk-git-branch(){
   for remote_branch_name in $remote_branch_names
    do
     local local_branch_name=`echo $remote_branch_name | sed -r 's/^.{7}//'`
-    echo "Doing: git checkout -b $local_branch_name $origin_branch_name"
-    `git checkout -b $local_branch_name $origin_branch_name`
+    echo "Doing: git checkout -b $local_branch_name $remote_branch_name"
+    `git checkout -b $local_branch_name $remote_branch_name`
    done
 }
 
