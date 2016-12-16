@@ -105,9 +105,18 @@ yy-setenv(){
  (yy-navigate-platform && sh setantenv.sh)
 }
 
+__yy-processes-to-kill(){
+ ps aux | grep hybris | grep -v $HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
+}
+
 yy-kill(){
- ps aux | grep hybris | grep -v $HYBRIS_LOG | awk '{print $2}' | xargs kill
- # yy-log $@
+ for i in {1..2}
+ do
+ __yy-processes-to-kill
+ done
+
+ sleep 1
+ yy-ps
 }
 
 yy-kill9(){
