@@ -6,6 +6,9 @@
 	editor = vim
 	autocrlf = input
 
+[merge]
+  tool = meld
+
 [branch]
   autosetupmerge = true
 
