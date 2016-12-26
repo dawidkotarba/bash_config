@@ -26,6 +26,11 @@ clone_app https://github.com/rupa/z.git
 # liquiprompt
 clone_app https://github.com/nojhan/liquidprompt.git
 
+### Bash settings ###
+# shopt
+shopt -s cdspell
+shopt -s nocaseglob
+
 ### Python libs and apps ###
 sudo apt install python-dev python3-dev python3-pip
 
