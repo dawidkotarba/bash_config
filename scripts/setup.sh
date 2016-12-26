@@ -14,13 +14,19 @@ create_symlink(){
 create_symlink $CONFIG/.gitconfig ~/.gitconfig 
 create_symlink $CONFIG/.vim ~/.vim
 create_symlink $CONFIG/.vimrc ~/.vimrc
-create_symlink $CONFIG/terminator/config ~/.config/terminator/config
 
 ### CLONE APPS ###
 clone_app(){
  (cd $BASH_APPS_PATH && git clone $1)
 }
 
+# z
 clone_app https://github.com/rupa/z.git
+
+# liquiprompt
 clone_app https://github.com/nojhan/liquidprompt.git
 
+# fuck
+sudo apt update
+sudo apt install python3-dev python3-pip
+sudo -H pip3 install thefuck

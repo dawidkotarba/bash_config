@@ -226,3 +226,7 @@ source $BASH_APPS_PATH/z/z.sh
 
 # liquidprompt https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
+
+# fuck
+eval "$(thefuck --alias f)"
+
