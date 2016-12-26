@@ -26,7 +26,11 @@ clone_app https://github.com/rupa/z.git
 # liquiprompt
 clone_app https://github.com/nojhan/liquidprompt.git
 
+### Python libs and apps ###
+sudo apt install python-dev python3-dev python3-pip
+
 # fuck
-sudo apt update
-sudo apt install python3-dev python3-pip
 sudo -H pip3 install thefuck
+
+# glances
+sudo pip install glances
