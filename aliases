@@ -221,12 +221,12 @@ source_modules_aliases
 source $BASH_SCRIPTS_PATH/autostart.sh
 
 ### PROGRAMS ###
-#z https://github.com/rupa/z.git
+# z -> https://github.com/rupa/z.git
 source $BASH_APPS_PATH/z/z.sh
 
-# liquidprompt https://github.com/nojhan/liquidprompt.git
+# liquidprompt -> https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
 
-# fuck
+# the fuck -> https://github.com/nvbn/thefuck
 eval "$(thefuck --alias f)"
 
