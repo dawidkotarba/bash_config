@@ -11,7 +11,7 @@ create_symlink(){
  ln -s $target $shortcut
 }
 
-create_symlink $CONFIG/.gitconfig ~/.gitconfig 
+create_symlink $CONFIG/.gitconfig ~/.gitconfig
 create_symlink $CONFIG/.vim ~/.vim
 create_symlink $CONFIG/.vimrc ~/.vimrc
 
@@ -35,7 +35,8 @@ shopt -s nocaseglob
 sudo apt install python-dev python3-dev python3-pip
 
 # fuck
-sudo -H pip3 install thefuck
+#sudo -H pip3 install thefuck
+sudo pip install thefuck
 
 # glances
 sudo pip install glances
