@@ -14,7 +14,7 @@ alias du='du -h'
 # apps aliases
 alias r='ranger'
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias top='htop'
+alias g='glances'
 alias st='tig status'
 
 ### Functions ###
@@ -229,4 +229,3 @@ source $BASH_APPS_PATH/z/z.sh
 
 # the fuck -> https://github.com/nvbn/thefuck
 eval "$(thefuck --alias f)"
-

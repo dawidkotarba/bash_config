@@ -30,13 +30,3 @@ clone_app https://github.com/nojhan/liquidprompt.git
 # shopt
 shopt -s cdspell
 shopt -s nocaseglob
-
-### Python libs and apps ###
-sudo apt install python-dev python3-dev python3-pip
-
-# fuck
-#sudo -H pip3 install thefuck
-sudo pip install thefuck
-
-# glances
-sudo pip install glances
