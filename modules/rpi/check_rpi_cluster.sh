@@ -7,26 +7,24 @@ ping-host(){
 ssmtp_send_email(){
  {
     echo To: $1
-    echo Subject: $2
-    echo
-    $3
+    echo Subject: $2 is unavailable!
+    echo $2 is unavailable!
  } | ssmtp $1
 }
 
-email-if-unreachable(){
+email-if-unavailable(){
  local ip=$1
  local email_to=$2
- local msg="$ip is unreachable"
  ping-host $ip
 
  if [[ $? -eq 1 ]]
   then
    echo "$msg"
-   ssmtp_send_email $email_to $msg
+   ssmtp_send_email $email_to $ip
    echo "email sent to $email_to"
   else
-   echo "$ip is reachable"
+   echo "$ip is pingable"
  fi
 }
 
-email-if-unreachable $1 $2
+email-if-unavailable $1 $2
