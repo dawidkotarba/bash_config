@@ -13,8 +13,8 @@ ssmtp_send_email(){
 }
 
 email-if-unavailable(){
- local ip=$1
- local email_to=$2
+ local email_to=$1
+ local ip=$2
  ping-host $ip
 
  if [[ $? -eq 1 ]]
