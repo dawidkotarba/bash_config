@@ -1,7 +1,23 @@
 #! /bin/bash
 
-source $(dirname $0)/shared
-LOG_DIR=/logs
+LOG_DIR=~/logs
+
+create-folder(){
+ local destination=$1
+ local destination_rights=$2
+
+ if [ ! -d "$destination" ]; then
+   echo "Folder $destination is not present. Creating a folder..."
+   mkdir $destination
+   chmod $destination_rights $destination
+   echo "Folder created."
+ fi
+}
+
+count-file-lines(){
+ local filePath=$1
+ return `cat $filePath | wc -l`
+}
 
 write-temp(){
  local file_name=$LOG_DIR/temp.log
