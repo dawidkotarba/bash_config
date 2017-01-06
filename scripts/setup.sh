@@ -20,6 +20,18 @@ clone_app(){
  (cd $BASH_APPS_PATH && git clone $1)
 }
 
+create-folder(){
+ local destination=$1
+
+ if [ ! -d "$destination" ]; then
+   echo "Folder $destination is not present. Creating a folder..."
+   mkdir $destination
+   echo "Folder created."
+ fi
+}
+
+create-folder $BASH_APPS_PATH
+
 # z
 clone_app https://github.com/rupa/z.git
 
