@@ -53,7 +53,7 @@ __echo_warn(){
  echo "${color}$@${reset}"
 }
 
-kk-bash-create-module(){
+kk-bashcreatemodule(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
 
@@ -65,7 +65,7 @@ kk-bash-create-module(){
 
 # Edits "aliases" file from provided module.
 # If no module is specified, then edits a root "aliases" file.
-kk-bash-edit(){
+kk-bashedit(){
  local module_name=$1
 
  if [[ $module_name ]]
@@ -74,24 +74,24 @@ kk-bash-edit(){
  fi
 }
 
-kk-bash-show(){
+kk-bashshow(){
  less $BASH_ALIASES_PATH
 }
 
-kk-bash-commit(){
+kk-bashcommit(){
  __git_add_commit_folder $BASH_CONFIG_PATH
 }
 
-kk-bash-push(){
+kk-bashpush(){
  git -C $BASH_CONFIG_PATH push
 }
 
-kk-bash-commit-push(){
+kk-bashcommitpush(){
   kk-bash-commit
   kk-bash-push
 }
 
-kk-bash-revert(){
+kk-bashrevert(){
   git -C $BASH_CONFIG_PATH checkout -f
 }
 
@@ -107,7 +107,7 @@ kk-killall(){
 }
 alias killall='kk-killall'
 
-kk-notes-commit(){
+kk-notescommit(){
   __git_add_commit_folder $NOTES_PATH
 }
 
@@ -119,7 +119,7 @@ k(){
 ### DOCKER ###
 
 # Starts a docker container with provided name
-kk-docker-start(){
+kk-dockerstart(){
   local container_name=$1
   echo "Starting docker container: $1"
   sudo docker start $container_name
@@ -128,7 +128,7 @@ kk-docker-start(){
 alias docker-start='kk-docker-start'
 
 # Prints ip of provided docker container
-kk-docker-ip(){
+kk-dockerip(){
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }
@@ -137,14 +137,14 @@ alias docker-ip='kk-docker-ip'
 ### GIT ###
 
 # Finds parents of current branch
-kk-git-parent(){
+kk-gitparent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 alias git-parent='kk-git-parent'
 
 # Creates a diff file from commits with provided pattern
-kk-git-makediff(){
+kk-gitmakediff(){
  local diff_file_path=~/diff
  for commit in "$@"
   do
@@ -153,7 +153,7 @@ kk-git-makediff(){
 }
 
 # Creates local branches for all found remote branches with provided pattern
-kk-git-branch(){
+kk-gitbranch(){
   local pattern=$1;
   local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
 
@@ -166,11 +166,11 @@ kk-git-branch(){
 }
 
 # Deletes all local branches except develop
-kk-git-deletebranches(){
+kk-gitdeletebranches(){
   `git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D`
 }
 
-kk-git-difftask(){
+kk-gitdifftask(){
   local pattern=$1
   local commits=$(git llog | grep Kotarba | grep $pattern | awk '{print $1}')
   local cmd="kk-git-makediff $commits"
@@ -178,7 +178,7 @@ kk-git-difftask(){
 }
 
 ### NAVIGATE ###
-kk-navigate-repo(){
+kk-navigaterepo(){
   cd $REPOSITORY_PATH
 }
 
@@ -208,14 +208,14 @@ __openconnect_vpn_kill_signal(){
 }
 
 ### SOURCE MODULES ###
-source_modules_aliases(){
+__source_modules_aliases(){
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases`
  for i in $aliases_files
   do __source_if_exists $i
  done
 }
 
-source_modules_aliases
+__source_modules_aliases
 
 ### AUTOSTART ###
 source $BASH_SCRIPTS_PATH/autostart.sh

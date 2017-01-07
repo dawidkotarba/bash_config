@@ -72,17 +72,17 @@ yy-navigate(){
  cd $HYBRIS_HOME
 }
 
-yy-navigate-custom(){
+yy-navigatecustom(){
  __check_hybris_suffix
  cd $HYBRIS_HOME/bin/custom
 }
 
-yy-navigate-config(){
+yy-navigateconfig(){
  __check_hybris_suffix
  cd $HYBRIS_HOME/config
 }
 
-yy-navigate-platform(){
+yy-navigateplatform(){
  __check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
 }
@@ -93,11 +93,11 @@ yy-log(){
  fi
 }
 
-yy-log-show(){
+yy-logshow(){
  vim -R $HYBRIS_LOG_PATH
 }
 
-yy-log-tomcat(){
+yy-logtomcat(){
  (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs tail -f)
 }
 
@@ -132,12 +132,12 @@ yy-jcmd(){
  jcmd `__get_hybris_process` help
 }
 
-yy-config-local-properties(){
+yy-configlocalproperties(){
  __check_hybris_suffix
  atom $HYBRIS_HOME/config/local.properties
 }
 
-yy-config-local-extensions(){
+yy-configlocalextensions(){
  __check_hybris_suffix
  atom $HYBRIS_HOME/config/localextensions.xml
 }
@@ -150,22 +150,6 @@ yy-req(){
   then echo "ant initialize"
   else echo "ant clean all"
 fi
-}
-
-yy-ant-all(){
-  __on_hybris_platform ant all $@
-}
-
-yy-ant-clean(){
- __on_hybris_platform ant clean
-}
-
-yy-ant-clean-all(){
- __on_hybris_platform ant clean all $@
-}
-
-yy-ant-build(){
- __on_hybris_platform ant build $@
 }
 
 yy-jrebel(){
@@ -181,57 +165,73 @@ yy-grunt(){
     (cd $ext_path && grunt)
 }
 
-yy-ant-updatesystem(){
+yy-antall(){
+  __on_hybris_platform ant all $@
+}
+
+yy-antclean(){
+ __on_hybris_platform ant clean
+}
+
+yy-antcleanall(){
+ __on_hybris_platform ant clean all $@
+}
+
+yy-antbuild(){
+ __on_hybris_platform ant build $@
+}
+
+yy-antupdatesystem(){
  __on_hybris_platform ant updatesystem $@
 }
 
-yy-ant-junit(){
+yy-antjunit(){
  __on_hybris_platform ant yunitinit
 }
 
-yy-ant-extgen(){
+yy-antextgen(){
  __check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
  ant extgen
 }
 
-yy-ant-modulegen(){
+yy-antmodulegen(){
  __check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
  ant modulegen
 }
 
-yy-ant-initialize(){
+yy-antinitialize(){
   __check_and_start_hybris_mysql
   __on_hybris_platform ant initialize $@
 }
 
-yy-ant-test(){
+yy-anttest(){
   __on_hybris_platform ant clean all yunitinit alltests
 }
 
-yy-ant-server(){
+yy-antserver(){
  __on_hybris_platform ant server
 }
 
-yy-copy-dbdriver(){
+yy-copydbdriver(){
  __check_hybris_suffix
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
-yy-docker-mysql-start(){
+yy-dockermysqlstart(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-start $mysql_container_name
+  kk-dockerstart $mysql_container_name
 }
 
-yy-docker-mysql-ip(){
+yy-dockermysqlip(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-docker-ip $mysql_container_name
+  kk-dockerip $mysql_container_name
 }
 
-yy-docker-mysql-create(){
+yy-dockermysqlcreate(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
   local mysql_version=""
