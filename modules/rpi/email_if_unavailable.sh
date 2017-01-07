@@ -9,7 +9,7 @@ ssmtp_send_email(){
     echo To: $1
     echo Subject: $2 is unavailable!
     echo $2 is unavailable!
- } | ssmtp $1
+ } | /usr/sbin/ssmtp $1
 }
 
 email-if-unavailable(){
