@@ -19,11 +19,11 @@ email-if-unavailable(){
 
  if [[ $? -eq 1 ]]
   then
-   echo "$msg"
+   echo "$ip is unavailable"
    ssmtp_send_email $email_to $ip
    echo "email sent to $email_to"
   else
-   echo "$ip is pingable"
+   echo "$ip is available"
  fi
 }
 
