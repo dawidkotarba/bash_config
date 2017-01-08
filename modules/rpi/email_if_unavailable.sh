@@ -5,11 +5,17 @@ ping-host(){
 }
 
 ssmtp_send_email(){
+ local email_to=$1
+ local ip=$2
+ local hostname=`hostname`
+ local date=`date`
+ local msg="$ip is unavailable! Reporter: $hostname, $date"
  {
-    echo To: $1
-    echo Subject: $2 is unavailable!
-    echo $2 is unavailable!
- } | /usr/sbin/ssmtp $1
+    echo To: $email_to
+    echo Subject: $ip is unavailable!
+    echo
+    echo $msg
+ } | /usr/sbin/ssmtp $email_to
 }
 
 email-if-unavailable(){

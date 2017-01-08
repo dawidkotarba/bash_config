@@ -87,8 +87,8 @@ kk-bashpush(){
 }
 
 kk-bashcommitpush(){
-  kk-bash-commit
-  kk-bash-push
+  kk-bashcommit
+  kk-bashpush
 }
 
 kk-bashrevert(){
@@ -123,16 +123,14 @@ kk-dockerstart(){
   local container_name=$1
   echo "Starting docker container: $1"
   sudo docker start $container_name
-  kk-docker-ip $container_name
+  kk-dockerip $container_name
 }
-alias docker-start='kk-docker-start'
 
 # Prints ip of provided docker container
 kk-dockerip(){
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }
-alias docker-ip='kk-docker-ip'
 
 ### GIT ###
 
@@ -141,7 +139,6 @@ kk-gitparent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
-alias git-parent='kk-git-parent'
 
 # Creates a diff file from commits with provided pattern
 kk-gitmakediff(){
@@ -173,8 +170,8 @@ kk-gitdeletebranches(){
 kk-gitdifftask(){
   local pattern=$1
   local commits=$(git llog | grep Kotarba | grep $pattern | awk '{print $1}')
-  local cmd="kk-git-makediff $commits"
-  echo kk-git-makediff $commits
+  local cmd="kk-gitmakediff $commits"
+  echo kk-gitmakediff $commits
 }
 
 ### NAVIGATE ###
