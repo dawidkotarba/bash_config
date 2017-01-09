@@ -32,7 +32,7 @@ __hybris-start(){
 }
 
 __check_hybris_mysql_running(){
-  local is_mysql_running=$(yy-docker-mysql-ip)
+  local is_mysql_running=$(yy-dockermysqlip)
     if [[ $is_mysql_running ]]
     then
       __echo_ok "hybris MYSQL is running"
@@ -46,7 +46,7 @@ __check_hybris_mysql_running(){
 __check_and_start_hybris_mysql(){
   if [[ ! $HYBRIS_MYSQL_RUNNING ]]
    then
-    yy-docker-mysql-start
+    yy-dockermysqlstart
     __check_hybris_mysql_running
   fi
 }
