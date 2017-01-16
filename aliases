@@ -141,7 +141,7 @@ kk-gitparent(){
 }
 
 # Creates a diff file from commits with provided pattern
-kk-gitmakediff(){
+__gitmakediff(){
  local diff_file_path=~/diff
  for commit in "$@"
   do
@@ -169,9 +169,10 @@ kk-gitdeletebranches(){
 
 kk-gitdifftask(){
   local pattern=$1
-  local commits=$(git llog | grep Kotarba | grep $pattern | awk '{print $1}')
+  local commits=$(git llog | grep kotarba | grep $pattern | awk '{print $1}')
   local cmd="kk-gitmakediff $commits"
-  echo kk-gitmakediff $commits
+  echo "Execute below:"
+  echo __gitmakediff $commits
 }
 
 ### NAVIGATE ###
