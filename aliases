@@ -7,9 +7,14 @@ source $BASH_CONFIG_PATH/dirs
 
 ### aliases ###
 alias ll='ls -alh'
+alias l.='ls -d .*'
 alias h='history'
 alias j='jobs -l'
 alias du='du -h'
+
+# net aliases
+alias ports='netstat -tulanp'
+alias ping='ping -c 5'
 
 # apps aliases
 alias r='ranger'
