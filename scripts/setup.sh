@@ -11,9 +11,9 @@ create_symlink(){
  ln -s $target $shortcut
 }
 
-create_symlink $CONFIG/.gitconfig ~/.gitconfig
-create_symlink $CONFIG/.vim ~/.vim
-create_symlink $CONFIG/.vimrc ~/.vimrc
+create_symlink $CONFIG/gitconfig ~/.gitconfig
+create_symlink $CONFIG/vim ~/.vim
+create_symlink $CONFIG/vimrc ~/.vimrc
 
 ### CLONE APPS ###
 clone_app(){
