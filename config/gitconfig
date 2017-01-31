@@ -144,6 +144,11 @@
 		amend = "commit -a --amend -C HEAD"
 		pushall = "push && push --tags"
 
+    # stash helpers
+    save = "!f() { git stash save $1; }; f"
+    #sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+    load = "!f() { git stash apply stash^{/$*}; }; f"
+
 [apply]
     whitespace = nowarn
 [core]
