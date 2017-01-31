@@ -163,7 +163,8 @@ kk-gitbranch(){
    do
     local local_branch_name=`echo $remote_branch_name | sed -r 's/^.{7}//'`
     echo "Doing: git checkout -b $local_branch_name $remote_branch_name"
-    `git checkout -b $local_branch_name $remote_branch_name`
+    git checkout -f
+    git checkout -b $local_branch_name $remote_branch_name
    done
 }
 
