@@ -214,23 +214,28 @@ yy-antserver(){
  __on_hybris_platform ant server
 }
 
+# Copies required mysql driver to dbdriver folder
 yy-copydbdriver(){
  __check_hybris_suffix
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
+# Starts docker mysql container
 yy-dockermysqlstart(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
   kk-dockerstart $mysql_container_name
 }
 
+# Shows mysql docker IP
 yy-dockermysqlip(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
   kk-dockerip $mysql_container_name
 }
 
+# Creates mysql docker container
+# Usage: yy-dockermysqlcreate 5.6.31
 yy-dockermysqlcreate(){
   __check_hybris_suffix
   local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
