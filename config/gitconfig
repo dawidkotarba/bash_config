@@ -149,6 +149,8 @@
     #sshow = "!f() { git stash show stash^{/$*} -p; }; f"
     load = "!f() { git stash apply stash^{/$*}; }; f"
 
+		last = "log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso -10"
+
 [apply]
     whitespace = nowarn
 [core]
