@@ -21,6 +21,8 @@ alias r='ranger'
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias g='glances'
 alias st='tig status'
+alias startserver='python3 -m http.server'
+#alias startserver='python -m SimpleHTTPServer'
 
 ### Functions ###
 __git_add_commit_folder(){
