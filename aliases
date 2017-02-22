@@ -60,6 +60,20 @@ __echo_warn(){
  echo "${color}$@${reset}"
 }
 
+__pathadd() {
+    if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
+        if [ "$2" = "after" ] ; then
+            PATH="$PATH:${1%/}"
+        else
+            PATH="${1%/}:$PATH"
+        fi
+    fi
+}
+
+__pathrm() {
+    PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
+}
+
 kk-bashcreatemodule(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
