@@ -57,6 +57,13 @@ __echo_warn(){
  echo "${color}$@${reset}"
 }
 
+# echo in blue
+__echo_info(){
+ local color=`tput setaf 4`
+ local reset=`tput sgr0`
+ echo "${color}$@${reset}"
+}
+
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
     if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
@@ -193,7 +200,7 @@ kk-gitbranch(){
   for remote_branch_name in $remote_branch_names
    do
     local local_branch_name=`echo $remote_branch_name | sed -r 's/^.{7}//'`
-    echo "Doing: git checkout -b $local_branch_name $remote_branch_name"
+    __echo_info "Doing: git checkout -b $local_branch_name $remote_branch_name"
     git checkout -f
     git checkout -b $local_branch_name $remote_branch_name
    done
