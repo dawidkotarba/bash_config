@@ -41,25 +41,28 @@ __source_if_exists(){
  fi
 }
 
-# echo
+# echo in red
 __echo_err(){
  local color=`tput setaf 1`
  local reset=`tput sgr0`
  echo "${color}$@${reset}"
 }
 
+# echo in green
 __echo_ok(){
  local color=`tput setaf 2`
  local reset=`tput sgr0`
  echo "${color}$@${reset}"
 }
 
+# echo in yellow
 __echo_warn(){
  local color=`tput setaf 11`
  local reset=`tput sgr0`
  echo "${color}$@${reset}"
 }
 
+# Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
     if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
         if [ "$2" = "after" ] ; then
@@ -70,6 +73,7 @@ __pathadd() {
     fi
 }
 
+# Removes a string from path
 __pathrm() {
     PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
 }
