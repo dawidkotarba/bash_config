@@ -25,20 +25,15 @@ alias startserver='python3 -m http.server'
 #alias startserver='python -m SimpleHTTPServer'
 
 ### Functions ###
-__git_add_commit_folder(){
- local folder_name=$1
- git -C $folder_name commit -a -m "update"
+# decorated echo
+__echo_pretty(){
+ local text=$1
+ echo "### $text ###"
 }
 
-__source_if_exists(){
- local file=$1
- if [ -f $file ]
-  then
-   source $file
-   __echo_ok "Sourced $file"
-  else
-   __echo_err "Cannot source $file"
- fi
+__echo_arrow(){
+ local text=$1
+ echo "--> $text"
 }
 
 # echo in red
@@ -76,6 +71,22 @@ __pathadd() {
 # Removes a string from path
 __pathrm() {
     PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
+}
+
+__source_if_exists(){
+ local file=$1
+ if [ -f $file ]
+  then
+   source $file
+   __echo_ok "--> Sourced $file"
+  else
+   __echo_err "--> Cannot source $file"
+ fi
+}
+
+__git_add_commit_folder(){
+ local folder_name=$1
+ git -C $folder_name commit -a -m "update"
 }
 
 kk-bashcreatemodule(){
@@ -231,6 +242,11 @@ __openconnect_vpn_kill_signal(){
   fi
 }
 
+######################
+###### SOURCING ######
+######################
+__echo_pretty "Sourcing modules:"
+
 ### SOURCE MODULES ###
 __source_modules_aliases(){
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases`
@@ -241,12 +257,16 @@ __source_modules_aliases(){
 
 __source_modules_aliases
 
-### AUTOSTART ###
-source $BASH_SCRIPTS_PATH/autostart.sh
+### PATH ###
+__source_if_exists $BASH_CONFIG_PATH/path
 
-### PROGRAMS ###
+### AUTOSTART ###
+__source_if_exists $BASH_SCRIPTS_PATH/autostart.sh
+
+__echo_pretty "Sourcing apps:"
+### APPS ###
 # z -> https://github.com/rupa/z.git
-source $BASH_APPS_PATH/z/z.sh
+__source_if_exists $BASH_APPS_PATH/z/z.sh
 
 # liquidprompt -> https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
