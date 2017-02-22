@@ -245,26 +245,24 @@ __openconnect_vpn_kill_signal(){
 ######################
 ###### SOURCING ######
 ######################
-__echo_pretty "Sourcing modules:"
 
 ### SOURCE MODULES ###
+__echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases`
  for i in $aliases_files
   do __source_if_exists $i
  done
 }
-
 __source_modules_aliases
 
-### PATH ###
+### PATH AND AUTOSTART ###
+__echo_pretty "Sourcing path and autostart:"
 __source_if_exists $BASH_CONFIG_PATH/path
-
-### AUTOSTART ###
 __source_if_exists $BASH_SCRIPTS_PATH/autostart.sh
 
-__echo_pretty "Sourcing apps:"
 ### APPS ###
+__echo_pretty "Sourcing apps:"
 # z -> https://github.com/rupa/z.git
 __source_if_exists $BASH_APPS_PATH/z/z.sh
 
