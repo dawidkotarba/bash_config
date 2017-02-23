@@ -51,7 +51,11 @@ __check_and_start_hybris_mysql(){
   fi
 }
 
-### yy ###
+### HYBRIS yy ###
+yy-start(){
+  __hybris-start
+}
+
 yy-home(){
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
@@ -63,7 +67,6 @@ yy-ps(){
  if [[ ! $hybris_process ]]
   then __echo_err "HYBRIS IS NOT RUNNING"
   else __echo_ok "HYBRIS IS RUNNING: $hybris_process"
-
  fi
 }
 
@@ -140,6 +143,11 @@ yy-configlocalproperties(){
 yy-configlocalextensions(){
  __check_hybris_suffix
  atom $HYBRIS_HOME/config/localextensions.xml
+}
+
+yy-restart(){
+  yy-kill
+  yy-start
 }
 
 ### HYBRIS ANT ###
