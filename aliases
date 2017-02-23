@@ -239,6 +239,11 @@ kk-navigaterepo(){
   cd $REPOSITORY_PATH
 }
 
+### SCALA ###
+kk-createscala(){
+ cp $BASH_SCRIPTS_PATH/scala_script.sh .
+}
+
 ### APPS ###
 restclient(){
  (cd /usr/bin && java -jar restclient.jar &)
