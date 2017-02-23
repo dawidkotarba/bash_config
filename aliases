@@ -96,6 +96,21 @@ __git_add_commit_folder(){
  git -C $folder_name commit -a -m "update"
 }
 
+__ssh_cert(){
+ local username=$1
+ local host=$2
+ local cert_path=$3
+ ssh -i $cert_path $username@$host
+}
+
+__scp_cert(){
+ local username=$1
+ local host=$2
+ local cert_path=$3
+ local path=$4
+ scp -i $cert_path $username@$host:$path .
+}
+
 kk-bashcreatemodule(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
