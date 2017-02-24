@@ -223,7 +223,7 @@ kk-gitbranch(){
 
 # Deletes all local branches except develop
 kk-gitdeletebranches(){
-  `git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D`
+  git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D
 }
 
 kk-gitdifftask(){
