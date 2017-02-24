@@ -179,7 +179,7 @@ k(){
 # Starts a docker container with provided name
 kk-dockerstart(){
   local container_name=$1
-  echo "Starting docker container: $1"
+  __echo_info "Starting docker container: $1"
   sudo docker start $container_name
   kk-dockerip $container_name
 }
@@ -230,7 +230,7 @@ kk-gitdifftask(){
   local pattern=$1
   local commits=$(git llog | grep kotarba | grep $pattern | awk '{print $1}')
   local cmd="kk-gitmakediff $commits"
-  echo "Execute below:"
+  __echo_info "Execute below:"
   echo __gitmakediff $commits
 }
 
