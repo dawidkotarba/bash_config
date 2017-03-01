@@ -32,7 +32,6 @@ __hybris-start(){
  __check_and_start_hybris_mysql
  __on_hybris_platform sh hybrisserver.sh debug $@
 }
-alias yy-start="__hybris-start"
 
 __check_hybris_mysql_running(){
   local is_mysql_running=$(yy-dockermysqlip)
@@ -55,6 +54,7 @@ __check_and_start_hybris_mysql(){
 }
 
 ### yy namespace ###
+alias yy-start="__hybris-start"
 
 # sets up the
 yy-setsuffix(){
