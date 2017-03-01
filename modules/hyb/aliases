@@ -16,6 +16,8 @@ __on_hybris_process(){
  echo $result | awk {'print $2'} | xargs $@
 }
 
+# Checks the hybris suffix which is used to resolve the hybris path:
+# i.e. hybris_sfx where sfx is a suffix.
 __check_hybris_suffix(){
   if [[ ! $HYBRIS_FOLDER_SUFFIX ]]
    then __echo_err "HYBRIS SUFFIX NOT SET!"
@@ -56,7 +58,8 @@ yy-start(){
   __hybris-start
 }
 
-yy-home(){
+# sets up the
+yy-setsuffix(){
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
  export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG

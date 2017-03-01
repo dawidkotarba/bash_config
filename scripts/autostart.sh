@@ -1,3 +1,3 @@
 #!bin/bash
-echo "Setting yy-home to amw"
-yy-home amw
+echo "Setting hybris suffix to amw"
+yy-setsuffix amw
