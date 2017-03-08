@@ -153,9 +153,13 @@ kk-bashrevert(){
   git -C $BASH_CONFIG_PATH checkout -f
 }
 
+kk-upgrade(){
+  apt update && apt upgrade -y
+}
+
 kk-bak(){
  local date=`date | awk '{print $3"-"$2"-"$4}'`
- cp -r $1 @$1_$date
+ mv $1 $1_$date
 }
 alias bak='kk-bak'
 
