@@ -17,10 +17,9 @@ __source_dirs(){
 }
 __source_dirs
 
-# Each function marked with #FWD tag (i.e. foo(){ #FWD) will be forward declared
+# Each function marked included in modules folder will be forward declared
 __source_forward_declarations(){
-  local fwd_tag="#FWD"
-  grep -rh $fwd_tag $BASH_MODULES_PATH | tr -d $fwd_tag | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
+  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
 }
 __source_forward_declarations
