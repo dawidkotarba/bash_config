@@ -1,7 +1,11 @@
 ### SETTINGS ###
 
 # LOG LVL: 0 - info, 1 - warn, 2 - error
-CURRENT_LOG_LVL=1
+LOG_LVL_INFO=0
+LOG_LVL_WARN=1
+LOG_LVL_ERROR=2
+
+CURRENT_LOG_LVL=$LOG_LVL_WARN
 
 ### EXPORTS ###
 export TERM='xterm-256color'
@@ -33,7 +37,7 @@ alias startserver='python3 -m http.server'
 # decorated echo
 __echo_pretty(){
  local text=$1
- if [[ $CURRENT_LOG_LVL -le 0 ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
   then echo "### $text ###"
  fi
 }
@@ -47,7 +51,7 @@ __echo_arrow(){
 __echo_info(){
  local color=`tput setaf 4`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le 0 ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
    then echo "${color}$@${reset}"
  fi
 }
@@ -56,7 +60,7 @@ __echo_info(){
 __echo_ok(){
  local color=`tput setaf 2`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le 0 ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
    then echo "${color}$@${reset}"
  fi
 }
@@ -65,7 +69,7 @@ __echo_ok(){
 __echo_warn(){
  local color=`tput setaf 11`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le 1 ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ]]
    then echo "${color}$@${reset}"
  fi
 }
@@ -74,7 +78,7 @@ __echo_warn(){
 __echo_err(){
  local color=`tput setaf 1`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le 2 ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]]
    then echo "${color}$@${reset}"
  fi
 }
