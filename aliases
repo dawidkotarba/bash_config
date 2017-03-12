@@ -217,6 +217,10 @@ kk-dockerip(){
 }
 
 ### NAVIGATE ###
+kk-navigate(){
+  cd $BASH_CONFIG_PATH
+}
+
 kk-navigaterepo(){
   cd $REPOSITORY_PATH
 }
