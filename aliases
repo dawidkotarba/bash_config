@@ -196,6 +196,11 @@ kk-dockerip(){
 
 ### GIT ###
 
+# sets up the git username/email
+kk-gitconfig(){
+  git config user.email "Dawid Kotarba"
+  git config user.name "Dawid Kotarba"
+}
 # Finds parents of current branch
 kk-gitparent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
