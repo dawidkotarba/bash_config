@@ -17,6 +17,7 @@ __source_dirs(){
 }
 __source_dirs
 
+# Each function marked with #FWD tag (i.e. foo(){ #FWD) will be forward declared 
 __source_forward_declarations(){
   local fwd_tag="#FWD"
   local functions=`(grep -rh $fwd_tag $BASH_MODULES_PATH | tr -d $fwd_tag | tr -d " ")`
