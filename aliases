@@ -10,7 +10,9 @@ CURRENT_LOG_LVL=$LOG_LVL_WARN
 ### EXPORTS ###
 export TERM='xterm-256color'
 
-### INITIAL SOURCING ###
+######################
+## INITIAL SOURCING ##
+######################
 # source paths to main directories
 __source_dirs(){
   BASH_CONFIG_PATH=~/bash_config
@@ -25,7 +27,7 @@ __source_forward_declarations(){
 }
 __source_forward_declarations
 
-### aliases ###
+### ALIASES ###
 alias ll='ls -alh'
 alias l.='ls -d .*'
 alias h='history'
@@ -162,7 +164,7 @@ __openconnect_vpn_kill_signal(){
 }
 
 ######################
-###### SOURCING ######
+## MODULES SOURCING ##
 ######################
 
 ### SOURCE MODULES ###
