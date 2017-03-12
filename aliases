@@ -11,13 +11,14 @@ CURRENT_LOG_LVL=$LOG_LVL_WARN
 export TERM='xterm-256color'
 
 ### INITIAL SOURCING ###
+# source paths to main directories
 __source_dirs(){
   BASH_CONFIG_PATH=~/bash_config
   source $BASH_CONFIG_PATH/dirs
 }
 __source_dirs
 
-# Each function marked included in modules folder will be forward declared
+# Each function included in modules/xxx/aliases will be forward declared
 __source_forward_declarations(){
   grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
