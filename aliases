@@ -1,3 +1,8 @@
+### SETTINGS ###
+
+# LOG LVL: 0 - info, 1 - warn, 2 - error
+CURRENT_LOG_LVL=2
+
 ### EXPORTS ###
 export TERM='xterm-256color'
 
@@ -36,32 +41,40 @@ __echo_arrow(){
  echo "--> $text"
 }
 
-# echo in red
-__echo_err(){
- local color=`tput setaf 1`
+# echo in blue
+__echo_info(){
+ local color=`tput setaf 4`
  local reset=`tput sgr0`
- echo "${color}$@${reset}"
+ if [[ $CURRENT_LOG_LVL -le 0 ]]
+   then echo "${color}$@${reset}"
+ fi
 }
 
 # echo in green
 __echo_ok(){
  local color=`tput setaf 2`
  local reset=`tput sgr0`
- echo "${color}$@${reset}"
+ if [[ $CURRENT_LOG_LVL -le 0 ]]
+   then echo "${color}$@${reset}"
+ fi
 }
 
 # echo in yellow
 __echo_warn(){
  local color=`tput setaf 11`
  local reset=`tput sgr0`
- echo "${color}$@${reset}"
+ if [[ $CURRENT_LOG_LVL -le 1 ]]
+   then echo "${color}$@${reset}"
+ fi
 }
 
-# echo in blue
-__echo_info(){
- local color=`tput setaf 4`
+# echo in red
+__echo_err(){
+ local color=`tput setaf 1`
  local reset=`tput sgr0`
- echo "${color}$@${reset}"
+ if [[ $CURRENT_LOG_LVL -le 2 ]]
+   then echo "${color}$@${reset}"
+ fi
 }
 
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
