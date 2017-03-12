@@ -1,7 +1,7 @@
 ### SETTINGS ###
 
 # LOG LVL: 0 - info, 1 - warn, 2 - error
-CURRENT_LOG_LVL=2
+CURRENT_LOG_LVL=1
 
 ### EXPORTS ###
 export TERM='xterm-256color'
