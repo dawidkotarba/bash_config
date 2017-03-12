@@ -33,7 +33,9 @@ alias startserver='python3 -m http.server'
 # decorated echo
 __echo_pretty(){
  local text=$1
- echo "### $text ###"
+ if [[ $CURRENT_LOG_LVL -le 0 ]]
+  then echo "### $text ###"
+ fi
 }
 
 __echo_arrow(){
