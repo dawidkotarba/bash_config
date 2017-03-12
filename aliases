@@ -10,9 +10,12 @@ CURRENT_LOG_LVL=$LOG_LVL_WARN
 ### EXPORTS ###
 export TERM='xterm-256color'
 
-### DIRS ###
-BASH_CONFIG_PATH=~/bash_config
-source $BASH_CONFIG_PATH/dirs
+### SOURCE DIRS ###
+__source_dirs(){
+  BASH_CONFIG_PATH=~/bash_config
+  source $BASH_CONFIG_PATH/dirs
+}
+__source_dirs
 
 ### aliases ###
 alias ll='ls -alh'
