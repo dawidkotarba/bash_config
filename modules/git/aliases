@@ -9,18 +9,18 @@ __gitmakediff(){
 }
 
 # sets up the git username/email
-kk-gitconfig(){
+git-config(){
   git config user.email "Dawid Kotarba"
   git config user.name "Dawid Kotarba"
 }
 # Finds parents of current branch
-kk-gitparent(){
+git-parent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 
 # Creates local branches for all found remote branches with provided pattern
-kk-gitbranch(){
+git-branch(){
   local pattern=$1;
   local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
 
@@ -34,14 +34,14 @@ kk-gitbranch(){
 }
 
 # Deletes all local branches except develop
-kk-gitdeletebranches(){
+git-deletebranches(){
   git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D
 }
 
-kk-gitdifftask(){
+git-difftask(){
   local pattern=$1
   local commits=$(git llog | grep kotarba | grep $pattern | awk '{print $1}')
-  local cmd="kk-gitmakediff $commits"
+  local cmd="git-makediff $commits"
   __echo_info "Execute below:"
   echo __gitmakediff $commits
 }
