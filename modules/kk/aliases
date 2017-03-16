@@ -11,7 +11,7 @@ kk-bashcreatemodule(){
 }
 
 # Edits "aliases" file from provided module.
-# If no module is specified, then edits a root "aliases" file.
+# If no module is specified, then edits a main "aliases" file.
 kk-bashedit(){
  local module_name=$1
 
@@ -21,8 +21,14 @@ kk-bashedit(){
  fi
 }
 
+# Shows "aliases" file from provided module.
+# If no module is specified, then shows a main "aliases" file.
 kk-bashshow(){
- less $BASH_ALIASES_PATH
+local module_name=$1
+if [[ $module_name ]]
+ then less $BASH_MODULES_PATH/$module_name/aliases
+ else less $BASH_ALIASES_PATH
+fi
 }
 
 kk-bashcommit(){
@@ -78,7 +84,7 @@ kk-dockerstart(){
 }
 
 # Prints ip of provided docker container
-kk-dockerip(){ 
+kk-dockerip(){
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }
