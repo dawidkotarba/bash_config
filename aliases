@@ -193,7 +193,7 @@ __source_modules_aliases
 ### PATH AND AUTOSTART ###
 __echo_pretty "Sourcing path and autostart:"
 __source_if_exists $BASH_CONFIG_PATH/path
-__source_if_exists $BASH_SCRIPTS_PATH/autostart.sh
+__source_if_exists $BASH_CONFIG_PATH/autostart
 
 ### APPS ###
 __echo_pretty "Sourcing apps:"
