@@ -123,9 +123,9 @@ yy-kill(){
  yy-ps
 }
 
-yy-kill9(){
- killall hybris -9
- yy-log $@
+yy-restart(){
+ yy-kill
+ yy-start
 }
 
 yy-visualvm(){
