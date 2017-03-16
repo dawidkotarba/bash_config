@@ -1,11 +1,12 @@
 ### SETTINGS ###
 
 # LOG LVL: 0 - info, 1 - warn, 2 - error
-LOG_LVL_INFO=0
-LOG_LVL_WARN=1
-LOG_LVL_ERROR=2
+LOG_LVL_DEBUG=0
+LOG_LVL_INFO=1
+LOG_LVL_WARN=2
+LOG_LVL_ERROR=3
 
-CURRENT_LOG_LVL=$LOG_LVL_WARN
+CURRENT_LOG_LVL=$LOG_LVL_INFO
 
 ### EXPORTS ###
 export TERM='xterm-256color'
@@ -55,7 +56,7 @@ alias startserver='python3 -m http.server'
 # decorated echo
 __echo_pretty(){
  local text=$1
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]]
   then echo "### $text ###"
  fi
 }
@@ -63,6 +64,13 @@ __echo_pretty(){
 __echo_arrow(){
  local text=$1
  echo "--> $text"
+}
+
+# echo in white
+__echo_debug(){
+ if [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]]
+   then echo "$@"
+ fi
 }
 
 # echo in blue
@@ -122,7 +130,7 @@ __source_if_exists(){
  if [ -f $file ]
   then
    source $file
-   __echo_ok "--> Sourced $file"
+   __echo_debug "--> Sourced $file"
   else
    __echo_err "--> Cannot source $file"
  fi
