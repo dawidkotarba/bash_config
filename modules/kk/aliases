@@ -1,4 +1,6 @@
 ### kk ###
+alias kk-server='python3 -m http.server'
+#alias kk-server='python -m SimpleHTTPServer'
 
 kk-bashcreatemodule(){
  local module_name=$1
