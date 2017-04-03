@@ -1,6 +1,10 @@
 ### kk ###
-alias kk-server='python3 -m http.server'
-#alias kk-server='python -m SimpleHTTPServer'
+kk-server(){
+ local port=7070
+ __echo_info "Starting python server on $port"
+ #python -m SimpleHTTPServer $port
+ python3 -m http.server $port
+}
 
 kk-bashcreatemodule(){
  local module_name=$1
