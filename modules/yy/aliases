@@ -1,6 +1,6 @@
 # HYBRIS
 ### conts ###
-HYBRIS_LOG=hy.log
+HYBRIS_LOG=y.log
 
 ### generic ###
 __on_hybris_platform(){
@@ -180,6 +180,10 @@ yy-jrebel(){
 yy-grunt(){
    local ext_path=$1
     (cd $ext_path && grunt)
+}
+
+yy-antshow(){
+  __on_hybris_platform ant -p
 }
 
 yy-antall(){
