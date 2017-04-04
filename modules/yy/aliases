@@ -97,7 +97,15 @@ yy-log(){
  fi
 }
 
-yy-logshow(){
+yy-logerrorgrep(){
+ grep -E 'ERROR|WARN' $HYBRIS_LOG_PATH
+}
+
+yy-logerrortail(){
+  tail -f $HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
+}
+
+yy-logvim(){
  vim -R $HYBRIS_LOG_PATH
 }
 
