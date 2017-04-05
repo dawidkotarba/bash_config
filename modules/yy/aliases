@@ -97,6 +97,13 @@ yy-log(){
  fi
 }
 
+yy-grep(){
+  for var in "$@"
+ do
+  grep $var $HYBRIS_LOG_PATH
+ done
+}
+
 yy-logerrorgrep(){
  grep -E 'ERROR|WARN' $HYBRIS_LOG_PATH
 }
