@@ -91,12 +91,14 @@ yy-navigateplatform(){
  cd $HYBRIS_HOME/bin/platform
 }
 
+# follow log
 yy-log(){
  if [[ $@ != *'-nolog'* ]]
   then tail -f $HYBRIS_LOG_PATH
  fi
 }
 
+# grep log by arguments
 yy-grep(){
   for var in "$@"
  do
@@ -104,18 +106,22 @@ yy-grep(){
  done
 }
 
+# show errors and warnings from log
 yy-logerrorgrep(){
  grep -E 'ERROR|WARN' $HYBRIS_LOG_PATH
 }
 
+# follow only error and warnings in log
 yy-logerrortail(){
   tail -f $HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
 }
 
-yy-logvim(){
- vim -R $HYBRIS_LOG_PATH
+# show log with less
+yy-logshow(){
+ less $HYBRIS_LOG_PATH
 }
 
+# follow tomcat log
 yy-logtomcat(){
  (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs tail -f)
 }
