@@ -262,29 +262,40 @@ yy-copydbdriver(){
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
+__yy-get_mysql_container_name(){
+  echo mysql_$HYBRIS_FOLDER_SUFFIX
+}
+
 # Starts docker mysql container
 yy-dockermysqlstart(){
   __check_hybris_suffix
-  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-dockerstart $mysql_container_name
+  kk-dockerstart $(__yy-get_mysql_container_name)
 }
 
 # Shows mysql docker IP
 yy-dockermysqlip(){
   __check_hybris_suffix
-  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
-  kk-dockerip $mysql_container_name
+  kk-dockerip $(__yy-get_mysql_container_name)
 }
 
 # Creates mysql docker container
 # Usage: yy-dockermysqlcreate 5.6.31
 yy-dockermysqlcreate(){
   __check_hybris_suffix
-  local mysql_container_name=mysql_$HYBRIS_FOLDER_SUFFIX
   local mysql_version=""
   if [[ $1 ]]
    then mysql_version=:$1
   fi
 
-  sudo docker run --name $mysql_container_name -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
+  sudo docker run --name $(__yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
+}
+
+yy-dockermysqlcreatedbuser(){
+  local db_name=$1
+  local user_name=$2
+  local user_pwd=$3
+  local root_pwd=root
+  sudo docker exec -i $(__yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE DATABASE $db_name"
+  sudo docker exec -i $(__yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE USER $user_name IDENTIFIED BY '$user_pwd'"
+  sudo docker exec -i $(__yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "GRANT ALL PRIVILEGES ON $db_name.* TO $user_name"
 }
