@@ -290,6 +290,8 @@ yy-dockermysqlcreate(){
   sudo docker run --name $(__yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
 }
 
+# Creates a db and adds all privileges to the db to user.
+# Usage: yy-dockermysqlcreatedbuser dbName username userpassword
 yy-dockermysqlcreatedbuser(){
   local db_name=$1
   local user_name=$2
