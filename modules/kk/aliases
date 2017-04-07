@@ -91,6 +91,8 @@ kk-dockerstart(){
 
 # Prints ip of provided docker container
 kk-dockerip(){
+  __checkArgument $1 "container name"
+
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
 }

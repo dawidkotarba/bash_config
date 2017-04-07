@@ -107,6 +107,12 @@ __echo_err(){
  fi
 }
 
+__checkArgument(){
+  if [[ "$#" -eq 1 ]];then
+      __echo_err "$1 is not set!"
+  fi
+}
+
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
     if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
