@@ -172,6 +172,14 @@ yy-restart(){
   yy-start
 }
 
+# create a new folder for hybris project
+yy-createproject(){
+  local hybris_folder_suffix=$1
+  yy-setsuffix $hybris_folder_suffix
+  echo yy-setsuffix $hybris_folder_suffix >> $BASH_AUTOSTART_PATH
+  mkdir $REPOSITORY_PATH/hybris_$hybris_folder_suffix
+}
+
 ### HYBRIS ANT ###
 yy-req(){
  local rev_back=$1
