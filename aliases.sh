@@ -17,7 +17,7 @@ export TERM='xterm-256color'
 # source paths to main directories
 __source_dirs(){
   BASH_CONFIG_PATH=~/bash_config
-  source $BASH_CONFIG_PATH/dirs
+  source $BASH_CONFIG_PATH/dirs.sh
 }
 __source_dirs
 
@@ -195,7 +195,7 @@ __openconnect_vpn_kill_signal(){
 ### SOURCE MODULES ###
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
- local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases`
+ local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh`
  for i in $aliases_files
   do __source_if_exists $i
  done
@@ -204,8 +204,8 @@ __source_modules_aliases
 
 ### PATH AND AUTOSTART ###
 __echo_pretty "Sourcing path and autostart:"
-__source_if_exists $BASH_CONFIG_PATH/path
-__source_if_exists $BASH_CONFIG_PATH/autostart
+__source_if_exists $BASH_CONFIG_PATH/path.sh
+__source_if_exists $BASH_CONFIG_PATH/autostart.sh
 
 ### APPS ###
 __echo_pretty "Sourcing apps:"
