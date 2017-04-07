@@ -7,6 +7,11 @@ kk-server(){
 }
 
 kk-bashcreatemodule(){
+  __help $1 "Creatse new module (modules/xxx/aliases)"
+  __help $1 "Usage: kk-bashcreatemodule tst"
+
+  __checkArgument $1 "module_name"
+
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
 
@@ -16,9 +21,10 @@ kk-bashcreatemodule(){
  echo "### $module_name ###" > $module_path/aliases
 }
 
-# Edits "aliases" file from provided module.
-# If no module is specified, then edits a main "aliases" file.
 kk-bashedit(){
+ __help $1 "Edits 'aliases' file from provided module."
+ __help $1 "If no module is specified, then edits a main 'aliases' file."
+
  local module_name=$1
 
  if [[ $module_name ]]
@@ -27,9 +33,10 @@ kk-bashedit(){
  fi
 }
 
-# Shows "aliases" file from provided module.
-# If no module is specified, then shows a main "aliases" file.
 kk-bashshow(){
+  __help $1 "Shows 'aliases' file from provided module."
+  __help $1 "If no module is specified, then shows a main 'aliases' file"
+
 local module_name=$1
 if [[ $module_name ]]
  then less $BASH_MODULES_PATH/$module_name/aliases
@@ -59,6 +66,9 @@ kk-upgrade(){
 }
 
 kk-bak(){
+  __help $1 "Renames a subject by adding current date."
+  __checkArgument $1 "Subject of backup"
+
  local date=`date | awk '{print $3"-"$2"-"$4}'`
  mv $1 $1_$date
 }
@@ -80,19 +90,19 @@ k(){
 }
 
 ### DOCKER ###
-
-# Starts a docker container with provided name
 kk-dockerstart(){
+  __help $1 "Starts a docker container with provided name"
+  __checkArgument $1 "container name"
+
   local container_name=$1
   __echo_info "Starting docker container: $1"
   sudo docker start $container_name
   kk-dockerip $container_name
 }
 
-# Prints ip of provided docker container
 kk-dockerip(){
-  __checkArgument $1 "container name"
   __help $1 "Prints ip of provided docker container"
+  __checkArgument $1 "container name"
 
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
