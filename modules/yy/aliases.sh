@@ -19,9 +19,7 @@ __on_hybris_process(){
 # Checks the hybris suffix which is used to resolve the hybris path:
 # i.e. hybris_sfx where sfx is a suffix.
 __check_hybris_suffix(){
-  if [[ ! $HYBRIS_FOLDER_SUFFIX ]]
-   then __echo_err "HYBRIS SUFFIX NOT SET!"
-  fi
+  [[ ! $HYBRIS_FOLDER_SUFFIX ]] && __echo_err "HYBRIS SUFFIX NOT SET!"
 }
 
 __get_hybris_process(){
@@ -93,9 +91,7 @@ yy-navigateplatform(){
 
 # follow log
 yy-log(){
- if [[ $@ != *'-nolog'* ]]
-  then tail -f $HYBRIS_LOG_PATH
- fi
+ [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
 }
 
 # grep log by arguments
@@ -283,9 +279,7 @@ yy-dockermysqlip(){
 yy-dockermysqlcreate(){
   __check_hybris_suffix
   local mysql_version=""
-  if [[ $1 ]]
-   then mysql_version=:$1
-  fi
+  [[ $1 ]] && mysql_version=:$1
 
   sudo docker run --name $(__yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
 }
