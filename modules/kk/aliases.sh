@@ -15,9 +15,7 @@ kk-bashcreatemodule(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
 
- if [[ ! -d $module_name ]]
-  then mkdir $BASH_MODULES_PATH/$module_name
- fi
+ [[ ! -d $module_name ]] && mkdir $BASH_MODULES_PATH/$module_name
  echo "### $module_name ###" > $module_path/aliases
 }
 
