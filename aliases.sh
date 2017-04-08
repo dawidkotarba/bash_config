@@ -54,9 +54,7 @@ alias st='tig status'
 # decorated echo
 __echo_pretty(){
  local text=$1
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]]
-  then echo "### $text ###"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "### $text ###"
 }
 
 __echo_arrow(){
@@ -66,53 +64,41 @@ __echo_arrow(){
 
 # echo in white
 __echo_debug(){
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]]
-   then echo "$@"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "$@"
 }
 
 # echo in blue
 __echo_info(){
  local color=`tput setaf 4`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
-   then echo "${color}$@${reset}"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
 }
 
 # echo in green
 __echo_ok(){
  local color=`tput setaf 2`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]]
-   then echo "${color}$@${reset}"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
 }
 
 # echo in yellow
 __echo_warn(){
  local color=`tput setaf 11`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ]]
-   then echo "${color}$@${reset}"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ]] && echo "${color}$@${reset}"
 }
 
 # echo in red
 __echo_err(){
  local color=`tput setaf 1`
  local reset=`tput sgr0`
- if [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]]
-   then echo "${color}$@${reset}"
- fi
+ [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
 }
 
 # Prints error description when parameter is not set
 # Usage: __checkArgument $1 paramName
 __checkArgument(){
-  if [[ "$#" -eq 1 ]]
-   then __echo_err "$1 is not set!"
-  fi
+  [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
 # Prints help tip
