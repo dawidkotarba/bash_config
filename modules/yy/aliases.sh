@@ -54,8 +54,10 @@ __check_and_start_hybris_mysql(){
 ### yy namespace ###
 alias yy-start="__hybris-start"
 
-# sets up the
 yy-setsuffix(){
+ __help $1 "sets up the hybris suffix"
+ __checkArgument $1 "hybris suffix"
+
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
  export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
@@ -170,6 +172,8 @@ yy-restart(){
 
 # create a new folder for hybris project
 yy-createproject(){
+  __checkArgument $1 "hybris project folder suffix"
+
   local hybris_folder_suffix=$1
   yy-setsuffix $hybris_folder_suffix
   echo yy-setsuffix $hybris_folder_suffix >> $BASH_AUTOSTART_PATH
@@ -178,6 +182,8 @@ yy-createproject(){
 
 ### HYBRIS ANT ###
 yy-req(){
+ __checkArgument $1 "revision back"
+
  local rev_back=$1
  local changes_count=`git diff --name-only HEAD..HEAD~$rev_back | egrep '.impex|items.xml' | wc -l`
  if [[ $changes_count > 0 ]]
@@ -195,8 +201,9 @@ yy-jrebel(){
 }
 
 yy-grunt(){
-   local ext_path=$1
-    (cd $ext_path && grunt)
+  __checkArgument $1 "extension path"
+  local ext_path=$1
+  (cd $ext_path && grunt)
 }
 
 yy-antshow(){
@@ -287,6 +294,11 @@ yy-dockermysqlcreate(){
 # Creates a db and adds all privileges to the db to user.
 # Usage: yy-dockermysqlcreatedbuser dbName username userpassword
 yy-dockermysqlcreatedbuser(){
+  __help $1 "yy-dockermysqlcreatedbuser dbName username userpassword"
+  __checkArgument $1 "db name"
+  __checkArgument $2 "user name"
+  __checkArgument $3 "user password"
+
   local db_name=$1
   local user_name=$2
   local user_pwd=$3
