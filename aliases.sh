@@ -96,8 +96,8 @@ __echo_err(){
 }
 
 # Prints error description when parameter is not set
-# Usage: __checkArgument $1 paramName
-__checkArgument(){
+# Usage: __check $1 paramName
+__check(){
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 

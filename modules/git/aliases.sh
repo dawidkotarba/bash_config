@@ -19,8 +19,10 @@ git-parent(){
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 
-# Creates local branches for all found remote branches with provided pattern
+
 git-branch(){
+  __help $1 "Creates local branches for all found remote branches with provided pattern"
+  __check $1 "pattern"
   local pattern=$1;
   local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
 

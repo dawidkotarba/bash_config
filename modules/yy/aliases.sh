@@ -56,7 +56,7 @@ alias yy-start="__hybris-start"
 
 yy-setsuffix(){
  __help $1 "sets up the hybris suffix"
- __checkArgument $1 "hybris suffix"
+ __check $1 "hybris suffix"
 
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
@@ -172,7 +172,7 @@ yy-restart(){
 
 # create a new folder for hybris project
 yy-createproject(){
-  __checkArgument $1 "hybris project folder suffix"
+  __check $1 "hybris project folder suffix"
 
   local hybris_folder_suffix=$1
   yy-setsuffix $hybris_folder_suffix
@@ -182,7 +182,7 @@ yy-createproject(){
 
 ### HYBRIS ANT ###
 yy-req(){
- __checkArgument $1 "revision back"
+ __check $1 "revision back"
 
  local rev_back=$1
  local changes_count=`git diff --name-only HEAD..HEAD~$rev_back | egrep '.impex|items.xml' | wc -l`
@@ -201,7 +201,7 @@ yy-jrebel(){
 }
 
 yy-grunt(){
-  __checkArgument $1 "extension path"
+  __check $1 "extension path"
   local ext_path=$1
   (cd $ext_path && grunt)
 }
@@ -295,9 +295,9 @@ yy-dockermysqlcreate(){
 # Usage: yy-dockermysqlcreatedbuser dbName username userpassword
 yy-dockermysqlcreatedbuser(){
   __help $1 "yy-dockermysqlcreatedbuser dbName username userpassword"
-  __checkArgument $1 "db name"
-  __checkArgument $2 "user name"
-  __checkArgument $3 "user password"
+  __check $1 "db name"
+  __check $2 "user name"
+  __check $3 "user password"
 
   local db_name=$1
   local user_name=$2
