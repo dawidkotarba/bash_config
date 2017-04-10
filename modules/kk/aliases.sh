@@ -1,4 +1,11 @@
 ### kk ###
+kk-clipboard(){
+  __help $1 "Copy file to clipboard"
+  __help $1 "Usage: kk-clipboard file_path"
+  __check $1 "file path"
+  cat $1 | xclip -selection clipboard
+}
+
 kk-server(){
  local port=7070
  __echo_info "Starting python server on $port"
