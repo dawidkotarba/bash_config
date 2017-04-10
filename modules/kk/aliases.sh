@@ -7,7 +7,7 @@ kk-server(){
 }
 
 kk-bashcreatemodule(){
-  __help $1 "Creatse new module (modules/xxx/aliases)"
+  __help $1 "Creatse new module (modules/xxx/aliases.sh)"
   __help $1 "Usage: kk-bashcreatemodule tst"
   __check $1 "module_name"
 
@@ -15,28 +15,28 @@ kk-bashcreatemodule(){
  local module_path=$BASH_MODULES_PATH/$module_name
 
  [[ ! -d $module_name ]] && mkdir $BASH_MODULES_PATH/$module_name
- echo "### $module_name ###" > $module_path/aliases
+ echo "### $module_name ###" > $module_path/aliases.sh
 }
 
 kk-bashedit(){
- __help $1 "Edits 'aliases' file from provided module."
- __help $1 "If no module is specified, then edits a main 'aliases' file."
+ __help $1 "Edits 'aliases.sh' file from provided module."
+ __help $1 "If no module is specified, then edits a main 'aliases.sh' file."
 
  local module_name=$1
 
  if [[ $module_name ]]
-  then atom $BASH_MODULES_PATH/$module_name/aliases
+  then atom $BASH_MODULES_PATH/$module_name/aliases.sh
   else atom $BASH_ALIASES_PATH
  fi
 }
 
 kk-bashshow(){
-  __help $1 "Shows 'aliases' file from provided module."
-  __help $1 "If no module is specified, then shows a main 'aliases' file"
+  __help $1 "Shows 'aliases.sh' file from provided module."
+  __help $1 "If no module is specified, then shows a main 'aliases.sh' file"
 
 local module_name=$1
 if [[ $module_name ]]
- then less $BASH_MODULES_PATH/$module_name/aliases
+ then less $BASH_MODULES_PATH/$module_name/aliases.sh
  else less $BASH_ALIASES_PATH
 fi
 }
