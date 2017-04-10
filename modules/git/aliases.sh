@@ -10,8 +10,12 @@ __gitmakediff(){
 
 # sets up the git username/email
 git-config(){
-  git config user.email "Dawid Kotarba"
-  git config user.name "Dawid Kotarba"
+  __help $1 'git-config "email@email.com" "User Name"'
+  __check $1 "email"
+  __check $2 "user name"
+
+  git config user.email "$1"
+  git config user.name "$2"
 }
 # Finds parents of current branch
 git-parent(){
