@@ -5,6 +5,7 @@ kk-clipboard(){
   __check $1 "file path"
   cat $1 | xclip -selection clipboard
 }
+alias clip='kk-clipboard'
 
 kk-server(){
  local port=7070
