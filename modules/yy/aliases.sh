@@ -132,6 +132,10 @@ __yy-processes-to-kill(){
  ps aux | grep hybris | grep -v $HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
 }
 
+yy-stop(){
+  __on_hybris_platform sh hybrisserver.sh stop  
+}
+
 yy-kill(){
  for i in {1..2}
  do
@@ -143,7 +147,7 @@ yy-kill(){
 }
 
 yy-restart(){
- yy-kill
+ yy-stop
  yy-start
 }
 
