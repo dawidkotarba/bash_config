@@ -11,6 +11,9 @@ CURRENT_LOG_LVL=$LOG_LVL_INFO
 ### EXPORTS ###
 export TERM='xterm-256color'
 
+### BINDINGS ###
+bind 'set show-all-if-ambiguous on'
+
 ######################
 ## INITIAL SOURCING ##
 ######################
