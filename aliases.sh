@@ -200,6 +200,3 @@ __source_if_exists $BASH_APPS_PATH/z/z.sh
 
 # liquidprompt -> https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
-
-# the fuck -> https://github.com/nvbn/thefuck
-eval "$(thefuck --alias f)"
