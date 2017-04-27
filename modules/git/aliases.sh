@@ -46,7 +46,7 @@ git-deletebranches(){
 
 git-difftask(){
   local pattern=$1
-  local commits=$(git llog | grep kotarba | grep $pattern | awk '{print $1}')
+  local commits=$(git llog | grep -i kotarba | grep $pattern | awk '{print $1}')
   local cmd="git-makediff $commits"
   __echo_info "Execute below:"
   echo __gitmakediff $commits
