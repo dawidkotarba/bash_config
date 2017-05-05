@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../dirs
+source ../dirs.sh
 CONFIG=$CONFIG_PATH
 
 ### CREATE SYMLINKS ###
