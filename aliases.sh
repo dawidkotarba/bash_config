@@ -15,7 +15,7 @@ export TERM='xterm-256color'
 ## INITIAL SOURCING ##
 ######################
 # source paths to main directories
- source dirs.sh
+ source ~/bash_config/dirs.sh
 
 # Each function included in modules/xxx/aliases will be forward declared
 __source_forward_declarations(){
