@@ -27,6 +27,7 @@ __source_forward_declarations
 ### ALIASES ###
 alias ll='ls -alh'
 alias l.='ls -d .*'
+alias ll.='ls -lhd .*'
 alias h='history'
 alias j='jobs -l'
 alias du='du -h'
