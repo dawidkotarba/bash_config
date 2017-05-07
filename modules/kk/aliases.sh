@@ -85,10 +85,6 @@ kk-killall(){
 }
 alias killall='kk-killall'
 
-kk-notescommit(){
-  __git_add_commit_folder $NOTES_PATH
-}
-
 k(){
   __echo_ok "refreshing..."
   exec bash
