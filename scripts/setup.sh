@@ -4,6 +4,7 @@ source ../dirs.sh
 CONFIG=$CONFIG_PATH
 
 ### CREATE SYMLINKS ###
+echo "Creating symlinks..."
 create_symlink(){
  local target=$1
  local shortcut=$2
@@ -16,6 +17,7 @@ create_symlink $CONFIG/vim ~/.vim
 create_symlink $CONFIG/vimrc ~/.vimrc
 
 ### CLONE APPS ###
+echo "Cloning apps..."
 clone_app(){
  (cd $BASH_APPS_PATH && git clone $1)
 }
@@ -42,7 +44,13 @@ clone_app https://github.com/rupa/z.git
 # liquiprompt
 clone_app https://github.com/nojhan/liquidprompt.git
 
+
+### Update .bashrc ###
+echo "Updating .bashrc file..."
+echo "source ~/bash_config/aliases.sh" >> ~/.bashrc
+
 ### Bash settings ###
 # shopt
+echo "Applying bash settings..."
 shopt -s cdspell
 shopt -s nocaseglob
