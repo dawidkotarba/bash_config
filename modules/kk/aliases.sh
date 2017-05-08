@@ -79,7 +79,9 @@ __pull-cloned-apps(){
 }
 
 kk-upgrade(){
-  apt update && apt upgrade -y && __pull-cloned-apps
+ apt update && apt upgrade -y
+ git -C $BASH_CONFIG_PATH pull
+ __pull-cloned-apps
 }
 
 kk-bak(){
