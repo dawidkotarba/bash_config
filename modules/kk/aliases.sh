@@ -66,8 +66,20 @@ kk-bashrevert(){
   git -C $BASH_CONFIG_PATH checkout -f
 }
 
+__pull-cloned-apps(){
+ __help $1 "Pulls all cloned apps in app folder."
+
+ local apps=$(ls $BASH_APPS_PATH)
+ for app in $apps
+  do
+  local app_path="$BASH_APPS_PATH/$app"
+   git -C $app_path reset HEAD --hard
+   git -C $app_path pull
+  done
+}
+
 kk-upgrade(){
-  apt update && apt upgrade -y
+  apt update && apt upgrade -y && __pull-cloned-apps
 }
 
 kk-bak(){
