@@ -151,6 +151,12 @@ __scp_cert(){
  scp -i $cert_path $username@$host:$path .
 }
 
+__print_column(){
+  local delimiter=$1
+  local column=$2
+  tr -s "$delimiter" | cut -d "$delimiter" -f $column
+}
+
 ### OPENCONNECT VPN ###
 __openconnect_vpn(){
  local user=$1
