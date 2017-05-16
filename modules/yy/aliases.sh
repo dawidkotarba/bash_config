@@ -96,6 +96,10 @@ yy-log(){
  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
 }
 
+yy-logclean(){
+  > $HYBRIS_LOG_PATH
+}
+
 # grep log by arguments
 yy-grep(){
   for var in "$@"
@@ -133,7 +137,7 @@ __yy-processes-to-kill(){
 }
 
 yy-stop(){
-  __on_hybris_platform sh hybrisserver.sh stop  
+  __on_hybris_platform sh hybrisserver.sh stop
 }
 
 yy-kill(){
