@@ -93,10 +93,12 @@ yy-navigateplatform(){
 
 # follow log
 yy-log(){
+  __help $1 "Follow the hybris log file"
  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
+  __help $1 "Clean the hybris log file"
   > $HYBRIS_LOG_PATH
 }
 
