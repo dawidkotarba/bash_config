@@ -152,11 +152,6 @@ yy-kill(){
  yy-ps
 }
 
-yy-restart(){
- yy-stop
- yy-start
-}
-
 yy-visualvm(){
  jvisualvm --openpid `__get_hybris_process` &
 }
@@ -177,6 +172,7 @@ yy-configlocalextensions(){
 
 yy-restart(){
   yy-kill
+  sleep 5
   yy-start
 }
 
