@@ -97,7 +97,6 @@ kk-killall(){
   local process_name=$1
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
-alias killall='kk-killall'
 
 k(){
   __echo_ok "refreshing..."
