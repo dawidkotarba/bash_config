@@ -17,6 +17,9 @@ git-config(){
   git config user.email "$1"
   git config user.name "$2"
 }
+
+alias git-config-dawidkotarba='git-config dawidkotarba dawidkotarba'
+
 # Finds parents of current branch
 git-parent(){
  current_branch=`git rev-parse --abbrev-ref HEAD`
