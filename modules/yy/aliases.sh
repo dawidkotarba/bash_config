@@ -143,13 +143,13 @@ yy-stop(){
 }
 
 yy-kill(){
- for i in {1..2}
+ yy-ps
+ for i in {1..5}
  do
  __yy-processes-to-kill
  done
-
- sleep 1
  yy-ps
+ yy-stop
 }
 
 yy-visualvm(){
