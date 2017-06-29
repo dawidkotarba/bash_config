@@ -138,18 +138,21 @@ __yy-processes-to-kill(){
  ps aux | grep hybris | grep -v $HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
 }
 
-yy-stop(){
+__yy-stop(){
   __on_hybris_platform sh hybrisserver.sh stop
 }
 
-yy-kill(){
+yy-stop(){
+ __echo_info "Before kill:"
  yy-ps
- for i in {1..5}
+ local kill_executions=5
+ for i in {1..$kill_executions}
  do
  __yy-processes-to-kill
  done
+ __echo_info "After kill ($kill_executions times):"
  yy-ps
- yy-stop
+ __yy-stop
 }
 
 yy-visualvm(){
