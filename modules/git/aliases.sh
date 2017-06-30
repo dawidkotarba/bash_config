@@ -54,3 +54,9 @@ git-difftask(){
   __echo_info "Execute below:"
   echo __gitmakediff $commits
 }
+
+git-pushrefs(){
+  __help $1 'git-pushrefs master'
+  __check $1 "branchName"
+  git push origin HEAD:refs/for/$1
+}
