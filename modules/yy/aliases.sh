@@ -1,7 +1,6 @@
 # HYBRIS
 ### conts ###
 HYBRIS_LOG=y.log
-HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
 
 ### generic ###
 __on_hybris_platform(){
@@ -72,6 +71,7 @@ yy-setsuffix(){
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
  export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
+ export HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
 }
 
 yy-ps(){
