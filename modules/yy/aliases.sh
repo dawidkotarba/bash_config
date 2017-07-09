@@ -1,6 +1,7 @@
 # HYBRIS
 ### conts ###
 HYBRIS_LOG=y.log
+HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
 
 ### generic ###
 __on_hybris_platform(){
@@ -27,7 +28,8 @@ __get_hybris_process(){
 }
 
 __hybris-start(){
- __check_and_start_hybris_mysql
+ local is_hsqldb=`__check_if_hsqldb_is_used`
+ [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
  __on_hybris_platform sh hybrisserver.sh debug $@
 }
 
@@ -52,7 +54,7 @@ __check_and_start_hybris_mysql(){
 }
 
 __check_if_hsqldb_is_used(){
-  local entry_line=`grep "db.url=" local.properties | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
+  local entry_line=`grep "db.url=" $HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
   if [ $entry_line ]
    then echo 1
  else
@@ -174,7 +176,7 @@ yy-jcmd(){
 
 yy-configlocalproperties(){
  __check_hybris_suffix
- atom $HYBRIS_HOME/config/local.properties
+ atom $HYBRIS_LOCAL_PROPERTIES
 }
 
 yy-configlocalextensions(){
