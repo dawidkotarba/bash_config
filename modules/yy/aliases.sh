@@ -51,6 +51,15 @@ __check_and_start_hybris_mysql(){
   fi
 }
 
+__check_if_hsqldb_is_used(){
+  local entry_line=`grep "db.url=" local.properties | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
+  if [ $entry_line ]
+   then echo 1
+ else
+    echo 0
+  fi
+}
+
 ### yy namespace ###
 alias yy-start="__hybris-start"
 
