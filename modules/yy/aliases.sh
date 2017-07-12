@@ -267,7 +267,8 @@ yy-antmodulegen(){
 }
 
 yy-antinitialize(){
-  __check_and_start_hybris_mysql
+  local is_hsqldb=`__check_if_hsqldb_is_used`
+  [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
   __on_hybris_platform ant initialize $@
 }
 
