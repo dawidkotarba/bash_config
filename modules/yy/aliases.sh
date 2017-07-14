@@ -27,8 +27,7 @@ __get_hybris_process(){
 }
 
 __hybris-start(){
- local is_hsqldb=`__check_if_hsqldb_is_used`
- [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
+ __start-mysql-if-no-is_hsqldb
  __on_hybris_platform sh hybrisserver.sh debug $@
 }
 
@@ -59,6 +58,11 @@ __check_if_hsqldb_is_used(){
  else
     echo 0
   fi
+}
+
+__start-mysql-if-no-is_hsqldb(){
+  local is_hsqldb=`__check_if_hsqldb_is_used`
+  [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
 }
 
 ### yy namespace ###
@@ -267,8 +271,7 @@ yy-antmodulegen(){
 }
 
 yy-antinitialize(){
-  local is_hsqldb=`__check_if_hsqldb_is_used`
-  [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
+  __start-mysql-if-no-is_hsqldb
   __on_hybris_platform ant initialize $@
 }
 
