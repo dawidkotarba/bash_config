@@ -218,10 +218,7 @@ fi
 
 yy-jrebel(){
  local ext_path=$1
- if [[ $ext_path ]]
-  then (cd $ext_path && ant build)
-  else ant build
- fi
+ [[ $ext_path ]] && (cd $ext_path && ant build)
 }
 
 yy-grunt(){
