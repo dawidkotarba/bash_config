@@ -10,6 +10,10 @@ __on_hybris_platform(){
  yy-log $@
 }
 
+__on_hybris_platform_nolog(){
+ (cd $HYBRIS_HOME/bin/platform && $@)
+}
+
 __on_hybris_process(){
  local result=`ps -aux | grep hybris`
  echo "Operating on Hybris processes: $result"
@@ -217,6 +221,7 @@ fi
 }
 
 yy-jrebel(){
+ __check $1 "extension path"
  local ext_path=$1
  [[ $ext_path ]] && (cd $ext_path && ant build)
 }
@@ -235,12 +240,20 @@ yy-antall(){
   __on_hybris_platform ant all $@
 }
 
+yy-antallstart(){
+  __on_hybris_platform_nolog ant all && yy-start
+}
+
 yy-antclean(){
  __on_hybris_platform ant clean
 }
 
 yy-antcleanall(){
  __on_hybris_platform ant clean all $@
+}
+
+yy-antcleanallstart(){
+  __on_hybris_platform_nolog ant clean all && yy-start
 }
 
 yy-antbuild(){
@@ -270,6 +283,11 @@ yy-antmodulegen(){
 yy-antinitialize(){
   __start-mysql-if-no-is_hsqldb
   __on_hybris_platform ant initialize $@
+}
+
+yy-antinitializestart(){
+  __start-mysql-if-no-is_hsqldb
+  __on_hybris_platform_nolog ant initialize && yy-start
 }
 
 yy-anttest(){
