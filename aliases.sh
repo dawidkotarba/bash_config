@@ -51,7 +51,7 @@ alias st='tig status'
 # decorated echo
 __echo_pretty(){
  local text=$1
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "### $text ###"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ] && echo "### $text ###"
 }
 
 __echo_arrow(){
@@ -61,35 +61,35 @@ __echo_arrow(){
 
 # echo in white
 __echo_debug(){
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "$@"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ] && echo "$@"
 }
 
 # echo in blue
 __echo_info(){
  local color=`tput setaf 4`
  local reset=`tput sgr0`
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ] && echo "${color}$@${reset}"
 }
 
 # echo in green
 __echo_ok(){
  local color=`tput setaf 2`
  local reset=`tput sgr0`
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ] && echo "${color}$@${reset}"
 }
 
 # echo in yellow
 __echo_warn(){
  local color=`tput setaf 11`
  local reset=`tput sgr0`
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ]] && echo "${color}$@${reset}"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ] && echo "${color}$@${reset}"
 }
 
 # echo in red
 __echo_err(){
  local color=`tput setaf 1`
  local reset=`tput sgr0`
- [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
+ [ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ] && echo "${color}$@${reset}"
 }
 
 __show_popup(){
@@ -99,18 +99,18 @@ __show_popup(){
 # Prints error description when parameter is not set
 # Usage: __check $1 paramName
 __check(){
-  [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
+  [ "$#" -eq 1 ] && __echo_err "$1 is not set!"
 }
 
 # Prints help tip
 # Usage: __help $1 "usage message"
 __help(){
-  [[ "$1" == "--help" ]] && __echo_info "$2"
+  [ "$1" == "--help" ] && __echo_info "$2"
 }
 
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
-    if [ -d "$1" ] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
+    if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
         if [ "$2" = "after" ] ; then
             PATH="$PATH:${1%/}"
         else
@@ -173,7 +173,7 @@ __openconnect_vpn_kill_signal(){
   local signal=$1
   local pattern=$2
   local PS=`ps aux | grep "sudo openconnect" | grep $pattern | awk '{print $2}' | head -1`
-  if [[ $PS ]]
+  if [ $PS ]
    then
     __echo_ok "$signal for VPN: $pattern"
     sudo kill -$signal $PS
