@@ -69,6 +69,11 @@ __start-mysql-if-no-is_hsqldb(){
   [ $is_hsqldb == 0 ] && __check_and_start_hybris_mysql
 }
 
+__show_popup_if_hybris_has_started(){
+  local started=`tail $HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
+  [[ $started ]] && __show_popup "$started"
+}
+
 ### yy namespace ###
 alias yy-start="__hybris-start"
 
