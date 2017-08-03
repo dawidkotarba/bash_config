@@ -31,22 +31,15 @@ kk-bashedit(){
  __help $1 "If no module is specified, then edits a main 'aliases.sh' file."
 
  local module_name=$1
-
- if [[ $module_name ]]
-  then atom $BASH_MODULES_PATH/$module_name/aliases.sh
-  else atom $BASH_ALIASES_PATH
- fi
+ [ $module_name ] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
 }
 
 kk-bashshow(){
   __help $1 "Shows 'aliases.sh' file from provided module."
   __help $1 "If no module is specified, then shows a main 'aliases.sh' file"
 
-local module_name=$1
-if [[ $module_name ]]
- then less $BASH_MODULES_PATH/$module_name/aliases.sh
- else less $BASH_ALIASES_PATH
-fi
+ local module_name=$1
+ [ $module_name ] && less $BASH_MODULES_PATH/$module_name/aliases.sh || less $BASH_ALIASES_PATH 
 }
 
 kk-bashcommit(){
