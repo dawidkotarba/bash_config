@@ -92,6 +92,10 @@ __echo_err(){
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
 }
 
+__show_popup(){
+  zenity --info --text "$1"
+}
+
 # Prints error description when parameter is not set
 # Usage: __check $1 paramName
 __check(){
