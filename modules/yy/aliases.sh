@@ -48,20 +48,12 @@ __check_hybris_mysql_running(){
 }
 
 __check_and_start_hybris_mysql(){
-  if [ ! $HYBRIS_MYSQL_RUNNING ]
-   then
-    yy-dockermysqlstart
-    __check_hybris_mysql_running
-  fi
+  [ ! $HYBRIS_MYSQL_RUNNING ] && yy-dockermysqlstart && __check_hybris_mysql_running
 }
 
 __check_if_hsqldb_is_used(){
   local entry_line=`grep "db.url=" $HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
-  if [ $entry_line ]
-   then echo 1
- else
-    echo 0
-  fi
+  [ $entry_line ] && echo 1 || echo 0
 }
 
 __start-mysql-if-no-is_hsqldb(){
