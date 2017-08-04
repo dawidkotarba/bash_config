@@ -22,7 +22,7 @@ kk-bashcreatemodule(){
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
 
- [ ! -d $module_name ] && mkdir $BASH_MODULES_PATH/$module_name
+ [[ ! -d $module_name ]] && mkdir $BASH_MODULES_PATH/$module_name
  echo "### $module_name ###" > $module_path/aliases.sh
 }
 
@@ -31,7 +31,7 @@ kk-bashedit(){
  __help $1 "If no module is specified, then edits a main 'aliases.sh' file."
 
  local module_name=$1
- [ $module_name ] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
+ [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
 }
 
 kk-bashshow(){
@@ -39,7 +39,7 @@ kk-bashshow(){
   __help $1 "If no module is specified, then shows a main 'aliases.sh' file"
 
  local module_name=$1
- [ $module_name ] && less $BASH_MODULES_PATH/$module_name/aliases.sh || less $BASH_ALIASES_PATH
+ [[ $module_name ]] && less $BASH_MODULES_PATH/$module_name/aliases.sh || less $BASH_ALIASES_PATH
 }
 
 kk-bashcommit(){
