@@ -23,7 +23,7 @@ __on_hybris_process(){
 # Checks the hybris suffix which is used to resolve the hybris path:
 # i.e. hybris_sfx where sfx is a suffix.
 __check_hybris_suffix(){
-  [[ ! $HYBRIS_FOLDER_SUFFIX ]] && __echo_err "HYBRIS SUFFIX NOT SET!"
+  [ ! $HYBRIS_FOLDER_SUFFIX ] && __echo_err "HYBRIS SUFFIX NOT SET!"
 }
 
 __get_hybris_process(){
@@ -37,7 +37,7 @@ __hybris-start(){
 
 __check_hybris_mysql_running(){
   local is_mysql_running=$(yy-dockermysqlip)
-    if [[ $is_mysql_running ]]
+    if [ $is_mysql_running ]
     then
       __echo_ok "hybris MYSQL is running"
       export HYBRIS_MYSQL_RUNNING=true
@@ -48,7 +48,7 @@ __check_hybris_mysql_running(){
 }
 
 __check_and_start_hybris_mysql(){
-  if [[ ! $HYBRIS_MYSQL_RUNNING ]]
+  if [ ! $HYBRIS_MYSQL_RUNNING ]
    then
     yy-dockermysqlstart
     __check_hybris_mysql_running
@@ -71,7 +71,7 @@ __start-mysql-if-no-is_hsqldb(){
 
 __show_popup_if_hybris_has_started(){
   local started=`tail $HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
-  [[ $started ]] && __show_popup "$started"
+  [ $started ] && __show_popup "$started"
 }
 
 ### yy namespace ###
@@ -89,10 +89,7 @@ yy-setsuffix(){
 
 yy-ps(){
  local hybris_process=`__get_hybris_process`
- if [[ ! $hybris_process ]]
-  then __echo_err "HYBRIS IS NOT RUNNING"
-  else __echo_ok "HYBRIS IS RUNNING: $hybris_process"
- fi
+ [ ! $hybris_process ] && __echo_err "HYBRIS IS NOT RUNNING" || __echo_ok "HYBRIS IS RUNNING: $hybris_process"
 }
 
 yy-navigate(){
@@ -118,7 +115,7 @@ yy-navigateplatform(){
 # follow log
 yy-log(){
   __help $1 "Follow the hybris log file"
- [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
+ [ $@ != *'-nolog'* ] && tail -f $HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
@@ -219,16 +216,13 @@ yy-req(){
 
  local rev_back=$1
  local changes_count=`git diff --name-only HEAD..HEAD~$rev_back | egrep '.impex|items.xml' | wc -l`
- if [[ $changes_count > 0 ]]
-  then echo "ant initialize"
-  else echo "ant clean all"
-fi
+ [ $changes_count > 0 ] && echo "ant initialize" || echo "ant clean all"
 }
 
 yy-jrebel(){
  __check $1 "extension path"
  local ext_path=$1
- [[ $ext_path ]] && (cd $ext_path && ant build)
+ [ $ext_path ] && (cd $ext_path && ant build)
 }
 
 yy-grunt(){
@@ -330,7 +324,7 @@ yy-dockermysqlip(){
 yy-dockermysqlcreate(){
   __check_hybris_suffix
   local mysql_version=""
-  [[ $1 ]] && mysql_version=:$1
+  [ $1 ] && mysql_version=:$1
 
   sudo docker run --name $(__yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
 }
