@@ -143,8 +143,8 @@ yy-logtomcat(){
  (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs tail -f)
 }
 
-yy-setenv(){
- (yy-navigate-platform && sh setantenv.sh)
+yy-setantenv(){
+ (yy-navigateplatform && . ./setantenv.sh)
 }
 
 __yy-processes-to-kill(){
