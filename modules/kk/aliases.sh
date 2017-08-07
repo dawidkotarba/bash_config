@@ -93,7 +93,8 @@ k(){
 }
 
 kk-newfunction(){
-  cat $BASH_NEW_FUNCTION_FILE
+  kk-clipboard $BASH_NEW_FUNCTION_FILE
+  # cat $BASH_NEW_FUNCTION_FILE | xclip -selection clipboard
 }
 
 ### DOCKER ###
