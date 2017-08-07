@@ -7,3 +7,7 @@ pssh(){
 rpi-cluster-upgrade(){
  pssh sudo apt update && apt upgrade
 }
+
+rpi-wifiscan(){
+  sudo iwlist wlan0 scan
+}
