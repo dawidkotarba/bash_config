@@ -28,8 +28,6 @@ __source_forward_declarations
 alias ll='ls -alh'
 alias l.='ls -d .*'
 alias ll.='ls -lhd .*'
-alias h='history'
-alias j='jobs -l'
 alias du='du -h'
 
 alias ..='cd ..'
@@ -40,12 +38,6 @@ alias .....='cd ../../../../'
 # net aliases
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
-
-# apps aliases
-alias r='ranger'
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias g='glances'
-alias st='tig status'
 
 ### Functions ###
 # decorated echo
