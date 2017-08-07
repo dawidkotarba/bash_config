@@ -13,6 +13,25 @@ kk-server(){
  python3 -m http.server $port
 }
 
+### Aliases edition ###
+kk-newfunction(){
+  [[ "$1" == "-h" ]] && __echo_info "Copies function template to clipboard" && return
+  kk-clipboard $BASH_NEW_FUNCTION_FILE
+  __echo_ok "Function template copied to clipboard"
+}
+
+kk-newhelp(){
+  local help_code_line='[[ "$1" == "-h" ]] && __echo_info "Put help here" && return'
+  echo "$help_code_line" | xclip -selection clipboard
+  __echo_ok "Help template copied to clipboard"
+}
+
+kk-newcheck(){
+  local check_code_line='__check $1 "paramName"'
+  echo "$check_code_line" | xclip -selection clipboard
+  __echo_ok "Check template copied to clipboard"
+}
+
 kk-bashcreatemodule(){
  [[ "$1" == "-h" ]] && __echo_info "Creates a new module (modules/xxx/aliases.sh). Usage: kk-bashcreatemodule tst" && return
   __check $1 "module_name"
@@ -90,12 +109,6 @@ kk-killall(){
 k(){
   __echo_ok "refreshing..."
   exec bash
-}
-
-kk-newfunction(){
-  [[ "$1" == "-h" ]] && __echo_info "Copies function template to clipboard" && return
-  kk-clipboard $BASH_NEW_FUNCTION_FILE
-  __echo_ok "Function template copied to clipboard"
 }
 
 ### DOCKER ###
