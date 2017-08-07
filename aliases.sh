@@ -105,7 +105,7 @@ __check(){
 # Prints help tip
 # Usage: __help $1 "usage message"
 __help(){
-  [[ "$1" == "--help" ]] && __echo_info "$2"
+  [[ "$1" == "--help" || "$1" == "-help" || "$1" == "-h" ]] && __echo_info "$2"
 }
 
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
