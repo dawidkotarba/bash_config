@@ -11,3 +11,10 @@ rpi-cluster-upgrade(){
 rpi-wifiscan(){
   sudo iwlist wlan0 scan
 }
+
+rpi-wifiadd(){
+  [[ "$1" == "-h" ]] && __echo_info "Saves wifi ssid/password. Usage: rpi-wifiadd testingssid testingpassword" && return
+  __check $1 "ssid"
+  __check $2 "password"
+  wpa_passphrase $1 $2 >> /etc/wpa_supplicant/wpa_supplicant.conf
+}
