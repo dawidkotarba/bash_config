@@ -1,7 +1,6 @@
 ### kk ###
 kk-clipboard(){
-  __help $1 "Copy file to clipboard"
-  __help $1 "Usage: kk-clipboard file_path"
+  [[ "$1" == "-h" ]] && __echo_info "Copy file to clipboard. Usage: kk-clipboard file_path" && return
   __check $1 "file path"
   cat $1 | xclip -selection clipboard
 }
@@ -15,8 +14,7 @@ kk-server(){
 }
 
 kk-bashcreatemodule(){
-  __help $1 "Creatse new module (modules/xxx/aliases.sh)"
-  __help $1 "Usage: kk-bashcreatemodule tst"
+ [[ "$1" == "-h" ]] && __echo_info "Creatse new module (modules/xxx/aliases.sh). Usage: kk-bashcreatemodule tst" && return
   __check $1 "module_name"
 
  local module_name=$1
@@ -27,16 +25,14 @@ kk-bashcreatemodule(){
 }
 
 kk-bashedit(){
- __help $1 "Edits 'aliases.sh' file from provided module."
- __help $1 "If no module is specified, then edits a main 'aliases.sh' file."
+ [[ "$1" == "-h" ]] && __echo_info "Edits 'aliases.sh' file from provided module. If no module is specified, then edits a main 'aliases.sh' file." && return
 
  local module_name=$1
  [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
 }
 
 kk-bashshow(){
-  __help $1 "Shows 'aliases.sh' file from provided module."
-  __help $1 "If no module is specified, then shows a main 'aliases.sh' file"
+ [[ "$1" == "-h" ]] && __echo_info "Shows 'aliases.sh' file from provided module. If no module is specified, then shows a main 'aliases.sh' file" && return
 
  local module_name=$1
  [[ $module_name ]] && less $BASH_MODULES_PATH/$module_name/aliases.sh || less $BASH_ALIASES_PATH
@@ -60,7 +56,7 @@ kk-bashrevert(){
 }
 
 __pull-cloned-apps(){
- __help $1 "Pulls all cloned apps in app folder."
+ [[ "$1" == "-h" ]] && __echo_info "Pulls all cloned apps in app folder." && return
 
  local apps=$(ls $BASH_APPS_PATH)
  for app in $apps
@@ -78,7 +74,7 @@ kk-upgrade(){
 }
 
 kk-bak(){
-  __help $1 "Renames a subject by adding current date."
+  [[ "$1" == "-h" ]] && __echo_info "Renames a subject by adding current date." && return
   __check $1 "Subject of backup"
 
  local date=`date | awk '{print $3"-"$2"-"$4}'`
@@ -98,7 +94,7 @@ k(){
 
 ### DOCKER ###
 kk-dockerstart(){
-  __help $1 "Starts a docker container with provided name"
+  [[ "$1" == "-h" ]] && __echo_info "Starts a docker container with provided name" && return
   __check $1 "container name"
 
   local container_name=$1
@@ -108,7 +104,7 @@ kk-dockerstart(){
 }
 
 kk-dockerip(){
-  __help $1 "Prints ip of provided docker container"
+  [[ "$1" == "-h" ]] && __echo_info "Prints IP of provided docker container" && return
   __check $1 "container name"
 
   local container_name=$1

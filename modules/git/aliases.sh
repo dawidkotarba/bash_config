@@ -10,7 +10,7 @@ __gitmakediff(){
 
 # sets up the git username/email
 git-config(){
-  __help $1 'git-config "email@email.com" "User Name"'
+  [[ "$1" == "-h" ]] && __echo_info 'git-config "email@email.com" "User Name"' && return
   __check $1 "email"
   __check $2 "user name"
 
@@ -28,7 +28,7 @@ git-parent(){
 
 
 git-branch(){
-  __help $1 "Creates local branches for all found remote branches with provided pattern"
+  [[ "$1" == "-h" ]] && __echo_info "Creates local branches for all found remote branches with provided pattern" && return
   __check $1 "pattern"
   local pattern=$1;
   local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
@@ -56,7 +56,7 @@ git-difftask(){
 }
 
 git-pushrefs(){
-  __help $1 'git-pushrefs master'
+  [[ "$1" == "-h" ]] && __echo_info "git-pushrefs master" && return
   __check $1 "branchName"
   git push origin HEAD:refs/for/$1
 }

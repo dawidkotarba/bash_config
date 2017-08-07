@@ -70,7 +70,7 @@ __show_popup_if_hybris_has_started(){
 alias yy-start="__hybris-start"
 
 yy-setsuffix(){
- __help $1 "sets up the hybris suffix"
+  [[ "$1" == "-h" ]] && __echo_info "sets up the hybris suffix" && return
  __check $1 "hybris suffix"
 
  export HYBRIS_FOLDER_SUFFIX=$1
@@ -106,12 +106,12 @@ yy-navigateplatform(){
 
 # follow log
 yy-log(){
-  __help $1 "Follow the hybris log file"
+ [[ "$1" == "-h" ]] && __echo_info "Follow the hybris log file" && return
  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
-  __help $1 "Clean the hybris log file"
+  [[ "$1" == "-h" ]] && __echo_info "Clean the hybris log file" && return
   > $HYBRIS_LOG_PATH
 }
 
@@ -322,9 +322,8 @@ yy-dockermysqlcreate(){
 }
 
 # Creates a db and adds all privileges to the db to user.
-# Usage: yy-dockermysqlcreatedbuser dbName username userpassword
 yy-dockermysqlcreatedbuser(){
-  __help $1 "yy-dockermysqlcreatedbuser dbName username userpassword"
+  [[ "$1" == "-h" ]] && __echo_info "yy-dockermysqlcreatedbuser dbName username userpassword" && return
   __check $1 "db name"
   __check $2 "user name"
   __check $3 "user password"

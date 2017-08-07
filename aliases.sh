@@ -102,12 +102,6 @@ __check(){
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
-# Prints help tip
-# Usage: __help $1 "usage message"
-__help(){
-  [[ "$1" == "--help" || "$1" == "-help" || "$1" == "-h" ]] && __echo_info "$2"
-}
-
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
