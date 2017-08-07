@@ -105,11 +105,7 @@ __check(){
 # Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
 __pathadd() {
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
-        if [[ "$2" = "after" ]] ; then
-            PATH="$PATH:${1%/}"
-        else
-            PATH="${1%/}:$PATH"
-        fi
+      [[ "$2" = "after" ]] && PATH="$PATH:${1%/}" || PATH="${1%/}:$PATH"
     fi
 }
 
