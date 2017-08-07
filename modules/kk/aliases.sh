@@ -93,8 +93,9 @@ k(){
 }
 
 kk-newfunction(){
+  [[ "$1" == "-h" ]] && __echo_info "Copies function template to clipboard" && return
   kk-clipboard $BASH_NEW_FUNCTION_FILE
-  # cat $BASH_NEW_FUNCTION_FILE | xclip -selection clipboard
+  __echo_ok "Function template copied to clipboard"
 }
 
 ### DOCKER ###
