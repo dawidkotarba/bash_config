@@ -92,6 +92,10 @@ k(){
   exec bash
 }
 
+kk-newfunction(){
+  cat $BASH_NEW_FUNCTION_FILE
+}
+
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && __echo_info "Starts a docker container with provided name" && return
