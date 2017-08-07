@@ -14,7 +14,7 @@ kk-server(){
 }
 
 kk-bashcreatemodule(){
- [[ "$1" == "-h" ]] && __echo_info "Creatse new module (modules/xxx/aliases.sh). Usage: kk-bashcreatemodule tst" && return
+ [[ "$1" == "-h" ]] && __echo_info "Creates a new module (modules/xxx/aliases.sh). Usage: kk-bashcreatemodule tst" && return
   __check $1 "module_name"
 
  local module_name=$1
