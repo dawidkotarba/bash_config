@@ -186,12 +186,6 @@ yy-configlocalextensions(){
  atom $HYBRIS_HOME/config/localextensions.xml
 }
 
-yy-restart(){
-  yy-kill
-  sleep 5
-  yy-start
-}
-
 # create a new folder for hybris project
 yy-createproject(){
   __check $1 "hybris project folder suffix"
