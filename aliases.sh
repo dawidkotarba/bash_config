@@ -17,8 +17,8 @@ export TERM='xterm-256color'
 # source paths to main directories
  source ~/bash_config/dirs.sh
 
-# Each function included in modules/xxx/aliases will be forward declared
 __source_forward_declarations(){
+  [[ "$1" == "-h" ]] && __echo_info "Each function included in modules/xxx/aliases will be forward declared" && return
   grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
 }
@@ -40,8 +40,8 @@ alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 
 ### Functions ###
-# decorated echo
 __echo_pretty(){
+ [[ "$1" == "-h" ]] && __echo_info "decorated echo" && return
  local text=$1
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "### $text ###"
 }
@@ -51,34 +51,34 @@ __echo_arrow(){
  echo "--> $text"
 }
 
-# echo in white
 __echo_debug(){
+  [[ "$1" == "-h" ]] && __echo_info "Echo in white" && return
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_DEBUG ]] && echo "$@"
 }
 
-# echo in blue
 __echo_info(){
+ [[ "$1" == "-h" ]] && __echo_info "Echo in blue" && return
  local color=`tput setaf 4`
  local reset=`tput sgr0`
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
 }
 
-# echo in green
 __echo_ok(){
+ [[ "$1" == "-h" ]] && __echo_info "Echo in green" && return
  local color=`tput setaf 2`
  local reset=`tput sgr0`
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_INFO ]] && echo "${color}$@${reset}"
 }
 
-# echo in yellow
 __echo_warn(){
+ [[ "$1" == "-h" ]] && __echo_info "Echo in yellow" && return
  local color=`tput setaf 11`
  local reset=`tput sgr0`
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_WARN ]] && echo "${color}$@${reset}"
 }
 
-# echo in red
 __echo_err(){
+ [[ "$1" == "-h" ]] && __echo_info "Echo in red" && return
  local color=`tput setaf 1`
  local reset=`tput sgr0`
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
@@ -88,14 +88,14 @@ __show_popup(){
   zenity --info --text "$1"
 }
 
-# Prints error description when parameter is not set
-# Usage: __check $1 paramName
 __check(){
+  [[ "$1" == "-h" ]] && __echo_info 'Prints error description when parameter is not set. Usage: __check $1 paramName' && return
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
-# Adds a string to path, i.e.: __pathadd "/etc/scala/bin"
+#
 __pathadd() {
+  [[ "$1" == "-h" ]] && __echo_info 'Adds a string to path, i.e.: __pathadd "/etc/scala/bin"' && return
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
       [[ "$2" = "after" ]] && PATH="$PATH:${1%/}" || PATH="${1%/}:$PATH"
     fi
