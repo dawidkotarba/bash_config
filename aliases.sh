@@ -112,9 +112,17 @@ __source_if_exists(){
  fi
 }
 
+__join(){
+  local IFS="$1"; shift; echo "$*";
+}
+
 __git_add_commit_folder(){
  local folder_name=$1
- git -C $folder_name commit -a -m "update"
+ local modified_files=`git ls-files -m`
+ local joined_modified_files=`__join "," $modified_files`
+ local git_message="Update: $joined_modified_files"
+ git -C $folder_name commit -a -m "$git_message"
+ __echo_info "Commited with message: $git_message"
 }
 
 __ssh_cert(){
