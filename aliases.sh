@@ -127,7 +127,7 @@ __git_add_commit_folder(){
     local joined_modified_files=`__join "," $modified_files`
     local git_message="Update: $joined_modified_files"
     git -C $folder_name commit -a -m "$git_message"
-    __echo_info "Commited with message: $git_message"
+    __echo_info "$git_message"
   else
     __echo_warn "Nothing to commit."
  fi
