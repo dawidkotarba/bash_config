@@ -30,11 +30,6 @@ alias l.='ls -d .*'
 alias ll.='ls -lhd .*'
 alias du='du -h'
 
-alias ..='cd ..'
-alias ...='cd ../../'
-alias ....='cd ../../../'
-alias .....='cd ../../../../'
-
 # net aliases
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
