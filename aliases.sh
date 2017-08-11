@@ -133,6 +133,7 @@ __scp_cert(){
 }
 
 __print_column(){
+  [[ "$1" == "-h" ]] && __echo_info 'Prints desired column. Usage: __print_column " " 2' && return
   local delimiter=$1
   local column=$2
   tr -s "$delimiter" | cut -d "$delimiter" -f $column
