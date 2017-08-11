@@ -118,7 +118,7 @@ __join(){
 
 __git_add_commit_folder(){
  local folder_name=$1
- local modified_files=`git ls-files -m`
+ local modified_files=`(cd $1 && git ls-files -m)`
  if [[ $modified_files ]]
   then
     local joined_modified_files=`__join "," $modified_files`
@@ -128,7 +128,6 @@ __git_add_commit_folder(){
   else
     __echo_warn "Nothing to commit."
  fi
-
 }
 
 __ssh_cert(){
