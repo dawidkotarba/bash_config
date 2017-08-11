@@ -113,10 +113,13 @@ __source_if_exists(){
 }
 
 __join(){
+  [[ "$1" == "-h" ]] && __echo_info "Joins multiline output into single line with delimiter" && return
+  __check $1 "delimiter"
   local IFS="$1"; shift; echo "$*";
 }
 
 __git_add_commit_folder(){
+ __check $1 "folder name"
  local folder_name=$1
  local modified_files=`(cd $1 && git ls-files -m)`
  if [[ $modified_files ]]
