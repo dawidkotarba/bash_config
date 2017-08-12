@@ -133,6 +133,12 @@ __git_add_commit_folder(){
  fi
 }
 
+__generate_help(){
+  __check $1 "folder path"
+  [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
+  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "help-[]="
+}
+
 __ssh_cert(){
  local username=$1
  local host=$2
