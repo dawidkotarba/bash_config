@@ -136,7 +136,13 @@ __git_add_commit_folder(){
 __generate_help(){
   __check $1 "folder path"
   [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
-  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "help-[]="
+  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=" | tr - _
+}
+
+__show_help(){
+  __check $1 "Funciton name that is translated to related variable name"
+  local help_variable=`echo $1 | tr - _`
+ __echo_info $help_variable
 }
 
 __ssh_cert(){
