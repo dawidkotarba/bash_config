@@ -1,6 +1,6 @@
 ### kk ###
 kk-clipboard(){
-  [[ "$1" == "-h" ]] && __echo_info "Copy file to clipboard. Usage: kk-clipboard file_path" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   __check $1 "file path"
   cat $1 | xclip -selection clipboard
 }
@@ -21,7 +21,7 @@ kk-newfunction(){
 }
 
 kk-newhelp(){
-  local help_code_line='[[ "$1" == "-h" ]] && __echo_info "Put help here" && return'
+  local help_code_line='[[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return'
   echo "$help_code_line" | xclip -selection clipboard
   __echo_ok "Help template copied to clipboard"
 }

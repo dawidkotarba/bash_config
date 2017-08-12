@@ -136,7 +136,7 @@ __git_add_commit_folder(){
 __generate_help(){
   __check $1 "folder path"
   [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
-  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=" | tr - _
+  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _
 }
 
 __show_help(){
