@@ -32,12 +32,13 @@ kk-newcheck(){
   __echo_ok "Check template copied to clipboard"
 }
 
-kk-bashcreatemodule(){
+kk-bashnewmodule(){
  [[ "$1" == "-h" ]] && __echo_info "Creates a new module (modules/xxx/aliases.sh). Usage: kk-bashcreatemodule tst" && return
   __check $1 "module_name"
  local module_name=$1
  local module_path=$BASH_MODULES_PATH/$module_name
  [[ ! -d $module_name ]] && mkdir $BASH_MODULES_PATH/$module_name
+ echo "### help ###" >  $module_path/help.sh
  echo "### $module_name ###" > $module_path/aliases.sh
 }
 

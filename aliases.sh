@@ -188,7 +188,7 @@ __openconnect_vpn_kill_signal(){
 ### SOURCE MODULES ###
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
- local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh`
+ local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh`
  for i in $aliases_files
   do __source_if_exists $i
  done
