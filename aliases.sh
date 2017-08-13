@@ -21,7 +21,11 @@ alias du='du -h'
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 
-### Main functions ###
+######################
+##  MAIN FUNCTIONS  ##
+######################
+
+### Echos ###
 __echo_pretty(){
  [[ "$1" == "-h" ]] && __echo_info "decorated echo" && return
  local text=$1
@@ -66,13 +70,27 @@ __echo_err(){
  [[ $CURRENT_LOG_LVL -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
 }
 
-__show_popup(){
-  zenity --info --text "$1"
-}
-
+### Helps and checks ###
 __check(){
   [[ "$1" == "-h" ]] && __echo_info 'Prints error description when parameter is not set. Usage: __check $1 paramName' && return
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
+}
+
+__generate_help(){
+  [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
+  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
+}
+
+__show_help(){
+  __check $1 "Funciton name that is translated to related variable name"
+  local help_variable_name=`echo $1 | tr - _`
+  local help_message=${!help_variable_name}
+  [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
+}
+
+### Other functions ###
+__show_popup(){
+  zenity --info --text "$1"
 }
 
 __pathadd() {
@@ -117,18 +135,6 @@ __git_add_commit_folder(){
   else
     __echo_warn "Nothing to commit."
  fi
-}
-
-__generate_help(){
-  [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
-  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
-}
-
-__show_help(){
-  __check $1 "Funciton name that is translated to related variable name"
-  local help_variable_name=`echo $1 | tr - _`
-  local help_message=${!help_variable_name}
-  [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
 }
 
 __ssh_cert(){
