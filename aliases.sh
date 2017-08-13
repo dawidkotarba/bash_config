@@ -141,7 +141,8 @@ __generate_help(){
 __show_help(){
   __check $1 "Funciton name that is translated to related variable name"
   local help_variable_name=`echo $1 | tr - _`
- __echo_info ${!help_variable_name}
+  local help_message=${!help_variable_name}
+  [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
 }
 
 __ssh_cert(){

@@ -4,7 +4,7 @@ HYBRIS_LOG=y.log
 
 ### generic ###
 __on_hybris_platform(){
- [[ "$1" == "-h" ]] && __echo_info "Runs a command on hybris platform and directs output to file, and follows it." && return
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  rm -f $HYBRIS_LOG_PATH
  (cd $HYBRIS_HOME/bin/platform && $@ >> $HYBRIS_LOG_PATH &)
  sleep 1
@@ -12,35 +12,35 @@ __on_hybris_platform(){
 }
 
 __on_hybris_platform_nolog(){
- [[ "$1" == "-h" ]] && __echo_info "Runs a command on hybris platform but does not save output to file." && return
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  (cd $HYBRIS_HOME/bin/platform && $@)
 }
 
 __on_hybris_process(){
- [[ "$1" == "-h" ]] && __echo_info "Gets the hybris process by grepping the ps aux." && return
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local result=`ps -aux | grep hybris`
  echo "Operating on Hybris processes: $result"
  echo $result | awk {'print $2'} | xargs $@
 }
 
 __check_hybris_suffix(){
-  [[ "$1" == "-h" ]] && __echo_info "Checks the hybris suffix which is used to resolve the hybris path: i.e. hybris_sfx where sfx is a suffix." && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   [[ ! $HYBRIS_FOLDER_SUFFIX ]] && __echo_err "HYBRIS SUFFIX NOT SET!"
 }
 
 __get_hybris_process(){
-  [[ "$1" == "-h" ]] && __echo_info "Gets the hybris process." && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   jcmd | grep tanukisoftware | awk {'print $1'}
 }
 
 __hybris-start(){
-  [[ "$1" == "-h" ]] && __echo_info "Main command to start hybris." && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  __start-mysql-if-no-is_hsqldb
  __on_hybris_platform sh hybrisserver.sh debug $@
 }
 
 __check_hybris_mysql_running(){
-  [[ "$1" == "-h" ]] && __echo_info "Checks whether the dockerized mysql for hybris is running." && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   local is_mysql_running=$(yy-dockermysqlip)
     if [[ $is_mysql_running ]]
     then
@@ -53,10 +53,12 @@ __check_hybris_mysql_running(){
 }
 
 __check_and_start_hybris_mysql(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   [[ ! $HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && __check_hybris_mysql_running
 }
 
 __check_if_hsqldb_is_used(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   local entry_line=`grep "db.url=" $HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
   [[ $entry_line ]] && echo 1 || echo 0
 }
