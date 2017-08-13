@@ -49,6 +49,13 @@ kk-bashedit(){
  [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
 }
 
+kk-bashedithelp(){
+ [[ "$1" == "-h" ]] && __echo_info "Edits 'help.sh' file from provided module." && return
+ __check $1 "module_name"
+ local module_name=$1
+ [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/help.sh
+}
+
 kk-bashshow(){
  [[ "$1" == "-h" ]] && __echo_info "Shows 'aliases.sh' file from provided module. If no module is specified, then shows a main 'aliases.sh' file" && return
 
