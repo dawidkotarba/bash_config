@@ -11,19 +11,6 @@ CURRENT_LOG_LVL=$LOG_LVL_INFO
 ### EXPORTS ###
 export TERM='xterm-256color'
 
-######################
-## INITIAL SOURCING ##
-######################
-# source paths to main directories
- source ~/bash_config/dirs.sh
-
-__source_forward_declarations(){
-  [[ "$1" == "-h" ]] && __echo_info "Each function included in modules/xxx/aliases will be forward declared" && return
-  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
-  source $BASH_FWD_PATH
-}
-__source_forward_declarations
-
 ### ALIASES ###
 alias ll='ls -alh'
 alias l.='ls -d .*'
@@ -34,7 +21,7 @@ alias du='du -h'
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 
-### Functions ###
+### Main functions ###
 __echo_pretty(){
  [[ "$1" == "-h" ]] && __echo_info "decorated echo" && return
  local text=$1
@@ -88,7 +75,6 @@ __check(){
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
-#
 __pathadd() {
   [[ "$1" == "-h" ]] && __echo_info 'Adds a string to path, i.e.: __pathadd "/etc/scala/bin"' && return
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
@@ -188,10 +174,23 @@ __openconnect_vpn_kill_signal(){
 }
 
 ######################
+## INITIAL SOURCING ##
+######################
+# source paths to main directories and help
+MAIN_PATH=~/bash_config
+source $MAIN_PATH/dirs.sh
+source $MAIN_PATH/help.sh
+
+__source_forward_declarations(){
+  [[ "$1" == "-h" ]] && __echo_info "Each function included in modules/xxx/aliases will be forward declared" && return
+  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
+  source $BASH_FWD_PATH
+}
+__source_forward_declarations
+
+######################
 ## MODULES SOURCING ##
 ######################
-
-### SOURCE MODULES ###
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh`
