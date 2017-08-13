@@ -79,31 +79,31 @@ __show_help(){
 }
 
 __generate_help(){
-  [[ "$1" == "-h" ]] && __echo_info "Generates help variables for file" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
 }
 
-
 __check(){
-  [[ "$1" == "-h" ]] && __echo_info 'Prints error description when parameter is not set. Usage: __check $1 paramName' && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
 ### Other functions ###
 __show_popup(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   zenity --info --text "$1"
 }
 
 __pathadd() {
-  [[ "$1" == "-h" ]] && __echo_info 'Adds a string to path, i.e.: __pathadd "/etc/scala/bin"' && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
       [[ "$2" = "after" ]] && PATH="$PATH:${1%/}" || PATH="${1%/}:$PATH"
     fi
 }
 
-# Removes a string from path
 __pathrm() {
-    PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
 }
 
 __source_if_exists(){
@@ -118,12 +118,13 @@ __source_if_exists(){
 }
 
 __join(){
-  [[ "$1" == "-h" ]] && __echo_info "Joins multiline output into single line with delimiter" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   __check $1 "delimiter"
   local IFS="$1"; shift; echo "$*";
 }
 
 __git_add_commit_folder(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  __check $1 "folder name"
  local folder_name=$1
  local modified_files=`(cd $1 && git ls-files -m)`
@@ -139,6 +140,7 @@ __git_add_commit_folder(){
 }
 
 __ssh_cert(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local username=$1
  local host=$2
  local cert_path=$3
@@ -146,6 +148,7 @@ __ssh_cert(){
 }
 
 __scp_cert(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local username=$1
  local host=$2
  local cert_path=$3
@@ -154,7 +157,7 @@ __scp_cert(){
 }
 
 __print_column(){
-  [[ "$1" == "-h" ]] && __echo_info 'Prints desired column. Usage: __print_column " " 2' && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   local delimiter=$1
   local column=$2
   tr -s "$delimiter" | cut -d "$delimiter" -f $column
@@ -162,6 +165,7 @@ __print_column(){
 
 ### OPENCONNECT VPN ###
 __openconnect_vpn(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local user=$1
  local vpn_url=$2
  local params=$3
@@ -169,6 +173,7 @@ __openconnect_vpn(){
 }
 
 __openconnect_vpn_kill_signal(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   local signal=$1
   local pattern=$2
   local PS=`ps aux | grep "sudo openconnect" | grep $pattern | awk '{print $2}' | head -1`
@@ -189,7 +194,7 @@ source $MAIN_PATH/dirs.sh
 source $MAIN_PATH/help.sh
 
 __source_forward_declarations(){
-  [[ "$1" == "-h" ]] && __echo_info "Each function included in modules/xxx/aliases will be forward declared" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
 }
@@ -200,6 +205,7 @@ __source_forward_declarations
 ######################
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh`
  for i in $aliases_files
   do __source_if_exists $i
