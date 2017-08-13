@@ -71,9 +71,11 @@ __echo_err(){
 }
 
 ### Helps and checks ###
-__check(){
-  [[ "$1" == "-h" ]] && __echo_info 'Prints error description when parameter is not set. Usage: __check $1 paramName' && return
-  [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
+__show_help(){
+  __check $1 "Funciton name that is translated to related variable name"
+  local help_variable_name=`echo $1 | tr - _`
+  local help_message=${!help_variable_name}
+  [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
 }
 
 __generate_help(){
@@ -81,11 +83,10 @@ __generate_help(){
   grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
 }
 
-__show_help(){
-  __check $1 "Funciton name that is translated to related variable name"
-  local help_variable_name=`echo $1 | tr - _`
-  local help_message=${!help_variable_name}
-  [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
+
+__check(){
+  [[ "$1" == "-h" ]] && __echo_info 'Prints error description when parameter is not set. Usage: __check $1 paramName' && return
+  [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
 ### Other functions ###
