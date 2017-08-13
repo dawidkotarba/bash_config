@@ -1,0 +1,7 @@
+__gitmakediff=''
+git_config=''
+git_parent=''
+git_branch=''
+git_deletebranches=''
+git_difftask=''
+git_pushrefs=''
