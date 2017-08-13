@@ -1,6 +1,6 @@
 ### git ###
-# Creates a diff file from commits with provided pattern
 __gitmakediff(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local diff_file_path=~/diff
  for commit in "$@"
   do
@@ -8,31 +8,27 @@ __gitmakediff(){
   done
 }
 
-# sets up the git username/email
 git-config(){
-  [[ "$1" == "-h" ]] && __echo_info 'git-config "email@email.com" "User Name"' && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   __check $1 "email"
   __check $2 "user name"
 
   git config user.email "$1"
   git config user.name "$2"
 }
-
 alias git-config-dawidkotarba='git-config dawidkotarba dawidkotarba'
 
-# Finds parents of current branch
 git-parent(){
+ [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 
-
 git-branch(){
-  [[ "$1" == "-h" ]] && __echo_info "Creates local branches for all found remote branches with provided pattern" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   __check $1 "pattern"
   local pattern=$1;
   local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
-
   for remote_branch_name in $remote_branch_names
    do
     local local_branch_name=`echo $remote_branch_name | sed -r 's/^.{7}//'`
@@ -42,12 +38,13 @@ git-branch(){
    done
 }
 
-# Deletes all local branches except develop
 git-deletebranches(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D
 }
 
 git-difftask(){
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   local pattern=$1
   local commits=$(git llog | grep -i kotarba | grep $pattern | awk '{print $1}')
   local cmd="git-makediff $commits"
@@ -56,7 +53,7 @@ git-difftask(){
 }
 
 git-pushrefs(){
-  [[ "$1" == "-h" ]] && __echo_info "git-pushrefs master" && return
+  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
   __check $1 "branchName"
   git push origin HEAD:refs/for/$1
 }
