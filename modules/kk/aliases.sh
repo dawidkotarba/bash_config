@@ -48,7 +48,14 @@ kk-bashnewmodule(){
 kk-bashedit(){
  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
  local module_name=$1
- [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/aliases.sh || atom $BASH_ALIASES_PATH
+ if [[ $module_name ]]
+   then
+     atom $BASH_MODULES_PATH/$module_name/aliases.sh
+     atom $BASH_MODULES_PATH/$module_name/help.sh
+   else
+     atom $BASH_ALIASES_PATH
+     atom $BASH_CONFIG_PATH/help.sh
+  fi
 }
 
 kk-bashedithelp(){
