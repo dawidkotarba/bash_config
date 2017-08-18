@@ -41,9 +41,9 @@ clean-folder $BASH_APPS_PATH
 # z
 clone_app https://github.com/rupa/z.git
 
-### Update .bashrc ###
-echo "Updating .bashrc file..."
+### Update .bashrc / .zshrc ###
 echo "source ~/bash_config/aliases.sh" >> ~/.bashrc
+echo "source ~/bash_config/aliases.sh" >> ~/.zshrc
 
 ### Bash settings ###
 # shopt
