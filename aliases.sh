@@ -209,10 +209,7 @@ __source_forward_declarations
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
- local aliases_files=`find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh`
- for i in $aliases_files
-  do __source_if_exists $i
- done
+ for file in $(find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh); do __source_if_exists "$file"; done
 }
 __source_modules_aliases
 
