@@ -41,10 +41,6 @@ clean-folder $BASH_APPS_PATH
 # z
 clone_app https://github.com/rupa/z.git
 
-# liquiprompt
-clone_app https://github.com/nojhan/liquidprompt.git
-
-
 ### Update .bashrc ###
 echo "Updating .bashrc file..."
 echo "source ~/bash_config/aliases.sh" >> ~/.bashrc
