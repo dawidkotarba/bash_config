@@ -198,7 +198,7 @@ source $MAIN_PATH/help.sh
 
 __source_forward_declarations(){
   [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
-  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I [] echo -e "[]\n:\n}" > $BASH_FWD_PATH
+  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
 }
 __source_forward_declarations
@@ -222,7 +222,3 @@ __source_if_exists $BASH_AUTOSTART_PATH
 __echo_pretty "Sourcing apps:"
 # z -> https://github.com/rupa/z.git
 __source_if_exists $BASH_APPS_PATH/z/z.sh
-
-# liquidprompt -> https://github.com/nojhan/liquidprompt.git
-[[ $- = *i* ]] && source $BASH_APPS_PATH/liquidprompt/liquidprompt
-
