@@ -77,35 +77,45 @@ __echo_err(){
 __show_help(){
   __check $1 "Funciton name that is translated to related variable name"
   local help_variable_name=`echo $1 | tr - _`
-  local help_message=${!help_variable_name}
+  # local help_message=${!help_variable_name}
+  echo "FUNCNAME: $help_variable_name"
+  local help_message=${(P)help_variable_name}
   [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
 }
 
+tttest="testuj:)"
+
+tttest(){
+  local fname=$funcstack[1]
+  local help_message=${(P)${fname}}
+  echo $help_message
+}
+
 __generate_help(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
 }
 
 __check(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   [[ "$#" -eq 1 ]] && __echo_err "$1 is not set!"
 }
 
 ### Other functions ###
 __show_popup(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   zenity --info --text "$1"
 }
 
 __pathadd() {
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
       [[ "$2" = "after" ]] && PATH="$PATH:${1%/}" || PATH="${1%/}:$PATH"
     fi
 }
 
 __pathrm() {
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
 }
 
@@ -121,13 +131,13 @@ __source_if_exists(){
 }
 
 __join(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   __check $1 "delimiter"
   local IFS="$1"; shift; echo "$*";
 }
 
 __git_add_commit_folder(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  __check $1 "folder name"
  local folder_name=$1
  local modified_files=`(cd $1 && git ls-files -m)`
@@ -143,7 +153,7 @@ __git_add_commit_folder(){
 }
 
 __ssh_cert(){
- [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+ [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  local username=$1
  local host=$2
  local cert_path=$3
@@ -151,7 +161,7 @@ __ssh_cert(){
 }
 
 __scp_cert(){
- [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+ [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  local username=$1
  local host=$2
  local cert_path=$3
@@ -160,7 +170,7 @@ __scp_cert(){
 }
 
 __print_column(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   local delimiter=$1
   local column=$2
   tr -s "$delimiter" | cut -d "$delimiter" -f $column
@@ -168,7 +178,7 @@ __print_column(){
 
 ### OPENCONNECT VPN ###
 __openconnect_vpn(){
- [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+ [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  local user=$1
  local vpn_url=$2
  local params=$3
@@ -176,7 +186,7 @@ __openconnect_vpn(){
 }
 
 __openconnect_vpn_kill_signal(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   local signal=$1
   local pattern=$2
   local PS=`ps aux | grep "sudo openconnect" | grep $pattern | awk '{print $2}' | head -1`
@@ -197,7 +207,7 @@ source $MAIN_PATH/dirs.sh
 source $MAIN_PATH/help.sh
 
 __source_forward_declarations(){
-  [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $BASH_FWD_PATH
   source $BASH_FWD_PATH
 }
@@ -208,7 +218,7 @@ __source_forward_declarations
 ######################
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
- [[ "$1" == "-h" ]] && __show_help ${FUNCNAME[0]} && return
+ [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  for file in $(find $BASH_MODULES_PATH -type f -name aliases.sh -or -name help.sh); do __source_if_exists "$file"; done
 }
 __source_modules_aliases
