@@ -12,9 +12,11 @@ create_symlink(){
  ln -s $target $shortcut
 }
 
+# symlinks with configuration
 create_symlink $CONFIG/gitconfig ~/.gitconfig
 create_symlink $CONFIG/vim ~/.vim
 create_symlink $CONFIG/vimrc ~/.vimrc
+create_symlink $CONFIG/tilda ~/.config/tilda
 
 ### oh my zsh ###
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
