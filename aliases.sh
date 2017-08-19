@@ -224,3 +224,6 @@ __source_if_exists $SHELL_AUTOSTART_PATH
 __echo_pretty "Sourcing apps:"
 # z -> https://github.com/rupa/z.git
 __source_if_exists $SHELL_APPS_PATH/z/z.sh
+
+# liquidprompt -> https://github.com/nojhan/liquidprompt.git
+[[ $- = *i* ]] && source $SHELL_APPS_PATH/liquidprompt/liquidprompt

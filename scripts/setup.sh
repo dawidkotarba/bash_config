@@ -43,6 +43,9 @@ clean-folder(){
 
 clean-folder $SHELL_APPS_PATH
 
+# liquiprompt
+clone_app https://github.com/nojhan/liquidprompt.git
+
 # z
 clone_app https://github.com/rupa/z.git
 
