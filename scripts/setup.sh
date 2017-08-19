@@ -16,6 +16,9 @@ create_symlink $CONFIG/gitconfig ~/.gitconfig
 create_symlink $CONFIG/vim ~/.vim
 create_symlink $CONFIG/vimrc ~/.vimrc
 
+### oh my zsh ###
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
 ### CLONE APPS ###
 echo "Cloning apps..."
 clone_app(){
