@@ -35,7 +35,7 @@ kk-newcheck(){
   __echo_ok "Check template copied to clipboard"
 }
 
-kk-bashnewmodule(){
+kk-shellnewmodule(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   __check $1 "module_name"
  local module_name=$1
@@ -45,7 +45,7 @@ kk-bashnewmodule(){
  echo "### $module_name ###" > $module_path/aliases.sh
 }
 
-kk-bashedit(){
+kk-shelledit(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  local module_name=$1
  if [[ $module_name ]]
@@ -58,36 +58,36 @@ kk-bashedit(){
   fi
 }
 
-kk-bashedithelp(){
+kk-shelledithelp(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  __check $1 "module_name"
  local module_name=$1
  [[ $module_name ]] && atom $BASH_MODULES_PATH/$module_name/help.sh
 }
 
-kk-bashshow(){
+kk-shellshow(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  local module_name=$1
  [[ $module_name ]] && less $BASH_MODULES_PATH/$module_name/aliases.sh || less $BASH_ALIASES_PATH
 }
 
-kk-bashcommit(){
+kk-shellcommit(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  __git_add_commit_folder $BASH_CONFIG_PATH
 }
 
-kk-bashpush(){
+kk-shellpush(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  git -C $BASH_CONFIG_PATH push
 }
 
-kk-bashcommitpush(){
+kk-shellcommitpush(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
-  kk-bashcommit
-  kk-bashpush
+  kk-shellcommit
+  kk-shellpush
 }
 
-kk-bashrevert(){
+kk-shellrevert(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   git -C $BASH_CONFIG_PATH checkout -f
 }
@@ -127,7 +127,7 @@ kk-killall(){
 k(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   __echo_ok "refreshing..."
-  exec bash
+  exec zsh
 }
 
 ### DOCKER ###
