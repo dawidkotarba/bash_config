@@ -2,7 +2,7 @@
 
 pssh(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
- parallel-ssh -h $BASH_MODULES_PATH/rpi/pssh_hosts -t -1 -l pi -A $@
+ parallel-ssh -h $SHELL_MODULES_PATH/rpi/pssh_hosts -t -1 -l pi -A $@
 }
 
 rpi-cluster-upgrade(){

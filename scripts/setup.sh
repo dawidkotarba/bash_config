@@ -19,7 +19,7 @@ create_symlink $CONFIG/vimrc ~/.vimrc
 ### CLONE APPS ###
 echo "Cloning apps..."
 clone_app(){
- (cd $BASH_APPS_PATH && git clone $1)
+ (cd $SHELL_APPS_PATH && git clone $1)
 }
 
 clean-folder(){
@@ -36,10 +36,10 @@ clean-folder(){
  fi
 }
 
-clean-folder $BASH_APPS_PATH
+clean-folder $SHELL_APPS_PATH
 
 # z
 clone_app https://github.com/rupa/z.git
 
 ### Update.zshrc ###
-echo "source ~/bash_config/aliases.sh" >> ~/.zshrc
+echo "source ~/shell_config/aliases.sh" >> ~/.zshrc

@@ -193,14 +193,14 @@ __openconnect_vpn_kill_signal(){
 ## INITIAL SOURCING ##
 ######################
 # source paths to main directories and help
-MAIN_PATH=~/bash_config
+MAIN_PATH=~/shell_config
 source $MAIN_PATH/dirs.sh
 source $MAIN_PATH/help.sh
 
 __source_forward_declarations(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
-  grep -rh "() *{" $BASH_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $BASH_FWD_PATH
-  source $BASH_FWD_PATH
+  grep -rh "() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_PATH
+  source $SHELL_FWD_PATH
 }
 __source_forward_declarations
 
@@ -210,17 +210,17 @@ __source_forward_declarations
 __echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
- for file in $(find $BASH_MODULES_PATH -type f -name help.sh); do __source_if_exists "$file"; done
- for file in $(find $BASH_MODULES_PATH -type f -name aliases.sh); do __source_if_exists "$file"; done
+ for file in $(find $SHELL_MODULES_PATH -type f -name help.sh); do __source_if_exists "$file"; done
+ for file in $(find $SHELL_MODULES_PATH -type f -name aliases.sh); do __source_if_exists "$file"; done
 }
 __source_modules_aliases
 
 ### PATH AND AUTOSTART ###
 __echo_pretty "Sourcing path and autostart:"
-__source_if_exists $BASH_PATH_FILE
-__source_if_exists $BASH_AUTOSTART_PATH
+__source_if_exists $SHELL_PATH_FILE
+__source_if_exists $SHELL_AUTOSTART_PATH
 
 ### APPS ###
 __echo_pretty "Sourcing apps:"
 # z -> https://github.com/rupa/z.git
-__source_if_exists $BASH_APPS_PATH/z/z.sh
+__source_if_exists $SHELL_APPS_PATH/z/z.sh

@@ -1,3 +1,3 @@
-# bash_config
+# shell_config
 
-Some settings and aliases making my life easier :)
+Some aliases for zsh shell making my life easier :)

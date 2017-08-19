@@ -211,7 +211,7 @@ yy-createproject(){
   __check $1 "hybris project folder suffix"
   local hybris_folder_suffix=$1
   yy-setsuffix $hybris_folder_suffix
-  echo yy-setsuffix $hybris_folder_suffix >> $BASH_AUTOSTART_PATH
+  echo yy-setsuffix $hybris_folder_suffix >> $SHELL_AUTOSTART_PATH
   mkdir $REPOSITORY_PATH/hybris_$hybris_folder_suffix
 }
 
