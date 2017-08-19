@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 source ../dirs.sh
 CONFIG=$CONFIG_PATH
@@ -41,12 +41,5 @@ clean-folder $BASH_APPS_PATH
 # z
 clone_app https://github.com/rupa/z.git
 
-### Update .bashrc / .zshrc ###
-echo "source ~/bash_config/aliases.sh" >> ~/.bashrc
+### Update.zshrc ###
 echo "source ~/bash_config/aliases.sh" >> ~/.zshrc
-
-### Bash settings ###
-# shopt
-echo "Applying bash settings..."
-shopt -s cdspell
-shopt -s nocaseglob
