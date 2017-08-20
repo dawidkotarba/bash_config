@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source ../dirs.sh
+source ../constants.sh
 CONFIG=$CONFIG_PATH
 
 ### CREATE SYMLINKS ###

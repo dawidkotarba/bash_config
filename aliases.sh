@@ -1,4 +1,6 @@
-### SETTINGS ###
+######################
+#Settings and aliases#
+######################
 
 # Default settings
 HISTSIZE=99999
@@ -25,9 +27,16 @@ alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 
 ######################
+## INITIAL SOURCING ##
+######################
+# source paths to main directories and help
+MAIN_PATH=~/shell_config
+source $MAIN_PATH/constants.sh
+source $MAIN_PATH/help.sh
+
+######################
 ##  MAIN FUNCTIONS  ##
 ######################
-
 ### Echos ###
 __echo_pretty(){
  [[ "$1" == "-h" ]] && __echo_info "decorated echo" && return
@@ -190,29 +199,22 @@ __openconnect_vpn_kill_signal(){
 }
 
 ######################
-## INITIAL SOURCING ##
+## MODULES SOURCING ##
 ######################
-# source paths to main directories and help
-MAIN_PATH=~/shell_config
-source $MAIN_PATH/dirs.sh
-source $MAIN_PATH/help.sh
-
 __source_forward_declarations(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   grep -rh "() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_PATH
   source $SHELL_FWD_PATH
 }
+__echo_pretty "Sourcing forward declarations:"
 __source_forward_declarations
 
-######################
-## MODULES SOURCING ##
-######################
-__echo_pretty "Sourcing modules:"
 __source_modules_aliases(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  for file in $(find $SHELL_MODULES_PATH -type f -name help.sh); do __source_if_exists "$file"; done
  for file in $(find $SHELL_MODULES_PATH -type f -name aliases.sh); do __source_if_exists "$file"; done
 }
+__echo_pretty "Sourcing modules:"
 __source_modules_aliases
 
 ### PATH AND AUTOSTART ###
