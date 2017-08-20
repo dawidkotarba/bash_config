@@ -5,15 +5,15 @@ pssh(){
  parallel-ssh -h $SHELL_MODULES_PATH/rpi/pssh_hosts -t -1 -l pi -A $@
 }
 
-rpi-cluster-upgrade(){
+rpi-clusterupgrade(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  pssh sudo apt update && apt upgrade
 }
 
-rpi-cluster-install(){
+rpi-clusterinstall(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
   __check $1 "application name[s]"
-  ppsh sudo apt install $@ -y
+  pssh sudo apt install $@ -y
 }
 
 rpi-wifiscan(){
