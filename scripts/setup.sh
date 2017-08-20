@@ -1,10 +1,10 @@
 #!/bin/zsh
 
-source ../constants.sh
+source ../aliases.sh
 CONFIG=$CONFIG_PATH
 
 ### CREATE SYMLINKS ###
-echo "Creating symlinks..."
+__echo_info "Creating symlinks..."
 create_symlink(){
  local target=$1
  local shortcut=$2
@@ -19,7 +19,7 @@ create_symlink $CONFIG/vimrc ~/.vimrc
 create_symlink $CONFIG/tilda ~/.config/tilda
 
 ### CLONE APPS ###
-echo "Cloning apps..."
+__echo_info "Cloning apps..."
 clone_app(){
  (cd $SHELL_APPS_PATH && git clone $1)
 }
@@ -29,11 +29,11 @@ clean-folder(){
 
  if [[ ! -d "$destination" ]]
   then
-   echo "Folder $destination is not present. Creating a folder..."
+   __echo_info "Folder $destination is not present. Creating a folder..."
    mkdir $destination
-   echo "Folder created."
+   __echo_info "Folder created."
   else
-   echo "Folder exists. Purging."
+   __echo_info "Folder exists. Purging."
    rm -rf $destination/*
  fi
 }
