@@ -23,7 +23,7 @@ _on_hybris_process(){
  echo $result | awk {'print $2'} | xargs $@
 }
 
-checkarg_hybris_suffix(){
+check_hybris_suffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   [[ ! $HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
 }
@@ -95,25 +95,25 @@ yy-ps(){
 
 yy-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME
 }
 
 yy-navigatecustom(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME/bin/custom
 }
 
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME/config
 }
 
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
 }
 
@@ -196,13 +196,13 @@ yy-jcmd(){
 
 yy-configlocalproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  atom $HYBRIS_LOCAL_PROPERTIES
 }
 
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  atom $HYBRIS_HOME/config/localextensions.xml
 }
 
@@ -285,14 +285,14 @@ yy-antjunit(){
 
 yy-antextgen(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
  ant extgen
 }
 
 yy-antmodulegen(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cd $HYBRIS_HOME/bin/platform
  ant modulegen
 }
@@ -321,7 +321,7 @@ yy-antserver(){
 
 yy-copydbdriver(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg_hybris_suffix
+ check_hybris_suffix
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
@@ -332,19 +332,19 @@ _yy-get_mysql_container_name(){
 
 yy-dockermysqlstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg_hybris_suffix
+  check_hybris_suffix
   kk-dockerstart $(_yy-get_mysql_container_name)
 }
 
 yy-dockermysqlip(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg_hybris_suffix
+  check_hybris_suffix
   kk-dockerip $(_yy-get_mysql_container_name)
 }
 
 yy-dockermysqlcreate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg_hybris_suffix
+  check_hybris_suffix
   local mysql_version=""
   [[ $1 ]] && mysql_version=:$1
   sudo docker run --name $(_yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0

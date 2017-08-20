@@ -1,7 +1,7 @@
 _help__on_hybris_platform='Runs a command on hybris platform and directs output to file, and follows it'
 _help__on_hybris_platform_nolog='Runs a command on hybris platform but does not save output to file'
 _help__on_hybris_process='Gets the hybris process by grepping the ps aux'
-_help_checkarg_hybris_suffix='Checks the hybris suffix which is used to resolve the hybris path: i.e. hybris_sfx where sfx is a suffix'
+_help_check_hybris_suffix='Checks the hybris suffix which is used to resolve the hybris path: i.e. hybris_sfx where sfx is a suffix'
 _help__get_hybris_process='Gets the hybris process'
 _help__hybris_start='Main command to start hybris'
 _help_checkarg_hybris_mysql_running='Checks whether the dockerized mysql for hybris is running'
