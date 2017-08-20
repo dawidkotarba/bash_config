@@ -126,7 +126,9 @@ kk-killall(){
 
 k(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
-  __echo_ok "refreshing..."
+  __echo_info "Rebasing latest shell config..."
+  (cd $SHELL_CONFIG_PATH && git stash && git pull --rebase && git stash apply)
+  __echo_info "refreshing..."
   exec zsh
 }
 
