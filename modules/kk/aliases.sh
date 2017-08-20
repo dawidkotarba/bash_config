@@ -34,7 +34,7 @@ kk-shelledit(){
      atom $SHELL_MODULES_PATH/$module_name/aliases.sh
      atom $SHELL_MODULES_PATH/$module_name/help.sh
    else
-     atom $SHELL_ALIASES_PATH
+     atom $SHELL_MAIN_PATH
      atom $SHELL_CONFIG_PATH/help.sh
   fi
 }
@@ -49,7 +49,7 @@ kk-shelledithelp(){
 kk-shellshow(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_ALIASES_PATH
+ [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_MAIN_PATH
 }
 
 kk-shellcommit(){
