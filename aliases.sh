@@ -76,7 +76,7 @@ __echo_err(){
 ### Helps and checks ###
 __show_help(){
   __check $1 "Funciton name that is translated to related variable name"
-  local help_variable_name=`echo $1 | tr - _`
+  local help_variable_name=`echo "$HELP_SUFFIX$1" | tr - _`
   # local help_message=${!help_variable_name} # bash
   local help_message=${(P)help_variable_name}
   [[ ! -z $help_message ]] && __echo_info $help_message || __echo_err "Help message unavailable"
@@ -84,7 +84,7 @@ __show_help(){
 
 __generate_help(){
   [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
-  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I [] echo -e "[]=''" | tr - _ >> help.sh
+  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _ >> help.sh
 }
 
 __check(){
