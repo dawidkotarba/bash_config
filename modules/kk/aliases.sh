@@ -14,65 +14,6 @@ kk-server(){
  python3 -m http.server $port
 }
 
-### Aliases edition ###
-
-kk-shellnewmodule(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg $1 "module_name"
- local module_name=$1
- local module_path=$SHELL_MODULES_PATH/$module_name
- [[ ! -d $module_name ]] && mkdir $SHELL_MODULES_PATH/$module_name
- echo "### help ###" >  $module_path/help.sh
- echo "### $module_name ###" > $module_path/aliases.sh
-}
-
-kk-shelledit(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local module_name=$1
- if [[ $module_name ]]
-   then
-     atom $SHELL_MODULES_PATH/$module_name/aliases.sh
-     atom $SHELL_MODULES_PATH/$module_name/help.sh
-   else
-     atom $SHELL_MAIN_PATH
-     atom $SHELL_CONFIG_PATH/help.sh
-  fi
-}
-
-kk-shelledithelp(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "module_name"
- local module_name=$1
- [[ $module_name ]] && atom $SHELL_MODULES_PATH/$module_name/help.sh
-}
-
-kk-shellshow(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local module_name=$1
- [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_MAIN_PATH
-}
-
-kk-shellcommit(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _git_add_commit_folder $SHELL_CONFIG_PATH
-}
-
-kk-shellpush(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- git -C $SHELL_CONFIG_PATH push
-}
-
-kk-shellcommitpush(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  kk-shellcommit
-  kk-shellpush
-}
-
-kk-shellrevert(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  git -C $SHELL_CONFIG_PATH checkout -f
-}
-
 _pull-cloned-apps(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local apps=$(ls $SHELL_APPS_PATH)
@@ -105,14 +46,6 @@ kk-killall(){
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
 
-k(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  echo_info "Rebasing latest shell config..."
-  (cd $SHELL_CONFIG_PATH && git stash && git pull --rebase && git stash apply)
-  echo_info "refreshing..."
-  exec zsh
-}
-
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
@@ -131,11 +64,6 @@ kk-dockerip(){
 }
 
 ### NAVIGATE ###
-kk-navigate(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  cd $SHELL_CONFIG_PATH
-}
-
 kk-navigaterepo(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   cd $REPOSITORY_PATH
