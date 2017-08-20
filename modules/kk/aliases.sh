@@ -46,6 +46,13 @@ kk-killall(){
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
 
+kk-replaceinpath(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "old text"
+  checkarg $2 "new text"
+  find . -type f | xargs sed -i "s/$1/$2/g"
+}
+
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
