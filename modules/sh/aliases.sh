@@ -88,3 +88,8 @@ sh-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   cd $SHELL_CONFIG_PATH
 }
+
+sh-generatehelp(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  grep -rh "\w() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _ >> help.sh
+}

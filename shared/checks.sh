@@ -14,11 +14,6 @@ show_help(){
   [[ ! -z $help_message ]] && echo_info $help_message || echo_err "Help message unavailable"
 }
 
-generate_help(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  grep -rh "() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _ >> help.sh
-}
-
 checkarg(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   [[ "$#" -eq 1 ]] && echo_err "$1 is not set!"

@@ -135,7 +135,7 @@ _openconnect_vpn_kill_signal(){
 ######################
 _source_forward_declarations(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  grep -rh "() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_PATH
+  grep -rh "\w() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_PATH
   source $SHELL_FWD_PATH
 }
 echo_pretty "Sourcing forward declarations:"
