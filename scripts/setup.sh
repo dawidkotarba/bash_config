@@ -18,9 +18,6 @@ create_symlink $CONFIG/vim ~/.vim
 create_symlink $CONFIG/vimrc ~/.vimrc
 create_symlink $CONFIG/tilda ~/.config/tilda
 
-### oh my zsh ###
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-
 ### CLONE APPS ###
 echo "Cloning apps..."
 clone_app(){
@@ -49,5 +46,6 @@ clone_app https://github.com/nojhan/liquidprompt.git
 # z
 clone_app https://github.com/rupa/z.git
 
-### Update.zshrc ###
+### zsh and oh-my-zsh ###
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 echo "source ~/shell_config/aliases.sh" >> ~/.zshrc
