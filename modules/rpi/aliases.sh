@@ -10,6 +10,12 @@ rpi-cluster-upgrade(){
  pssh sudo apt update && apt upgrade
 }
 
+rpi-cluster-install(){
+  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
+  __check $1 "application name[s]"
+  ppsh sudo apt install $@ -y
+}
+
 rpi-wifiscan(){
  [[ "$1" == "-h" ]] && __show_help $funcstack[1] && return
  sudo iwlist wlan0 scan
