@@ -1,6 +1,7 @@
 # HYBRIS
 ### consts ###
 HYBRIS_LOG=y.log
+HYBRIS_LOG_ANT=yant.log
 
 ### generic ###
 _on_hybris_platform(){
@@ -9,6 +10,14 @@ _on_hybris_platform(){
  (cd $HYBRIS_HOME/bin/platform && $@ >> $HYBRIS_LOG_PATH &)
  sleep 1
  yy-log $@
+}
+
+_ant_on_hybris_platform(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ rm -f $HYBRIS_LOG_ANT_PATH
+ (cd $HYBRIS_HOME/bin/platform && ant $@ >> $HYBRIS_LOG_ANT_PATH &)
+ sleep 1
+ yy-antlog $@
 }
 
 _on_hybris_platform_nolog(){
@@ -84,6 +93,7 @@ yy-setsuffix(){
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
  export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
+ export HYBRIS_LOG_ANT_PATH=$HYBRIS_HOME/$HYBRIS_LOG_ANT
  export HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
 }
 
@@ -120,6 +130,11 @@ yy-navigateplatform(){
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
+}
+
+yy-antlog(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_ANT_PATH
 }
 
 yy-logclean(){
@@ -238,14 +253,15 @@ yy-grunt(){
   (cd $ext_path && grunt)
 }
 
-yy-antshow(){
+### ant tasks ###
+yy-antshowtasks(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _on_hybris_platform ant -p
+  _ant_on_hybris_platform -p
 }
 
 yy-antall(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _on_hybris_platform ant all $@
+  _ant_on_hybris_platform all $@
 }
 
 yy-antallstart(){
@@ -255,12 +271,12 @@ yy-antallstart(){
 
 yy-antclean(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant clean
+ _ant_on_hybris_platform clean
 }
 
 yy-antcleanall(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant clean all $@
+ _ant_on_hybris_platform clean all $@
 }
 
 yy-antcleanallstart(){
@@ -270,17 +286,17 @@ yy-antcleanallstart(){
 
 yy-antbuild(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant build $@
+ _ant_on_hybris_platform build $@
 }
 
 yy-antupdatesystem(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant updatesystem $@
+ _ant_on_hybris_platform updatesystem $@
 }
 
 yy-antjunit(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant yunitinit
+ _ant_on_hybris_platform yunitinit
 }
 
 yy-antextgen(){
@@ -300,7 +316,7 @@ yy-antmodulegen(){
 yy-antinitialize(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _start-mysql-if-no-is_hsqldb
-  _on_hybris_platform ant initialize $@
+  _ant_on_hybris_platform initialize $@
 }
 
 yy-antinitializestart(){
@@ -311,12 +327,16 @@ yy-antinitializestart(){
 
 yy-anttest(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _on_hybris_platform ant clean all yunitinit alltests
+  _ant_on_hybris_platform clean all yunitinit alltests
 }
 
 yy-antserver(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _on_hybris_platform ant server
+ _ant_on_hybris_platform server
+}
+
+yy-antkill(){
+  ps aux | grep ant | grep -v supplicant | _print_column " " 2 | xargs kill
 }
 
 yy-copydbdriver(){
