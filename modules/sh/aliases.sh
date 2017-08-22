@@ -1,7 +1,7 @@
 # shell config edition
 sh-newfunction(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  sh-clipboard $SHELL_NEW_FUNCTION_FILE
+  kk-clipboard $SHELL_NEW_FUNCTION_FILE
   echo_ok "Function template copied to clipboard"
 }
 
@@ -21,12 +21,17 @@ sh-newcheck(){
 
 sh-newmodule(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg $1 "module_name"
+ checkarg $1 "module_name"
  local module_name=$1
  local module_path=$SHELL_MODULES_PATH/$module_name
  [[ ! -d $module_name ]] && mkdir $SHELL_MODULES_PATH/$module_name
  echo "### help ###" >  $module_path/help.sh
  echo "### $module_name ###" > $module_path/aliases.sh
+}
+
+sh-source(){
+  echo_info "Refreshing..."
+  source $SHELL_MAIN_PATH
 }
 
 sh-edit(){
