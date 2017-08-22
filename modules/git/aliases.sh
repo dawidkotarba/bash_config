@@ -1,4 +1,20 @@
 ### git ###
+_git_add_commit_folder(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ checkarg $1 "folder name"
+ local folder_name=$1
+ local modified_files=`(cd $1 && git ls-files -m)`
+ if [[ $modified_files ]]
+  then
+    local joined_modified_files=`_join "," $modified_files`
+    local git_message="Update: $joined_modified_files"
+    git -C $folder_name commit -a -m "$git_message"
+    echo_info "$git_message"
+  else
+    echo_warn "Nothing to commit."
+ fi
+}
+
 _gitmakediff(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local diff_file_path=~/diff
