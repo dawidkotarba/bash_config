@@ -1,7 +1,6 @@
 # HYBRIS
 ### consts ###
 HYBRIS_LOG=y.log
-HYBRIS_LOG_ANT=yant.log
 
 ### generic ###
 _on_hybris_platform(){
@@ -14,10 +13,7 @@ _on_hybris_platform(){
 
 _ant_on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- rm -f $HYBRIS_LOG_ANT_PATH
- (cd $HYBRIS_HOME/bin/platform && ant $@ >> $HYBRIS_LOG_ANT_PATH &)
- sleep 1
- yy-antlog $@
+ (cd $HYBRIS_HOME/bin/platform && ant $@)
 }
 
 _on_hybris_platform_nolog(){
@@ -93,7 +89,6 @@ yy-setsuffix(){
  export HYBRIS_FOLDER_SUFFIX=$1
  export HYBRIS_HOME=$REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
  export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
- export HYBRIS_LOG_ANT_PATH=$HYBRIS_HOME/$HYBRIS_LOG_ANT
  export HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
 }
 
@@ -130,11 +125,6 @@ yy-navigateplatform(){
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
-}
-
-yy-antlog(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_ANT_PATH
 }
 
 yy-logclean(){
