@@ -1,6 +1,6 @@
 # HYBRIS
 ### consts ###
-HYBRIS_LOG=y.log
+HYBRIS_LOG=log/y.log
 
 ### generic ###
 _on_hybris_platform(){
