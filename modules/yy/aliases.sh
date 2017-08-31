@@ -1,24 +1,24 @@
 # HYBRIS
 ### consts ###
-HYBRIS_LOG=log/y.log
+__HYBRIS_LOG=log/y.log
 
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- rm -f $HYBRIS_LOG_PATH
- (cd $HYBRIS_HOME/bin/platform && $@ >> $HYBRIS_LOG_PATH &)
+ rm -f $__HYBRIS_LOG_PATH
+ (cd $__HYBRIS_HOME/bin/platform && $@ >> $__HYBRIS_LOG_PATH &)
  sleep 1
  yy-log $@
 }
 
 _ant_on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- (cd $HYBRIS_HOME/bin/platform && ant $@)
+ (cd $__HYBRIS_HOME/bin/platform && ant $@)
 }
 
 _on_hybris_platform_nolog(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- (cd $HYBRIS_HOME/bin/platform && $@)
+ (cd $__HYBRIS_HOME/bin/platform && $@)
 }
 
 _on_hybris_process(){
@@ -30,7 +30,7 @@ _on_hybris_process(){
 
 check_hybris_suffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ ! $HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
+  [[ ! $__HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
 }
 
 _get_hybris_process(){
@@ -76,7 +76,7 @@ _start-mysql-if-no-is_hsqldb(){
 
 _show_popup_if_hybris_has_started(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local started=`tail $HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
+  local started=`tail $__HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
   [[ $started ]] && _show_popup "$started"
 }
 
@@ -86,10 +86,10 @@ alias yy-start="_hybris-start"
 yy-setsuffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "hybris suffix"
- export HYBRIS_FOLDER_SUFFIX=$1
- export HYBRIS_HOME=$__REPOSITORY_PATH/hybris_$HYBRIS_FOLDER_SUFFIX/hybris
- export HYBRIS_LOG_PATH=$HYBRIS_HOME/$HYBRIS_LOG
- export HYBRIS_LOCAL_PROPERTIES=$HYBRIS_HOME/config/local.properties
+ export __HYBRIS_FOLDER_SUFFIX=$1
+ export __HYBRIS_HOME=$__REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX/hybris
+ export __HYBRIS_LOG_PATH=$__HYBRIS_HOME/$__HYBRIS_LOG
+ export HYBRIS_LOCAL_PROPERTIES=$__HYBRIS_HOME/config/local.properties
 }
 
 yy-ps(){
@@ -101,58 +101,58 @@ yy-ps(){
 yy-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME
+ cd $__HYBRIS_HOME
 }
 
 yy-navigatecustom(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME/bin/custom
+ cd $__HYBRIS_HOME/bin/custom
 }
 
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME/config
+ cd $__HYBRIS_HOME/config
 }
 
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
+ cd $__HYBRIS_HOME/bin/platform
 }
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- [[ $@ != *'-nolog'* ]] && tail -f $HYBRIS_LOG_PATH
+ [[ $@ != *'-nolog'* ]] && tail -f $__HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  > $HYBRIS_LOG_PATH
+  > $__HYBRIS_LOG_PATH
 }
 
 yy-grep(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   for var in "$@"
  do
-  grep $var $HYBRIS_LOG_PATH
+  grep $var $__HYBRIS_LOG_PATH
  done
 }
 
 yy-logerrorgrep(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- grep -E 'ERROR|WARN' $HYBRIS_LOG_PATH
+ grep -E 'ERROR|WARN' $__HYBRIS_LOG_PATH
 }
 
 yy-logerrortail(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  tail -f $HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
+  tail -f $__HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
 }
 
 yy-logshow(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- less $HYBRIS_LOG_PATH
+ less $__HYBRIS_LOG_PATH
 }
 
 yy-logtomcat(){
@@ -167,7 +167,7 @@ yy-setantenv(){
 
 _yy-processes-to-kill(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- ps aux | grep hybris | grep -v $HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
+ ps aux | grep hybris | grep -v $__HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
 }
 
 _yy-stop(){
@@ -208,16 +208,16 @@ yy-configlocalproperties(){
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- atom $HYBRIS_HOME/config/localextensions.xml
+ atom $__HYBRIS_HOME/config/localextensions.xml
 }
 
 yy-createproject(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "hybris project folder suffix"
-  local hybris_folder_suffix=$1
-  yy-setsuffix $hybris_folder_suffix
-  echo yy-setsuffix $hybris_folder_suffix >> $__SHELL_AUTOSTART_FILEPATH
-  mkdir $__REPOSITORY_PATH/hybris_$hybris_folder_suffix
+  local __HYBRIS_FOLDER_SUFFIX=$1
+  yy-setsuffix $__HYBRIS_FOLDER_SUFFIX
+  echo yy-setsuffix $__HYBRIS_FOLDER_SUFFIX >> $__SHELL_AUTOSTART_FILEPATH
+  mkdir $__REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX
 }
 
 ### HYBRIS ANT ###
@@ -292,14 +292,14 @@ yy-antjunit(){
 yy-antextgen(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
+ cd $__HYBRIS_HOME/bin/platform
  ant extgen
 }
 
 yy-antmodulegen(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cd $HYBRIS_HOME/bin/platform
+ cd $__HYBRIS_HOME/bin/platform
  ant modulegen
 }
 
@@ -332,12 +332,12 @@ yy-antkill(){
 yy-copydbdriver(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  check_hybris_suffix
- cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $HYBRIS_HOME/bin/platform/lib/dbdriver
+ cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $__HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
 _yy-get_mysql_container_name(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  echo mysql_$HYBRIS_FOLDER_SUFFIX
+  echo mysql_$__HYBRIS_FOLDER_SUFFIX
 }
 
 yy-dockermysqlstart(){
