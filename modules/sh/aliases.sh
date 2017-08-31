@@ -60,6 +60,11 @@ sh-show(){
  [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_MAIN_PATH
 }
 
+sh-diff(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  (cd $SHELL_CONFIG_PATH && git diff)
+}
+
 sh-commit(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _git_add_commit_folder $SHELL_CONFIG_PATH
