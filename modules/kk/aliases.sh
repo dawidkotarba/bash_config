@@ -53,6 +53,10 @@ kk-replaceinpath(){
   find . -type f | xargs sed -i "s/$1/$2/g"
 }
 
+kk-ip(){
+  ifconfig | grep 'inet addr'
+}
+
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
