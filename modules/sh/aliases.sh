@@ -1,7 +1,7 @@
 # shell config edition
 sh-newfunction(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  kk-clipboard $SHELL_NEW_FUNCTION_FILE
+  kk-clipboard $SHELL_NEW_FUNCTION_FILEPATH
   echo_ok "Function template copied to clipboard"
 }
 
@@ -31,7 +31,7 @@ sh-newmodule(){
 
 sh-source(){
   echo_info "Refreshing..."
-  source $SHELL_MAIN_PATH
+  source $SHELL_MAIN_FILEPATH
 }
 
 sh-edit(){
@@ -42,7 +42,7 @@ sh-edit(){
      atom $SHELL_MODULES_PATH/$module_name/aliases.sh
      atom $SHELL_MODULES_PATH/$module_name/help.sh
    else
-     atom $SHELL_MAIN_PATH
+     atom $SHELL_MAIN_FILEPATH
      atom $SHELL_CONFIG_PATH/help.sh
   fi
 }
@@ -57,7 +57,7 @@ sh-edithelp(){
 sh-show(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_MAIN_PATH
+ [[ $module_name ]] && less $SHELL_MODULES_PATH/$module_name/aliases.sh || less $SHELL_MAIN_FILEPATH
 }
 
 sh-diff(){

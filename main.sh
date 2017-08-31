@@ -119,8 +119,8 @@ _openconnect_vpn_kill_signal(){
 ######################
 _source_forward_declarations(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  grep -rh "\w() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_PATH
-  source $SHELL_FWD_PATH
+  grep -rh "\w() *{" $SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $SHELL_FWD_FILEPATH
+  source $SHELL_FWD_FILEPATH
 }
 echo_pretty "Sourcing forward declarations:"
 _source_forward_declarations
@@ -135,8 +135,8 @@ _source_modules_aliases
 
 ### PATH AND AUTOSTART ###
 echo_pretty "Sourcing path and autostart:"
-_source_if_exists $SHELL_PATH_FILE
-_source_if_exists $SHELL_AUTOSTART_PATH
+_source_if_exists $SHELL_PATH_FILEPATH
+_source_if_exists $SHELL_AUTOSTART_FILEPATH
 
 ### APPS ###
 echo_pretty "Sourcing apps:"
