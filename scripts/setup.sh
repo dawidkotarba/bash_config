@@ -2,7 +2,7 @@
 
 source ../constants.sh
 source ../shared/echo.sh
-CONFIG=$CONFIG_PATH
+CONFIG=$__CONFIG_PATH
 
 ### CREATE SYMLINKS ###
 echo_info "Creating symlinks..."
@@ -22,7 +22,7 @@ create_symlink $CONFIG/tilda ~/.config/tilda
 ### CLONE APPS ###
 echo_info "Cloning apps..."
 clone_app(){
- (cd $SHELL_APPS_PATH && git clone $1)
+ (cd $__SHELL_APPS_PATH && git clone $1)
 }
 
 clean-folder(){
@@ -39,7 +39,7 @@ clean-folder(){
  fi
 }
 
-clean-folder $SHELL_APPS_PATH
+clean-folder $__SHELL_APPS_PATH
 
 # liquiprompt
 clone_app https://github.com/nojhan/liquidprompt.git
