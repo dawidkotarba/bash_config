@@ -87,7 +87,7 @@ yy-setsuffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "hybris suffix"
  export __HYBRIS_FOLDER_SUFFIX=$1
- export __HYBRIS_HOME=$__REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX/hybris
+ export __HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX/hybris
  export __HYBRIS_LOG_PATH=$__HYBRIS_HOME/$__HYBRIS_LOG
  export HYBRIS_LOCAL_PROPERTIES=$__HYBRIS_HOME/config/local.properties
 }
@@ -216,8 +216,8 @@ yy-createproject(){
   checkarg $1 "hybris project folder suffix"
   local __HYBRIS_FOLDER_SUFFIX=$1
   yy-setsuffix $__HYBRIS_FOLDER_SUFFIX
-  echo yy-setsuffix $__HYBRIS_FOLDER_SUFFIX >> $__SHELL_AUTOSTART_FILEPATH
-  mkdir $__REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX
+  echo yy-setsuffix $__HYBRIS_FOLDER_SUFFIX >> $_SHELL_AUTOSTART_FILEPATH
+  mkdir $_REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX
 }
 
 ### HYBRIS ANT ###

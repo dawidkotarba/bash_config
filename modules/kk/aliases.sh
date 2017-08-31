@@ -16,10 +16,10 @@ kk-server(){
 
 _pull-cloned-apps(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local apps=$(ls $__SHELL_APPS_PATH)
+ local apps=$(ls $_SHELL_APPS_PATH)
  for app in $apps
   do
-  local app_path="$__SHELL_APPS_PATH/$app"
+  local app_path="$_SHELL_APPS_PATH/$app"
    git -C $app_path reset HEAD --hard
    git -C $app_path pull
   done
@@ -28,7 +28,7 @@ _pull-cloned-apps(){
 kk-upgrade(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  apt update && apt upgrade -y
- git -C $__SHELL_CONFIG_PATH pull
+ git -C $_SHELL_CONFIG_PATH pull
  _pull-cloned-apps
 }
 
@@ -77,11 +77,11 @@ kk-dockerip(){
 ### NAVIGATE ###
 kk-navigaterepo(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  cd $__REPOSITORY_PATH
+  cd $_REPOSITORY_PATH
 }
 
 ### SCALA ###
 kk-createscala(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- cp $__SHELL_SCRIPTS_PATH/scala_script.sh .
+ cp $_SHELL_SCRIPTS_PATH/scala_script.sh .
 }

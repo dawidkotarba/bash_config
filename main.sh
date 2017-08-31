@@ -26,8 +26,8 @@ alias ping='ping -c 5'
 MAIN_PATH=~/shell_config
 source $MAIN_PATH/constants.sh
 source $MAIN_PATH/help.sh
-source $__SHELL_SHARED_PATH/echo.sh
-source $__SHELL_SHARED_PATH/checks.sh
+source $_SHELL_SHARED_PATH/echo.sh
+source $_SHELL_SHARED_PATH/checks.sh
 
 ######################
 ##  MAIN FUNCTIONS  ##
@@ -119,29 +119,29 @@ _openconnect_vpn_kill_signal(){
 ######################
 _source_forward_declarations(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  grep -rh "\w() *{" $__SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $__SHELL_FWD_FILEPATH
-  source $__SHELL_FWD_FILEPATH
+  grep -rh "\w() *{" $_SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $_SHELL_FWD_FILEPATH
+  source $_SHELL_FWD_FILEPATH
 }
 echo_pretty "Sourcing forward declarations:"
 _source_forward_declarations
 
 _source_modules_aliases(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- for file in $(find $__SHELL_MODULES_PATH -type f -name help.sh); do _source_if_exists "$file"; done
- for file in $(find $__SHELL_MODULES_PATH -type f -name aliases.sh); do _source_if_exists "$file"; done
+ for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh); do _source_if_exists "$file"; done
+ for file in $(find $_SHELL_MODULES_PATH -type f -name aliases.sh); do _source_if_exists "$file"; done
 }
 echo_pretty "Sourcing modules:"
 _source_modules_aliases
 
 ### PATH AND AUTOSTART ###
 echo_pretty "Sourcing path and autostart:"
-_source_if_exists $__SHELL_PATH_FILEPATH
-_source_if_exists $__SHELL_AUTOSTART_FILEPATH
+_source_if_exists $_SHELL_PATH_FILEPATH
+_source_if_exists $_SHELL_AUTOSTART_FILEPATH
 
 ### APPS ###
 echo_pretty "Sourcing apps:"
 # z -> https://github.com/rupa/z.git
-_source_if_exists $__SHELL_APPS_PATH/z/z.sh
+_source_if_exists $_SHELL_APPS_PATH/z/z.sh
 
 # liquidprompt -> https://github.com/nojhan/liquidprompt.git
-[[ $- = *i* ]] && source $__SHELL_APPS_PATH/liquidprompt/liquidprompt
+[[ $- = *i* ]] && source $_SHELL_APPS_PATH/liquidprompt/liquidprompt
