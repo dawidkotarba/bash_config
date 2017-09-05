@@ -95,7 +95,12 @@ yy-setsuffix(){
 yy-ps(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local hybris_process=`_get_hybris_process`
- [[ ! $hybris_process ]] && echo_err "HYBRIS IS NOT RUNNING" || echo_ok "HYBRIS IS RUNNING: $hybris_process"
+ if [[ ! $hybris_process ]]
+  then echo_warn "Hybris is not running"
+ else
+  local run_time=`ps -o etime= -p $hybris_process | xargs echo -n`
+  echo_ok "Hybris is running: pid: $hybris_process, time: $run_time"
+ fi
 }
 
 yy-navigate(){
