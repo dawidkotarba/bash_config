@@ -129,7 +129,7 @@ yy-navigateplatform(){
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- [[ $@ != *'-nolog'* ]] && tail -f $__HYBRIS_LOG_PATH | xargs -IL date +"%H:%M:%S L"
+ [[ $@ != *'-nolog'* ]] && tail -f $__HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
