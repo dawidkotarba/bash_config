@@ -80,6 +80,21 @@ _show_popup_if_hybris_has_started(){
   [[ $started ]] && _show_popup "$started"
 }
 
+_get_mysql_container_name(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  echo mysql_$__HYBRIS_FOLDER_SUFFIX
+}
+
+_kill_hybris_processes(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ ps aux | grep hybris | grep -v $__HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
+}
+
+_stop_hybris_server(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _on_hybris_platform sh hybrisserver.sh stop
+}
+
 ### yy namespace ###
 alias yy-start="_hybris-start"
 
@@ -170,16 +185,6 @@ yy-setantenv(){
  (yy-navigateplatform && . ./setantenv.sh)
 }
 
-_yy-processes-to-kill(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- ps aux | grep hybris | grep -v $__HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
-}
-
-_yy-stop(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _on_hybris_platform sh hybrisserver.sh stop
-}
-
 yy-stop(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  echo_info "Before kill:"
@@ -187,11 +192,11 @@ yy-stop(){
  local kill_executions=5
  for i in {1..$kill_executions}
  do
- _yy-processes-to-kill
+ _kill_hybris_processes
  done
  echo_info "After kill ($kill_executions times):"
  yy-ps
- _yy-stop
+ _stop_hybris_server
 }
 
 yy-visualvm(){
@@ -340,21 +345,16 @@ yy-copydbdriver(){
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $__HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
-_yy-get_mysql_container_name(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  echo mysql_$__HYBRIS_FOLDER_SUFFIX
-}
-
 yy-dockermysqlstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _check_hybris_suffix
-  kk-dockerstart $(_yy-get_mysql_container_name)
+  kk-dockerstart $(_get_mysql_container_name)
 }
 
 yy-dockermysqlip(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _check_hybris_suffix
-  kk-dockerip $(_yy-get_mysql_container_name)
+  kk-dockerip $(_get_mysql_container_name)
 }
 
 yy-dockermysqlcreate(){
@@ -362,7 +362,7 @@ yy-dockermysqlcreate(){
   _check_hybris_suffix
   local mysql_version=""
   [[ $1 ]] && mysql_version=:$1
-  sudo docker run --name $(_yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
+  sudo docker run --name $(_get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
 }
 
 yy-dockermysqlcreatedbuser(){
@@ -376,7 +376,7 @@ yy-dockermysqlcreatedbuser(){
   local user_name=$2
   local user_pwd=$3
   local root_pwd=root
-  sudo docker exec -i $(_yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE DATABASE $db_name"
-  sudo docker exec -i $(_yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE USER $user_name IDENTIFIED BY '$user_pwd'"
-  sudo docker exec -i $(_yy-get_mysql_container_name) mysql -uroot -p$root_pwd <<< "GRANT ALL PRIVILEGES ON $db_name.* TO $user_name"
+  sudo docker exec -i $(_get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE DATABASE $db_name"
+  sudo docker exec -i $(_get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE USER $user_name IDENTIFIED BY '$user_pwd'"
+  sudo docker exec -i $(_get_mysql_container_name) mysql -uroot -p$root_pwd <<< "GRANT ALL PRIVILEGES ON $db_name.* TO $user_name"
 }
