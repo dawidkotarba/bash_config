@@ -28,7 +28,7 @@ _on_hybris_process(){
  echo $result | awk {'print $2'} | xargs $@
 }
 
-check_hybris_suffix(){
+_check_hybris_suffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   [[ ! $__HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
 }
@@ -40,11 +40,11 @@ _get_hybris_process(){
 
 _hybris-start(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _start-mysql-if-no-is_hsqldb
+ _start_mysql_if_used
  _on_hybris_platform sh hybrisserver.sh debug $@
 }
 
-checkarg_hybris_mysql_running(){
+_is_hybris_mysql_running(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local is_mysql_running=$(yy-dockermysqlip)
     if [[ $is_mysql_running ]]
@@ -57,21 +57,21 @@ checkarg_hybris_mysql_running(){
     fi
 }
 
-checkarg_and_start_hybris_mysql(){
+_start_hybris_mysql(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ ! $HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && checkarg_hybris_mysql_running
+  [[ ! $HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && _is_hybris_mysql_running
 }
 
-checkarg_if_hsqldb_is_used(){
+_is_hsqldb_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local entry_line=`grep "db.url=" $HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
   [[ $entry_line ]] && echo 1 || echo 0
 }
 
-_start-mysql-if-no-is_hsqldb(){
+_start_mysql_if_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local is_hsqldb=`checkarg_if_hsqldb_is_used`
-  [[ "$is_hsqldb" == 0 ]] && checkarg_and_start_hybris_mysql
+  local is_hsqldb=`_is_hsqldb_used`
+  [[ "$is_hsqldb" == 0 ]] && _start_hybris_mysql
 }
 
 _show_popup_if_hybris_has_started(){
@@ -105,25 +105,25 @@ yy-ps(){
 
 yy-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME
 }
 
 yy-navigatecustom(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME/bin/custom
 }
 
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME/config
 }
 
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME/bin/platform
 }
 
@@ -206,13 +206,13 @@ yy-jcmd(){
 
 yy-configlocalproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  atom $HYBRIS_LOCAL_PROPERTIES
 }
 
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  atom $__HYBRIS_HOME/config/localextensions.xml
 }
 
@@ -296,27 +296,27 @@ yy-antjunit(){
 
 yy-antextgen(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME/bin/platform
  ant extgen
 }
 
 yy-antmodulegen(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cd $__HYBRIS_HOME/bin/platform
  ant modulegen
 }
 
 yy-antinitialize(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _start-mysql-if-no-is_hsqldb
+  _start_mysql_if_used
   _ant_on_hybris_platform initialize $@
 }
 
 yy-antinitializestart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _start-mysql-if-no-is_hsqldb
+  _start_mysql_if_used
   _on_hybris_platform_nolog ant initialize && yy-start
 }
 
@@ -336,7 +336,7 @@ yy-antkill(){
 
 yy-copydbdriver(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- check_hybris_suffix
+ _check_hybris_suffix
  cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $__HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
@@ -347,19 +347,19 @@ _yy-get_mysql_container_name(){
 
 yy-dockermysqlstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  check_hybris_suffix
+  _check_hybris_suffix
   kk-dockerstart $(_yy-get_mysql_container_name)
 }
 
 yy-dockermysqlip(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  check_hybris_suffix
+  _check_hybris_suffix
   kk-dockerip $(_yy-get_mysql_container_name)
 }
 
 yy-dockermysqlcreate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  check_hybris_suffix
+  _check_hybris_suffix
   local mysql_version=""
   [[ $1 ]] && mysql_version=:$1
   sudo docker run --name $(_yy-get_mysql_container_name) -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server$mysql_version --innodb_flush_log_at_trx_commit=0
