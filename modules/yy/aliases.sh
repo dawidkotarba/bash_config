@@ -38,6 +38,15 @@ _get_hybris_process(){
   jcmd | grep tanukisoftware | awk {'print $1'}
 }
 
+_show_popup_if_hybris_has_started(){
+  local started=`tail $_HYBRIS_LOG_PATH | grep "Server startup in"`
+  while [[ -z $started ]]
+  do
+   $started=`tail $_HYBRIS_LOG_PATH | grep 'Server startup in'`
+  done
+  _show_popup "Hybris is running"
+}
+
 _hybris-start(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _start_mysql_if_used
@@ -72,12 +81,6 @@ _start_mysql_if_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local is_hsqldb=`_is_hsqldb_used`
   [[ "$is_hsqldb" == 0 ]] && _start_hybris_mysql
-}
-
-_show_popup_if_hybris_has_started(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local started=`tail $_HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
-  [[ $started ]] && _show_popup "$started"
 }
 
 _get_mysql_container_name(){
