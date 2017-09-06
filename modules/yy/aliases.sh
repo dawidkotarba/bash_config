@@ -1,12 +1,12 @@
 # HYBRIS
 ### consts ###
-__HYBRIS_LOG=log/y.log
+_HYBRIS_LOG=log/y.log
 
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- rm -f $__HYBRIS_LOG_PATH
- (cd $__HYBRIS_HOME/bin/platform && $@ >> $__HYBRIS_LOG_PATH &)
+ rm -f $_HYBRIS_LOG_PATH
+ (cd $__HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
  sleep 1
  yy-log $@
 }
@@ -76,7 +76,7 @@ _start_mysql_if_used(){
 
 _show_popup_if_hybris_has_started(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local started=`tail $__HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
+  local started=`tail $_HYBRIS_LOG_PATH | grep "INFO: Server startup in"`
   [[ $started ]] && _show_popup "$started"
 }
 
@@ -87,7 +87,7 @@ _get_mysql_container_name(){
 
 _kill_hybris_processes(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- ps aux | grep hybris | grep -v $__HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
+ ps aux | grep hybris | grep -v $_HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
 }
 
 _stop_hybris_server(){
@@ -103,7 +103,7 @@ yy-setsuffix(){
  checkarg $1 "hybris suffix"
  export __HYBRIS_FOLDER_SUFFIX=$1
  export __HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX/hybris
- export __HYBRIS_LOG_PATH=$__HYBRIS_HOME/$__HYBRIS_LOG
+ export _HYBRIS_LOG_PATH=$__HYBRIS_HOME/$_HYBRIS_LOG
  export HYBRIS_LOCAL_PROPERTIES=$__HYBRIS_HOME/config/local.properties
 }
 
@@ -144,35 +144,35 @@ yy-navigateplatform(){
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- [[ $@ != *'-nolog'* ]] && tail -f $__HYBRIS_LOG_PATH
+ [[ $@ != *'-nolog'* ]] && tail -f $_HYBRIS_LOG_PATH
 }
 
 yy-logclean(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  > $__HYBRIS_LOG_PATH
+  > $_HYBRIS_LOG_PATH
 }
 
 yy-grep(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   for var in "$@"
  do
-  grep $var $__HYBRIS_LOG_PATH
+  grep $var $_HYBRIS_LOG_PATH
  done
 }
 
 yy-logerrorgrep(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- grep -E 'ERROR|WARN' $__HYBRIS_LOG_PATH
+ grep -E 'ERROR|WARN' $_HYBRIS_LOG_PATH
 }
 
 yy-logerrortail(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  tail -f $__HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
+  tail -f $_HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
 }
 
 yy-logshow(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- less $__HYBRIS_LOG_PATH
+ less $_HYBRIS_LOG_PATH
 }
 
 yy-logtomcat(){
