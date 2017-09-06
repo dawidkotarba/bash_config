@@ -38,19 +38,10 @@ _get_hybris_process(){
   jcmd | grep tanukisoftware | awk {'print $1'}
 }
 
-_show_popup_if_hybris_has_started(){
-  local started=`tail $_HYBRIS_LOG_PATH | grep "Server startup in"`
-  while [[ -z $started ]]
-  do
-   $started=`tail $_HYBRIS_LOG_PATH | grep 'Server startup in'`
-  done
+_show_popup_if_hybris_started(){
+  local started=""
+  while [[ -z $(tail $_HYBRIS_LOG_PATH | grep 'Server startup in') ]]; do sleep 1; done
   _show_popup "Hybris is running"
-}
-
-_hybris-start(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _start_mysql_if_used
- _on_hybris_platform sh hybrisserver.sh debug $@
 }
 
 _is_hybris_mysql_running(){
@@ -99,8 +90,6 @@ _stop_hybris_server(){
 }
 
 ### yy namespace ###
-alias yy-start="_hybris-start"
-
 yy-setsuffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "hybris suffix"
@@ -186,6 +175,13 @@ yy-logtomcat(){
 yy-setantenv(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  (yy-navigateplatform && . ./setantenv.sh)
+}
+
+yy-start(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _start_mysql_if_used
+ _show_popup_if_hybris_started &
+ _on_hybris_platform sh hybrisserver.sh debug $@
 }
 
 yy-stop(){
