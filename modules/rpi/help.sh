@@ -2,3 +2,5 @@ _help_pssh='Performs a command for all rpis in cluster. Installation: apt instal
 _help_rpi_cluster_upgrade='Performs update and upgrade for all rpis in cluster'
 _help_rpi_wifiscan='Scans wifi'
 _help_rpi_wifiadd='Saves wifi ssid/password. Usage: rpi-wifiadd testingssid testingpassword'
+_help_rpi_clusterupgrade=
+_help_rpi_clusterinstall=

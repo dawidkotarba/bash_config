@@ -11,3 +11,4 @@ _help__openconnect_vpn=''
 _help__openconnect_vpn_kill_signal=''
 _help__source_forward_declarations='Each function included in modules/xxx/aliases will be forward declared'
 _help__source_modules_aliases=''
+_help__show_notification=
