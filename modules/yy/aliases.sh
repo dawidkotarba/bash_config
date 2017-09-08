@@ -5,7 +5,7 @@ _HYBRIS_LOG=log/y.log
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _show_popup_if_hybris_started &
+ _show_notification_if_hybris_started &
  rm -f $_HYBRIS_LOG_PATH
  (cd $__HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
  sleep 1
@@ -14,13 +14,13 @@ _on_hybris_platform(){
 
 _ant_on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _show_popup_if_hybris_started &
+ _show_notification_if_hybris_started &
  (cd $__HYBRIS_HOME/bin/platform && ant $@)
 }
 
 _on_hybris_platform_nolog(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _show_popup_if_hybris_started &
+ _show_notification_if_hybris_started &
  (cd $__HYBRIS_HOME/bin/platform && $@)
 }
 
@@ -41,13 +41,13 @@ _get_hybris_process(){
   jcmd | grep tanukisoftware | awk {'print $1'}
 }
 
-_show_popup_if_hybris_started(){
-  local is_process_running_in_background=`jobs | grep _show_popup_if_hybris_started`
+_show_notification_if_hybris_started(){
+  local is_process_running_in_background=`jobs | grep _show_notification_if_hybris_started`
   if [[ -z $is_process_running_in_background ]]
    then
      local started=""
      while [[ -z $(tail $_HYBRIS_LOG_PATH | grep 'Server startup in') ]]; do sleep 1; done
-     _show_popup "Hybris is running"
+     _show_notification "Hybris has started successfully"
   fi
 }
 
