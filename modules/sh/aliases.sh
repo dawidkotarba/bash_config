@@ -37,21 +37,14 @@ sh-source(){
 sh-edit(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- if [[ $module_name ]]
-   then
-     atom $_SHELL_MODULES_PATH/$module_name/aliases.sh
-     atom $_SHELL_MODULES_PATH/$module_name/help.sh
-   else
-     atom $_SHELL_MAIN_FILEPATH
-     atom $_SHELL_CONFIG_PATH/help.sh
-  fi
+ [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/aliases.sh || atom $_SHELL_CONFIG_PATH/help.sh
 }
 
 sh-edithelp(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "module_name"
  local module_name=$1
- [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/help.sh
+ [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/help.sh || atom $_SHELL_CONFIG_PATH/help.sh
 }
 
 sh-show(){
