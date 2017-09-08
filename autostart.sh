@@ -1,2 +1,2 @@
 # Executes the autostarts commands
-yy-setsuffix era
+yy-setsuffix sfx
