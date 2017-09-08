@@ -39,6 +39,11 @@ _show_popup(){
   zenity --info --text "$1"
 }
 
+_show_notification(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  notify-send "$1"
+}
+
 _pathadd() {
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
     if [[ -d "$1" ]] && ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
