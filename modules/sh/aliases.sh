@@ -94,7 +94,7 @@ sh-navigate(){
 
 sh-updatehelp(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local functions=`grep -rh "\w() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _`
+  local functions=`grep -rh "\w() *{" aliases.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
   [[ ! -f help.sh ]] && (echo $functions >> help.sh) && return
   while read f
   do
