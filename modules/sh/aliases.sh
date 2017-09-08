@@ -92,7 +92,13 @@ sh-navigate(){
   cd $_SHELL_CONFIG_PATH
 }
 
-sh-generatehelp(){
+sh-updatehelp(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  grep -rh "\w() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _ >> help.sh
+  local functions=`grep -rh "\w() *{" $1| tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=''" | tr - _`
+  [[ ! -f help.sh ]] && (echo $functions >> help.sh) && return
+  while read f
+  do
+   local help_for_function_exists=`grep "$f" help.sh`
+   [[ -z $help_for_function_exists ]] && (echo $f >> help.sh)
+  done <<< $functions
 }
