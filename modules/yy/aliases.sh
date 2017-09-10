@@ -5,10 +5,10 @@ _HYBRIS_LOG=log/y.log
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- _show_notification_if_hybris_started &
  rm -f $_HYBRIS_LOG_PATH
  (cd $__HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
  sleep 1
+ _show_notification_if_hybris_started &
  yy-log $@
 }
 
@@ -42,6 +42,7 @@ _get_hybris_process(){
 }
 
 _show_notification_if_hybris_started(){
+  [[ ! -f $_HYBRIS_LOG_PATH ]] && echo_err "Cannot find $_HYBRIS_LOG" && return
   local is_process_running_in_background=`jobs | grep _show_notification_if_hybris_started`
   if [[ -z $is_process_running_in_background ]]
    then
