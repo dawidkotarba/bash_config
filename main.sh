@@ -157,3 +157,4 @@ _source_if_exists $_SHELL_APPS_PATH/zsh-syntax-highlighting/zsh-syntax-highlight
 
 # zsh-autosuggestions
 _source_if_exists $_SHELL_APPS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
