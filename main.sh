@@ -152,9 +152,9 @@ _source_if_exists $_SHELL_APPS_PATH/z/z.sh
 # liquidprompt -> https://github.com/nojhan/liquidprompt.git
 [[ $- = *i* ]] && _source_if_exists $_SHELL_APPS_PATH/liquidprompt/liquidprompt
 
-# zsh-syntax-highlighting
+# zsh-syntax-highlighting -> https://github.com/zsh-users/zsh-syntax-highlighting
 _source_if_exists $_SHELL_APPS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# zsh-autosuggestions
+# zsh-autosuggestions -> https://github.com/zsh-users/zsh-autosuggestions
 _source_if_exists $_SHELL_APPS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
