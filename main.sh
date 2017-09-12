@@ -153,3 +153,6 @@ _source_if_exists $_SHELL_APPS_PATH/z/z.sh
 
 # zsh-syntax-highlighting
 _source_if_exists /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-autosuggestions
+_source_if_exists $_SHELL_APPS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh

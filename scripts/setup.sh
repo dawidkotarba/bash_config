@@ -48,6 +48,9 @@ clone_app https://github.com/nojhan/liquidprompt.git
 clone_app https://github.com/rupa/z.git
 
 ### zsh and oh-my-zsh ###
+# zsh autosugestions
+clone_app https://github.com/zsh-users/zsh-autosuggestions
+
 apt install -y zsh zsh-syntax-highlighting
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 echo "source ~/shell_config/main.sh" >> ~/.zshrc
