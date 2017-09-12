@@ -55,4 +55,6 @@ clone_app https://github.com/zsh-users/zsh-autosuggestions.git
 
 # oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-echo "source ~/shell_config/main.sh" >> ~/.zshrc
+
+# add source line
+[[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
