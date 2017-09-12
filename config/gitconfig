@@ -1,7 +1,4 @@
 # kudos https://github.com/jakubnabrdalik/gitkurwa
-[user]
-	name = Dawid Kotarba
-
 [core]
 	editor = vim
 	autocrlf = input
