@@ -149,4 +149,7 @@ echo_pretty "Sourcing apps:"
 _source_if_exists $_SHELL_APPS_PATH/z/z.sh
 
 # liquidprompt -> https://github.com/nojhan/liquidprompt.git
-[[ $- = *i* ]] && source $_SHELL_APPS_PATH/liquidprompt/liquidprompt
+[[ $- = *i* ]] && _source_if_exists $_SHELL_APPS_PATH/liquidprompt/liquidprompt
+
+# zsh-syntax-highlighting
+_source_if_exists /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
