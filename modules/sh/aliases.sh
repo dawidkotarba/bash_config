@@ -22,11 +22,11 @@ sh-newcheck(){
 sh-newmodule(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "module_name"
- local module_name=$1
- local module_path=$_SHELL_MODULES_PATH/$module_name
- [[ ! -d $module_name ]] && mkdir $_SHELL_MODULES_PATH/$module_name
- echo "### help ###" >  $module_path/help.sh
- echo "### $module_name ###" > $module_path/aliases.sh
+ local modulename=$1
+ local modulepath="$_SHELL_MODULES_PATH/$modulename"
+ [[ ! -d $modulepath ]] && mkdir $modulepath
+ echo "### help ###" >  $modulepath/help.sh
+ echo "### $modulename ###" > $modulepath/aliases.sh
 }
 
 sh-source(){
