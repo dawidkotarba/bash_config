@@ -19,7 +19,7 @@ echo_pretty(){
 
 echo_arrow(){
  local text=$1
- echo "--> $text"
+ echo_info "==> $text"
 }
 
 echo_ok(){

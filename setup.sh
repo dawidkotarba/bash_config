@@ -1,7 +1,6 @@
 #!/bin/bash
-
-source ../constants.sh
-source ../shared/echo.sh
+source constants.sh
+source shared/echo.sh
 CONFIG=$_CONFIG_PATH
 
 ### FUNCTIONS ###
@@ -30,7 +29,7 @@ clean-folder(){
 }
 
 ### EXECUTION ###
-echo "==> Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; read x
+echo_arrow "Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
   echo_info "Creating symlinks..."
   create_symlink $CONFIG/gitconfig ~/.gitconfig
@@ -39,7 +38,7 @@ if [[ "$x" = "y" ]]; then
   create_symlink $CONFIG/tilda ~/.config/tilda
 fi
 
-echo "==> Clone terminal tools from git? (y/n)"; read x
+echo_arrow "Clone terminal tools from git? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
   clean-folder $_SHELL_APPS_PATH
   clone_app https://github.com/nojhan/liquidprompt.git
@@ -48,13 +47,15 @@ if [[ "$x" = "y" ]]; then
   clone_app https://github.com/zsh-users/zsh-autosuggestions.git
 fi
 
-echo "==> Install oh-my-zsh? (y/n)"; read x
+echo_arrow "Install oh-my-zsh? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 fi
 
-echo "==> Add configuration entries to .zshrc? (y/n)"; read x
+echo_arrow "Add configuration entries to .zshrc? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
   sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
 fi
+
+echo_info "Setup complete."

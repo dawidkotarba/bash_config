@@ -8,5 +8,4 @@ _help_kk_replaceinpath=''
 _help_kk_dockerstart='Starts a docker container with provided name'
 _help_kk_dockerip='Prints IP of provided docker container'
 _help_kk_navigaterepo=''
-_help_kk_createscala=''
 _help_kk_ip=

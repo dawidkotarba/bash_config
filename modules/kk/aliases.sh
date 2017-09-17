@@ -78,9 +78,3 @@ kk-navigaterepo(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   cd $_REPOSITORY_PATH
 }
-
-### SCALA ###
-kk-createscala(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- cp $_SHELL_SCRIPTS_PATH/scala_script.sh .
-}
