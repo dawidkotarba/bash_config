@@ -16,10 +16,9 @@ kk-server(){
 
 _pull-cloned-apps(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local apps=$(ls $_SHELL_APPS_PATH)
- for app in $apps
+ for app in $(ls $_SHELL_APPS_PATH);
   do
-  local app_path="$_SHELL_APPS_PATH/$app"
+   local app_path="$_SHELL_APPS_PATH/$app"
    git -C $app_path reset HEAD --hard
    git -C $app_path pull
   done
