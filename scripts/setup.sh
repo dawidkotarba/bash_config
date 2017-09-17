@@ -1,11 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 source ../constants.sh
 source ../shared/echo.sh
 CONFIG=$_CONFIG_PATH
 
-### CREATE SYMLINKS ###
-echo_info "Creating symlinks..."
+### FUNCTIONS ###
 create_symlink(){
  local target=$1
  local shortcut=$2
@@ -13,21 +12,12 @@ create_symlink(){
  ln -s $target $shortcut
 }
 
-# symlinks with configuration
-create_symlink $CONFIG/gitconfig ~/.gitconfig
-create_symlink $CONFIG/vim ~/.vim
-create_symlink $CONFIG/vimrc ~/.vimrc
-create_symlink $CONFIG/tilda ~/.config/tilda
-
-### CLONE APPS ###
-echo_info "Cloning apps..."
 clone_app(){
  (cd $_SHELL_APPS_PATH && git clone $1)
 }
 
 clean-folder(){
  local destination=$1
-
  if [[ ! -d "$destination" ]]
   then
    echo_info "Folder $destination is not present. Creating a folder..."
@@ -39,23 +29,32 @@ clean-folder(){
  fi
 }
 
-clean-folder $_SHELL_APPS_PATH
+### EXECUTION ###
+echo "==> Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; read x
+if [[ "$x" = "y" ]]; then
+  echo_info "Creating symlinks..."
+  create_symlink $CONFIG/gitconfig ~/.gitconfig
+  create_symlink $CONFIG/vim ~/.vim
+  create_symlink $CONFIG/vimrc ~/.vimrc
+  create_symlink $CONFIG/tilda ~/.config/tilda
+fi
 
-# liquiprompt
-clone_app https://github.com/nojhan/liquidprompt.git
+echo "==> Clone terminal tools from git? (y/n)"; read x
+if [[ "$x" = "y" ]]; then
+  clean-folder $_SHELL_APPS_PATH
+  clone_app https://github.com/nojhan/liquidprompt.git
+  clone_app https://github.com/rupa/z.git
+  clone_app https://github.com/zsh-users/zsh-syntax-highlighting.git
+  clone_app https://github.com/zsh-users/zsh-autosuggestions.git
+fi
 
-# z
-clone_app https://github.com/rupa/z.git
+echo "==> Install oh-my-zsh? (y/n)"; read x
+if [[ "$x" = "y" ]]; then
+  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+fi
 
-# zsh syntax highlighting
-clone_app https://github.com/zsh-users/zsh-syntax-highlighting.git
-
-# zsh autosugestions
-clone_app https://github.com/zsh-users/zsh-autosuggestions.git
-
-# oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-
-# add configurations to .zshrc
-sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search)" ~/.zshrc
-[[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
+echo "==> Add configuration entries to .zshrc? (y/n)"; read x
+if [[ "$x" = "y" ]]; then
+  sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search)" ~/.zshrc
+  [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
+fi
