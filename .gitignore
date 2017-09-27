@@ -1,5 +1,6 @@
 /apps
 /modules/tmp
-/path
+/path.sh
 /.fwd
-/autostart
+/autostart.sh
+/.idea
