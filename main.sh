@@ -8,6 +8,7 @@ HISTFILESIZE=99999
 
 ### EXPORTS ###
 export TERM='xterm-256color'
+export VISUAL=vim
 
 ### ALIASES ###
 alias ll='ls -alh'
