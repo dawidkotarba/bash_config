@@ -48,7 +48,8 @@ _show_notification_if_hybris_started(){
    then
      local started=""
      while [[ -z $(tail $_HYBRIS_LOG_PATH | grep 'Server startup in') ]]; do sleep 1; done
-     _show_notification "Hybris has started successfully"
+     local startup_line=$(tail $_HYBRIS_LOG_PATH | grep 'Server startup in')
+     _show_notification "$startup_line"
   fi
 }
 
