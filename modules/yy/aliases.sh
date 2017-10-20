@@ -216,6 +216,11 @@ yy-jcmd(){
  jcmd `_get_hybris_process` help
 }
 
+yy-checkcontext(){
+  local bean_creation_error `yy-logshow | grep "Error creating bean with name"`
+  [[ -z $bean_creation_error ]] && echo_ok "OK" || echo_err "$bean_creation_error"
+}
+
 yy-configlocalproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
