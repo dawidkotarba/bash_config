@@ -49,9 +49,13 @@ _show_notification_if_hybris_started(){
      local started=""
      while [[ -z $(tail $_HYBRIS_LOG_PATH | grep 'Server startup in') ]]; do sleep 1; done
      local startup_line=$(tail $_HYBRIS_LOG_PATH | grep 'Server startup in')
-     local bean_creation_error=`cat $_HYBRIS_LOG_PATH | grep "Error creating bean with name" | head -n1`
+     local bean_creation_error=`_get_context_creation_error`
      _show_notification "$startup_line $bean_creation_error"
   fi
+}
+
+_get_context_creation_error(){
+  echo `cat $_HYBRIS_LOG_PATH | grep "Error creating bean with name" | head -n1`
 }
 
 _is_hybris_mysql_running(){
@@ -218,7 +222,7 @@ yy-jcmd(){
 }
 
 yy-checkcontext(){
-  local bean_creation_error=`cat $_HYBRIS_LOG_PATH | grep "Error creating bean with name" | head -n1`
+  local bean_creation_error=`_get_context_creation_error`
   [[ -z $bean_creation_error ]] && echo_ok "OK" || echo_err "$bean_creation_error"
 }
 
