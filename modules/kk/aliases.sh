@@ -56,6 +56,17 @@ kk-ip(){
   ifconfig | grep 'inet addr'
 }
 
+kk-writeimageinstructions(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "image file"
+  checkarg $2 "disk number"
+
+  lsblk
+  echo_info "umount /dev/$2X"
+  echo_info "sudo dd if=$1 of=/dev/$2 bs=4M && sync"
+  echo_info "i.e. sudo dd if=/home/dawidkotarba/Downloads/ubuntu-17.10-desktop-amd64.iso of=/dev/sdb bs=4M && sync"
+}
+
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
