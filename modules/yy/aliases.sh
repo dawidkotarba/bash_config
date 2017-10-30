@@ -176,9 +176,14 @@ yy-logerrortail(){
   tail -f $_HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
 }
 
-yy-logshow(){
+yy-logless(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  less $_HYBRIS_LOG_PATH
+}
+
+yy-logcat(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ cat $_HYBRIS_LOG_PATH
 }
 
 yy-logtomcat(){
