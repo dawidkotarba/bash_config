@@ -216,7 +216,7 @@ yy-stop(){
  _stop_hybris_server
 }
 
-yy-visualvm(){
+yy-jvisualvm(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  jvisualvm --openpid `_get_hybris_process` &
 }
@@ -261,7 +261,7 @@ yy-req(){
  [[ $changes_count > 0 ]] && echo "ant initialize" || echo "ant clean all"
 }
 
-yy-jrebel(){
+yy-buildext(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "extension path"
  local ext_path=$1
