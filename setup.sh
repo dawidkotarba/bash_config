@@ -54,7 +54,7 @@ fi
 
 echo_arrow "Add configuration entries to .zshrc? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
-  sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search)" ~/.zshrc
+  sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
 fi
 

@@ -20,6 +20,9 @@ alias du='du -h'
 alias ports='netstat -tulanp'
 alias ping='ping -c 5'
 
+# ohmyzsh plugins' aliases
+alias cp=cpv --progress
+
 ######################
 ## INITIAL SOURCING ##
 ######################
