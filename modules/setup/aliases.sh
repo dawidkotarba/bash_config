@@ -2,9 +2,18 @@
 
 _aptinstall(){
    [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-   checkarg $1 "at least one program to install"
+   checkarg $1 "At least one program to install"
    echo_info "Installing: $@"
    apt install $@
+}
+
+_aptrepository(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "Repository to be added"
+  echo_info "Adding repository: $1"
+  sudo add-apt-repository $1
+  echo_info "apt update..."
+  apt update
 }
 
 setup-ranger(){
@@ -30,4 +39,9 @@ setup-atom(){
   #js
   apm install atom-beautify linter-csslint linter-htmlhint linter-eslint linter-less
   apm install linter-lesshint sort-lines editorconfig emmet
+}
+
+setup-flux(){
+  _aptrepository ppa:nathan-renniewaldock/flux
+  _aptinstall fluxgui
 }
