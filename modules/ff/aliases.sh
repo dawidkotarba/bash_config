@@ -7,14 +7,24 @@ _findfile(){
   echo $result
 }
 
+_fuzzyfind(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "Search argument"
+  _findfile $1 | fzy
+}
+
 ff-vim(){
-  vim `_findfile $1 | fzy`
+  vim `_fuzzyfind $1`
 }
 
 ff-less(){
-  less `_findfile $1 | fzy`
+  less `_fuzzyfind $1`
 }
 
 ff-atom(){
-  atom `_findfile $1 | fzy`
+  atom `_fuzzyfind $1`
+}
+
+ff-cat(){
+  cat `_fuzzyfind $1`
 }
