@@ -47,6 +47,11 @@ if [[ "$x" = "y" ]]; then
   clone_app https://github.com/zsh-users/zsh-autosuggestions.git
 fi
 
+echo_arrow "Install zsh shell? (y/n)"; read x
+if [[ "$x" = "y" ]]; then
+  sudo apt install zsh
+fi
+
 echo_arrow "Install oh-my-zsh? (y/n)"; read x
 if [[ "$x" = "y" ]]; then
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
