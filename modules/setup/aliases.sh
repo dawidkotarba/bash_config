@@ -54,3 +54,8 @@ setup-ssh(){
 setup-openconnect(){
   _aptinstall openconnect network-manager-openconnect-gnome
 }
+
+setup-fuzzy(){
+  wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
+  sudo dpkg -i fzy_0.9-1_amd64.deb
+}
