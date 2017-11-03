@@ -1,19 +1,20 @@
 ### fuzzy ###
 
-ff-vim(){
+_findfile(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "Search argument"
-  vim `find . -name "*$1*" -type f | fzy`
+  local result=`find . -name "*$1*" -type f`
+  echo $result
+}
+
+ff-vim(){
+  vim `_findfile $1 | fzy`
 }
 
 ff-less(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg $1 "Search argument"
-  less `find . -name "*$1*" -type f | fzy`
+  less `_findfile $1 | fzy`
 }
 
 ff-atom(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg $1 "Search argument"
-  atom `find . -name "*$1*" -type f | fzy`
+  atom `_findfile $1 | fzy`
 }
