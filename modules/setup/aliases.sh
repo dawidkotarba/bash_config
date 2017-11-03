@@ -45,3 +45,8 @@ setup-flux(){
   _aptrepository ppa:nathan-renniewaldock/flux
   _aptinstall fluxgui
 }
+
+setup-ssh(){
+  _aptinstall openssh-client openssh-server
+  sudo systemctl restart sshd.service
+}
