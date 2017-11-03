@@ -50,3 +50,7 @@ setup-ssh(){
   _aptinstall openssh-client openssh-server
   sudo systemctl restart sshd.service
 }
+
+setup-openconnect(){
+  _aptinstall openconnect network-manager-openconnect-gnome
+}
