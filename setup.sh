@@ -29,9 +29,7 @@ clean-folder(){
 }
 
 show-dialog(){
-  dialog --title "Setup script" \
---backtitle "Setup script option:" \
---yesno "$1" 7 60
+  dialog --backtitle "Setup script" --title "Setup script option:" --yesno "$1" 7 60
 }
 
 ### EXECUTION ###
@@ -71,5 +69,5 @@ case $response in
   sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
 esac
-
+tput clear
 echo_info "Setup complete."
