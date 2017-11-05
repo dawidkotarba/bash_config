@@ -35,7 +35,7 @@ show-dialog(){
 }
 
 ### EXECUTION ###
-show-dialog "Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; response=$?
+show-dialog "Create symbolic links for applications configs (git, vim, tilda)?"; response=$?
 case $response in
   0)
   echo_info "Creating symlinks..."
@@ -57,14 +57,12 @@ esac
 
 show-dialog "Install zsh shell?"; response=$?
 case $response in
-  0)
-  sudo apt install zsh
+  0) sudo apt install zsh
 esac
 
 show-dialog "Install oh-my-zsh?"; response=$?
 case $response in
-  0)
-  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+  0) sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 esac
 
 show-dialog "Add configuration entries to .zshrc?"; response=$?
