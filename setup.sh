@@ -28,39 +28,50 @@ clean-folder(){
  fi
 }
 
+show-dialog(){
+  dialog --title "Setup script" \
+--backtitle "Setup script option:" \
+--yesno "$1" 7 60
+}
+
 ### EXECUTION ###
-echo_arrow "Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; read x
-if [[ "$x" = "y" ]]; then
+show-dialog "Create symbolic links for applications configs (git, vim, tilda)? (y/n)"; response=$?
+case $response in
+  0)
   echo_info "Creating symlinks..."
   create_symlink $CONFIG/gitconfig ~/.gitconfig
   create_symlink $CONFIG/vim ~/.vim
   create_symlink $CONFIG/vimrc ~/.vimrc
   create_symlink $CONFIG/tilda ~/.config/tilda
-fi
+esac
 
-echo_arrow "Clone terminal tools from git? (y/n)"; read x
-if [[ "$x" = "y" ]]; then
+show-dialog "Clone terminal tools from git?"; response=$?
+case $response in
+  0)
   clean-folder $_SHELL_APPS_PATH
   clone_app https://github.com/nojhan/liquidprompt.git
   clone_app https://github.com/rupa/z.git
   clone_app https://github.com/zsh-users/zsh-syntax-highlighting.git
   clone_app https://github.com/zsh-users/zsh-autosuggestions.git
-fi
+esac
 
-echo_arrow "Install zsh shell? (y/n)"; read x
-if [[ "$x" = "y" ]]; then
+show-dialog "Install zsh shell?"; response=$?
+case $response in
+  0)
   sudo apt install zsh
-fi
+esac
 
-echo_arrow "Install oh-my-zsh? (y/n)"; read x
-if [[ "$x" = "y" ]]; then
+show-dialog "Install oh-my-zsh?"; response=$?
+case $response in
+  0)
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-fi
+esac
 
-echo_arrow "Add configuration entries to .zshrc? (y/n)"; read x
-if [[ "$x" = "y" ]]; then
+show-dialog "Add configuration entries to .zshrc?"; response=$?
+case $response in
+  0)
   sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
-fi
+esac
 
 echo_info "Setup complete."
