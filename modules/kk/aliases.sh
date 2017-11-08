@@ -81,7 +81,7 @@ kk-dockerip(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "container name"
   local container_name=$1
-  sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1
+  sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
 }
 
 ### NAVIGATE ###
