@@ -246,7 +246,8 @@ yy-configlocalextensions(){
 }
 
 yy-configcreatecustomproperties(){
- [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && touch $_HYBRIS_CUSTOM_PROPERTIES
+ [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (touch $_HYBRIS_CUSTOM_PROPERTIES && echo_info "custom.properties created") \
+ || echo_warn "custom.properties already exists"
 }
 
 yy-createproject(){
