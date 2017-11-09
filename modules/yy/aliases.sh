@@ -110,7 +110,8 @@ yy-setsuffix(){
  export _HYBRIS_FOLDER_SUFFIX=$1
  export _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
  export _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
- export HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_HOME/config/local.properties
+ export _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
+ export HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
 }
 
 yy-ps(){
@@ -139,7 +140,7 @@ yy-navigatecustom(){
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $_HYBRIS_HOME/config
+ cd $_HYBRIS_CONFIG_PATH
 }
 
 yy-navigateplatform(){
@@ -240,7 +241,7 @@ yy-configlocalproperties(){
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $_HYBRIS_HOME/config/localextensions.xml
+ atom $_HYBRIS_CONFIG_PATH/localextensions.xml
 }
 
 yy-createproject(){
