@@ -78,7 +78,7 @@ _start_hybris_mysql(){
 
 _is_hsqldb_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local entry_line=`grep "db.url=" $HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
+  local entry_line=`grep "db.url=" $_HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
   [[ $entry_line ]] && echo 1 || echo 0
 }
 
@@ -111,7 +111,8 @@ yy-setsuffix(){
  export _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
  export _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
  export _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
- export HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
+ export _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
+ export _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
 }
 
 yy-ps(){
@@ -235,13 +236,17 @@ yy-checkcontext(){
 yy-configlocalproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $HYBRIS_LOCAL_PROPERTIES
+ atom $_HYBRIS_LOCAL_PROPERTIES
 }
 
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
  atom $_HYBRIS_CONFIG_PATH/localextensions.xml
+}
+
+yy-configcreatecustomproperties(){
+ [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && touch $_HYBRIS_CUSTOM_PROPERTIES
 }
 
 yy-createproject(){
