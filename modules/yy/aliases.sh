@@ -247,7 +247,12 @@ yy-configlocalextensions(){
 
 yy-configcreatecustomproperties(){
  [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (touch $_HYBRIS_CUSTOM_PROPERTIES && echo_info "custom.properties created") \
- || echo_warn "custom.properties already exists"
+ || echo_warn "custom.properties file already exists"
+}
+
+yy-configmergecustomproperties(){
+ [[ -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (cat $_HYBRIS_CUSTOM_PROPERTIES >> $_HYBRIS_LOCAL_PROPERTIES && echo_info "Properties merged") \
+ || echo_err "custom.properties file does not exist"
 }
 
 yy-createproject(){
