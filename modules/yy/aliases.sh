@@ -6,7 +6,7 @@ _HYBRIS_LOG=log/y.log
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  rm -f $_HYBRIS_LOG_PATH
- (cd $__HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
+ (cd $_HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
  sleep 1
  _show_notification_if_hybris_started &
  yy-log $@
@@ -15,13 +15,13 @@ _on_hybris_platform(){
 _ant_on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _show_notification_if_hybris_started &
- (cd $__HYBRIS_HOME/bin/platform && ant $@)
+ (cd $_HYBRIS_HOME/bin/platform && ant $@)
 }
 
 _on_hybris_platform_nolog(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _show_notification_if_hybris_started &
- (cd $__HYBRIS_HOME/bin/platform && $@)
+ (cd $_HYBRIS_HOME/bin/platform && $@)
 }
 
 _on_hybris_process(){
@@ -33,7 +33,7 @@ _on_hybris_process(){
 
 _check_hybris_suffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ ! $__HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
+  [[ ! $_HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
 }
 
 _get_hybris_process(){
@@ -90,7 +90,7 @@ _start_mysql_if_used(){
 
 _get_mysql_container_name(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  echo mysql_$__HYBRIS_FOLDER_SUFFIX
+  echo mysql_$_HYBRIS_FOLDER_SUFFIX
 }
 
 _kill_hybris_processes(){
@@ -107,10 +107,10 @@ _stop_hybris_server(){
 yy-setsuffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "hybris suffix"
- export __HYBRIS_FOLDER_SUFFIX=$1
- export __HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX/hybris
- export _HYBRIS_LOG_PATH=$__HYBRIS_HOME/$_HYBRIS_LOG
- export HYBRIS_LOCAL_PROPERTIES=$__HYBRIS_HOME/config/local.properties
+ export _HYBRIS_FOLDER_SUFFIX=$1
+ export _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
+ export _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
+ export HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_HOME/config/local.properties
 }
 
 yy-ps(){
@@ -127,25 +127,25 @@ yy-ps(){
 yy-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME
+ cd $_HYBRIS_HOME
 }
 
 yy-navigatecustom(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME/bin/custom
+ cd $_HYBRIS_HOME/bin/custom
 }
 
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME/config
+ cd $_HYBRIS_HOME/config
 }
 
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME/bin/platform
+ cd $_HYBRIS_HOME/bin/platform
 }
 
 yy-log(){
@@ -240,16 +240,16 @@ yy-configlocalproperties(){
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $__HYBRIS_HOME/config/localextensions.xml
+ atom $_HYBRIS_HOME/config/localextensions.xml
 }
 
 yy-createproject(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "hybris project folder suffix"
-  local __HYBRIS_FOLDER_SUFFIX=$1
-  yy-setsuffix $__HYBRIS_FOLDER_SUFFIX
-  echo yy-setsuffix $__HYBRIS_FOLDER_SUFFIX >> $_SHELL_AUTOSTART_FILEPATH
-  mkdir $_REPOSITORY_PATH/hybris_$__HYBRIS_FOLDER_SUFFIX
+  local _HYBRIS_FOLDER_SUFFIX=$1
+  yy-setsuffix $_HYBRIS_FOLDER_SUFFIX
+  echo yy-setsuffix $_HYBRIS_FOLDER_SUFFIX >> $_SHELL_AUTOSTART_FILEPATH
+  mkdir $_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX
 }
 
 ### HYBRIS ANT ###
@@ -324,14 +324,14 @@ yy-antjunit(){
 yy-antextgen(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME/bin/platform
+ cd $_HYBRIS_HOME/bin/platform
  ant extgen
 }
 
 yy-antmodulegen(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $__HYBRIS_HOME/bin/platform
+ cd $_HYBRIS_HOME/bin/platform
  ant modulegen
 }
 
@@ -364,7 +364,7 @@ yy-antkill(){
 yy-copydbdriver(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $__HYBRIS_HOME/bin/platform/lib/dbdriver
+ cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $_HYBRIS_HOME/bin/platform/lib/dbdriver
 }
 
 yy-dockermysqlstart(){
