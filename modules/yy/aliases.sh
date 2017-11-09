@@ -255,15 +255,26 @@ yy-configlocalextensions(){
 yy-configcreatecustomproperties(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (touch $_HYBRIS_CUSTOM_PROPERTIES && echo_info "custom.properties created") \
- || echo_warn "custom.properties file already exists"
+ if [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]]
+   then
+    touch $_HYBRIS_CUSTOM_PROPERTIES
+    echo_info "custom.properties created"
+  else
+    echo_warn "custom.properties file already exists"
+ fi
 }
 
 yy-configmergecustomproperties(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- [[ -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (cat $_HYBRIS_CUSTOM_PROPERTIES >> $_HYBRIS_LOCAL_PROPERTIES && echo_info "Properties merged") \
- || echo_err "custom.properties file does not exist"
+ if [[ -f $_HYBRIS_CUSTOM_PROPERTIES ]]
+    then
+      cat $_HYBRIS_CUSTOM_PROPERTIES >> $_HYBRIS_LOCAL_PROPERTIES
+      echo_info "Properties merged"
+      yy-antserver
+    else
+      echo_err "custom.properties file does not exist"
+  fi
 }
 
 yy-createproject(){
