@@ -205,7 +205,7 @@ yy-start(){
 }
 
 yy-stop(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  echo_info "Before kill:"
  yy-ps
  local kill_executions=5
@@ -229,6 +229,7 @@ yy-jcmd(){
 }
 
 yy-checkcontext(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local bean_creation_error=`_get_context_creation_error`
   [[ -z $bean_creation_error ]] && echo_ok "OK" || echo_err "$bean_creation_error"
 }
@@ -239,6 +240,12 @@ yy-configlocalproperties(){
  atom $_HYBRIS_LOCAL_PROPERTIES
 }
 
+yy-configcustomproperties(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
+ atom $_HYBRIS_CUSTOM_PROPERTIES
+}
+
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
@@ -246,11 +253,15 @@ yy-configlocalextensions(){
 }
 
 yy-configcreatecustomproperties(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
  [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (touch $_HYBRIS_CUSTOM_PROPERTIES && echo_info "custom.properties created") \
  || echo_warn "custom.properties file already exists"
 }
 
 yy-configmergecustomproperties(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
  [[ -f $_HYBRIS_CUSTOM_PROPERTIES ]] && (cat $_HYBRIS_CUSTOM_PROPERTIES >> $_HYBRIS_LOCAL_PROPERTIES && echo_info "Properties merged") \
  || echo_err "custom.properties file does not exist"
 }
