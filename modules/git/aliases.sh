@@ -32,7 +32,7 @@ git-config(){
   git config user.email "$1"
   git config user.name "$2"
 }
-alias git-config-dawidkotarba='git-config dawidkotarba dawidkotarba'
+alias git-configdawidkotarba='git-config dawidkotarba dawidkotarba'
 
 git-parent(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
