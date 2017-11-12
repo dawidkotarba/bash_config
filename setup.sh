@@ -29,7 +29,7 @@ clean-folder(){
 }
 
 show-dialog(){
-  dialog --backtitle "Setup script" --title "Setup script option:" --yesno "$1" 7 60
+  whiptail --backtitle "Setup script" --title "Setup script option:" --yesno "$1" 7 60
 }
 
 ### EXECUTION ###
