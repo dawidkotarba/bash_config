@@ -12,7 +12,7 @@ create_symlink(){
 }
 
 clone_app(){
- (cd $_SHELL_APPS_PATH && git clone $1)
+ (cd $_SHELL_APPS_PATH && echo_info "Cloning from $1" && git clone $1)
 }
 
 clean-folder(){
