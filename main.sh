@@ -23,6 +23,9 @@ alias ping='ping -c 5'
 # ohmyzsh plugins' aliases
 alias cp=cpv --progress
 
+# apps
+alias r='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
+
 ######################
 ## INITIAL SOURCING ##
 ######################
