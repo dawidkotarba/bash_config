@@ -61,5 +61,5 @@ setup-fuzzy(){
 }
 
 setup-tools(){
-  _aptinstall tilda clipit synapse tig meld filezilla
+  _aptinstall tilda clipit synapse tig meld filezilla retext
 }
