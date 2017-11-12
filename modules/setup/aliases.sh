@@ -17,19 +17,23 @@ _aptrepository(){
 }
 
 setup-ranger(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall ranger caca-utils highlight atool w3m poppler-utils mediainfo
   ranger --copy-config=all
 }
 
 setup-pidgin(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall pidgin pidgin-sipe
 }
 
 setup-evolution(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall evolution evolution-ews
 }
 
 setup-atom(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall atom
 
   echo_info "Installing: plugins"
@@ -42,24 +46,35 @@ setup-atom(){
 }
 
 setup-flux(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptrepository ppa:nathan-renniewaldock/flux
   _aptinstall fluxgui
 }
 
 setup-ssh(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall openssh-client openssh-server
   sudo systemctl restart sshd.service
 }
 
 setup-openconnect(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall openconnect network-manager-openconnect-gnome
 }
 
 setup-fuzzy(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
   sudo dpkg -i fzy_0.9-1_amd64.deb
 }
 
 setup-tools(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall htop glances tilda clipit synapse tig meld filezilla retext
+}
+
+# Raspberry PI
+setup-rpi-docker(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  curl -sSL https://get.docker.com | sh
 }
