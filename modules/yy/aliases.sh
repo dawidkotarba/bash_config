@@ -264,6 +264,18 @@ yy-configcreatecustomproperties(){
  fi
 }
 
+yy-configcopycustomproperties(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
+ if [[ ! -f $_HYBRIS_CUSTOM_PROPERTIES ]]
+   then
+    cp $_SHELL_MODULES_PATH/yy/files/custom.properties $_HYBRIS_CONFIG_PATH
+    echo_info "custom.properties copied"
+  else
+    echo_warn "custom.properties file already exists"
+ fi
+}
+
 yy-configmergecustomproperties(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
