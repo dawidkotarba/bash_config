@@ -436,3 +436,24 @@ yy-dockermysqlcreatedbuser(){
   sudo docker exec -i $(_get_mysql_container_name) mysql -uroot -p$root_pwd <<< "CREATE USER $user_name IDENTIFIED BY '$user_pwd'"
   sudo docker exec -i $(_get_mysql_container_name) mysql -uroot -p$root_pwd <<< "GRANT ALL PRIVILEGES ON $db_name.* TO $user_name"
 }
+
+_get_tld_jars() {
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _check_hybris_suffix
+  checkarg $1 "0 - get jars without TLD, 1 - with TLD"
+  for f in $(find $_HYBRIS_HOME -name "*.jar"); do
+    if [[ $(unzip -v ${f} | grep '.tld$' | wc -l) -eq $1 ]]; then
+      echo "$(basename $f)"
+    fi
+  done
+}
+
+yy-tldjars(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _get_tld_jars 1
+}
+
+yy-tldjarswithout(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _get_tld_jars 0
+}
