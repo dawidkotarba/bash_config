@@ -1,6 +1,6 @@
-######################
-#Settings and aliases#
-######################
+########################
+# Settings and aliases #
+########################
 
 # Default settings
 HISTSIZE=99999
@@ -39,8 +39,6 @@ source $_SHELL_SHARED_PATH/checks.sh
 ######################
 ##  MAIN FUNCTIONS  ##
 ######################
-
-### Other functions ###
 _show_popup(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   zenity --info --text "$1"
@@ -137,13 +135,13 @@ _source_forward_declarations(){
 echo_pretty "Sourcing forward declarations:"
 _source_forward_declarations
 
-_source_modules_aliases(){
+_source_modules(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh); do _source_if_exists "$file"; done
- for file in $(find $_SHELL_MODULES_PATH -type f -name aliases.sh); do _source_if_exists "$file"; done
+ for file in $(find $_SHELL_MODULES_PATH -type f -name sources.sh); do _source_if_exists "$file"; done
 }
 echo_pretty "Sourcing modules:"
-_source_modules_aliases
+_source_modules
 
 ### PATH AND AUTOSTART ###
 echo_pretty "Sourcing path and autostart:"

@@ -26,7 +26,7 @@ sh-newmodule(){
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
  [[ ! -d $modulepath ]] && mkdir $modulepath
  echo "### help ###" >  $modulepath/help.sh
- echo "### $modulename ###" > $modulepath/aliases.sh
+ echo "### $modulename ###" > $modulepath/sources.sh
 }
 
 sh-source(){
@@ -37,7 +37,7 @@ sh-source(){
 sh-edit(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/aliases.sh || atom $_SHELL_CONFIG_PATH/help.sh
+ [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/sources.sh || atom $_SHELL_CONFIG_PATH/help.sh
 }
 
 sh-edithelp(){
@@ -50,7 +50,7 @@ sh-edithelp(){
 sh-show(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- [[ $module_name ]] && less $_SHELL_MODULES_PATH/$module_name/aliases.sh || less $_SHELL_MAIN_FILEPATH
+ [[ $module_name ]] && less $_SHELL_MODULES_PATH/$module_name/sources.sh || less $_SHELL_MAIN_FILEPATH
 }
 
 sh-diff(){
@@ -94,7 +94,7 @@ sh-navigate(){
 
 sh-updatehelp(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local functions=`grep -rh "\w() *{" aliases.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
+  local functions=`grep -rh "\w() *{" sources.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
   [[ ! -f help.sh ]] && (echo $functions >> help.sh) && return
   while read f
   do
