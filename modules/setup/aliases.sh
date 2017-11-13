@@ -70,7 +70,7 @@ setup-fuzzy(){
 
 setup-tools(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptinstall htop glances tilda clipit synapse tig meld filezilla retext
+  _aptinstall htop glances tilda clipit synapse tig meld filezilla retext xclip
 }
 
 # Raspberry PI
