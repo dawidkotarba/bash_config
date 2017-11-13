@@ -27,6 +27,7 @@ sh-newmodule(){
  [[ ! -d $modulepath ]] && mkdir $modulepath
  echo "### help ###" >  $modulepath/help.sh
  echo "### $modulename ###" > $modulepath/sources.sh
+ mkdir $modulepath/files
 }
 
 sh-source(){
