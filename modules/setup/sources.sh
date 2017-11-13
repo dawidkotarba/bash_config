@@ -68,6 +68,11 @@ setup-fuzzy(){
   sudo dpkg -i fzy_0.9-1_amd64.deb
 }
 
+setup-alien(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptinstall alien dpkg-dev debhelper build-essential
+}
+
 setup-tools(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall htop glances tilda clipit synapse tig meld filezilla retext xclip
