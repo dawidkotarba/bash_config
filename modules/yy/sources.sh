@@ -64,16 +64,16 @@ _is_hybris_mysql_running(){
     if [[ $is_mysql_running ]]
     then
       echo_ok "hybris MYSQL is running"
-      export HYBRIS_MYSQL_RUNNING=true
+      _HYBRIS_MYSQL_RUNNING=true
     else
       echo_err "hybris MYSQL is NOT running"
-      export HYBRIS_MYSQL_RUNNING=false
+      _HYBRIS_MYSQL_RUNNING=false
     fi
 }
 
 _start_hybris_mysql(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ ! $HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && _is_hybris_mysql_running
+  [[ ! $_HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && _is_hybris_mysql_running
 }
 
 _is_hsqldb_used(){
@@ -107,12 +107,12 @@ _stop_hybris_server(){
 yy-setsuffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "hybris suffix"
- export _HYBRIS_FOLDER_SUFFIX=$1
- export _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
- export _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
- export _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
- export _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
- export _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
+ _HYBRIS_FOLDER_SUFFIX=$1
+ _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
+ _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
+ _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
+ _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
+ _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
 }
 
 yy-ps(){
