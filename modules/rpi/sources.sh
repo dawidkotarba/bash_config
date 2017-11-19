@@ -1,8 +1,10 @@
 ### RPI ###
 
+_RPI_HOSTS=$_SHELL_MODULES_PATH/rpi/pssh_hosts
+
 pssh(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- parallel-ssh -h $_SHELL_MODULES_PATH/rpi/pssh_hosts -t -1 -l pi -A $@
+ parallel-ssh -h $_RPI_HOSTS -t -1 -l pi -A $@
 }
 
 rpi-clusterupgrade(){
@@ -26,4 +28,10 @@ rpi-wifiadd(){
   checkarg $1 "ssid"
   checkarg $2 "password"
   wpa_passphrase $1 $2 >> /etc/wpa_supplicant/wpa_supplicant.conf
+}
+
+rpi-ping(){
+  while read ip; do
+   ping -c2 $ip
+  done <$_RPI_HOSTS
 }
