@@ -1,6 +1,8 @@
 ### RPI ###
 
 _RPI_HOSTS=$_SHELL_MODULES_PATH/rpi/files/pssh_hosts
+_RPI_NAMES=$_SHELL_MODULES_PATH/rpi/files/hosts_names
+source $_RPI_NAMES
 
 pssh(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
