@@ -38,14 +38,16 @@ sh-source(){
 sh-edit(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local module_name=$1
- [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/sources.sh || atom $_SHELL_CONFIG_PATH/help.sh
+ local file_path=$_SHELL_MODULES_PATH/$module_name/sources.sh
+ [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
 sh-edithelp(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  checkarg $1 "module_name"
  local module_name=$1
- [[ $module_name ]] && atom $_SHELL_MODULES_PATH/$module_name/help.sh || atom $_SHELL_CONFIG_PATH/help.sh
+ local file_path=$_SHELL_MODULES_PATH/$module_name/help.sh
+ [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
 sh-show(){
