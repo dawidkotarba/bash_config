@@ -78,6 +78,11 @@ setup-tools(){
   _aptinstall htop glances tilda clipit synapse tig meld filezilla retext xclip
 }
 
+setup-node(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptinstall nodejs nodejs-legacy
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
