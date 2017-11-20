@@ -21,7 +21,7 @@ sh-newcheck(){
 
 sh-newmodule(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "module_name"
+ checkarg $1 "module name"
  local modulename=$1
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
  [[ ! -d $modulepath ]] && mkdir $modulepath
@@ -35,19 +35,26 @@ sh-source(){
   source $_SHELL_MAIN_FILEPATH
 }
 
-sh-edit(){
+_editfile(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local module_name=$1
- local file_path=$_SHELL_MODULES_PATH/$module_name/sources.sh
+ checkarg $1 "file name"
+ checkarg $2 "module name"
+ local file_name=$1
+ local module_name=$2
+ local file_path=$_SHELL_MODULES_PATH/$module_name/$1
  [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
+sh-edit(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  local module_name=$1
+  _editfile "sources.sh" $module_name
+}
+
 sh-edithelp(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "module_name"
- local module_name=$1
- local file_path=$_SHELL_MODULES_PATH/$module_name/help.sh
- [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  local module_name=$1
+  _editfile "help.sh" $module_name
 }
 
 sh-show(){
