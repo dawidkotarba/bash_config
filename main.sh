@@ -105,6 +105,9 @@ _print_column(){
 ### OPENCONNECT VPN ###
 _openconnect_vpn(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ checkarg $1 "user"
+ checkarg $2 "vpn url"
+ checkarg $3 "parameters"
  local user=$1
  local vpn_url=$2
  local params=$3
