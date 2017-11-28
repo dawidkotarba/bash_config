@@ -95,7 +95,7 @@ _get_mysql_container_name(){
 
 _kill_hybris_processes(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- ps aux | grep hybris | grep -v $_HYBRIS_LOG | grep -v atom | awk '{print $2}' | xargs kill
+ ps aux | grep hybris | grep -v $_HYBRIS_LOG | grep -v vim | awk '{print $2}' | xargs kill
 }
 
 _stop_hybris_server(){
@@ -237,19 +237,19 @@ yy-checkcontext(){
 yy-configlocalproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $_HYBRIS_LOCAL_PROPERTIES
+ vim $_HYBRIS_LOCAL_PROPERTIES
 }
 
 yy-configcustomproperties(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $_HYBRIS_CUSTOM_PROPERTIES
+ vim $_HYBRIS_CUSTOM_PROPERTIES
 }
 
 yy-configlocalextensions(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
- atom $_HYBRIS_CONFIG_PATH/localextensions.xml
+ vim $_HYBRIS_CONFIG_PATH/localextensions.xml
 }
 
 yy-configcreatecustomproperties(){
