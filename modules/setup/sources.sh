@@ -80,6 +80,7 @@ setup-tools(){
 
 setup-node(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   _aptinstall nodejs nodejs-legacy
 }
 
