@@ -183,6 +183,11 @@ yy-logless(){
  less $_HYBRIS_LOG_PATH
 }
 
+yy-logvim(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ vim $_HYBRIS_LOG_PATH
+}
+
 yy-logcat(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  cat $_HYBRIS_LOG_PATH
