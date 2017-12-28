@@ -474,3 +474,25 @@ yy-tldjarswithout(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _get_tld_jars 0
 }
+
+### HYBRIS GROOVY SCRIPTING CONSOLE ###
+_copygroovyfile(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "filename"
+  local filepath="$(_getmodulefilespath yy)/groovy/$1"
+  clip "$filepath"
+  echo_info "Copied: $filepath. Content:"
+  cat $filepath
+}
+
+yy-groovyconsole-showfiles(){
+  _copygroovyfile "showFiles.groovy"
+}
+
+yy-groovyconsole-showtomcatlogs(){
+ _copygroovyfile "showTomcatLogs.groovy"
+}
+
+yy-groovyconsole-printtomcatlog(){
+ _copygroovyfile "printTomcatLog.groovy"
+}
