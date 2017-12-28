@@ -1,4 +1,27 @@
 # shell config edition
+_editfile(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ checkarg $1 "file name"
+ checkarg $2 "module name"
+ local file_name=$1
+ local module_name=$2
+ local file_path=$_SHELL_MODULES_PATH/$module_name/$1
+ [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
+}
+
+_getmodulepath(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "module name"
+  local module_name=$1
+  echo $_SHELL_MODULES_PATH/$module_name
+}
+
+_getmodulefilespath(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  checkarg $1 "module name"
+  echo "$(_getmodulepath $1)/files"
+}
+
 sh-newfunction(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   kk-clipboard $_SHELL_NEW_FUNCTION_FILEPATH
@@ -33,16 +56,6 @@ sh-newmodule(){
 sh-source(){
   echo_info "Refreshing..."
   source $_SHELL_MAIN_FILEPATH
-}
-
-_editfile(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "file name"
- checkarg $2 "module name"
- local file_name=$1
- local module_name=$2
- local file_path=$_SHELL_MODULES_PATH/$module_name/$1
- [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
 sh-edit(){
