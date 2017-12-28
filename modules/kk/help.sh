@@ -1,4 +1,3 @@
-_help_kk_clipboard='Copies file to clipboard. Usage: kk-clipboard file_path'
 _help_kk_server='Starts a python server on 7070'
 _help__pull_cloned_apps='Pulls all cloned apps in app folder'
 _help_kk_upgrade=''

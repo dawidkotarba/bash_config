@@ -1,11 +1,4 @@
 ### kk ###
-kk-clipboard(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  checkarg $1 "file path"
-  cat $1 | xclip -selection clipboard
-}
-alias clip='kk-clipboard'
-
 kk-server(){
 [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local port=7070

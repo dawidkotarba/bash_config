@@ -22,9 +22,15 @@ _editfile(){
  [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
+_filetoclipboard(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  cat $1 | xclip -selection clipboard
+}
+alias clip='_filetoclipboard'
+
 sh-newfunction(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  kk-clipboard $_SHELL_NEW_FUNCTION_FILEPATH
+  clip $_SHELL_NEW_FUNCTION_FILEPATH
   echo_ok "Function template copied to clipboard"
 }
 
