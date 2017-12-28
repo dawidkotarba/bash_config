@@ -1,14 +1,4 @@
 # shell config edition
-_editfile(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "file name"
- checkarg $2 "module name"
- local file_name=$1
- local module_name=$2
- local file_path=$_SHELL_MODULES_PATH/$module_name/$1
- [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
-}
-
 _getmodulepath(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "module name"
@@ -20,6 +10,16 @@ _getmodulefilespath(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "module name"
   echo "$(_getmodulepath $1)/files"
+}
+
+_editfile(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ checkarg $1 "file name"
+ checkarg $2 "module name"
+ local file_name=$1
+ local module_name=$2
+ local file_path="$(_getmodulepath $2)/$1"
+ [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
 sh-newfunction(){
