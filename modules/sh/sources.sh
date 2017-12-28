@@ -42,7 +42,7 @@ _editfile(){
  local file_name=$1
  local module_name=$2
  local file_path=$_SHELL_MODULES_PATH/$module_name/$1
- [[ -f $file_path ]] && vim $file_path || echo_err "No such file: $file_path"
+ [[ -f $file_path ]] && atom $file_path || echo_err "No such file: $file_path"
 }
 
 sh-edit(){
