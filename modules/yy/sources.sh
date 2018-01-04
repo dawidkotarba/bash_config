@@ -150,6 +150,12 @@ yy-navigateplatform(){
  cd $_HYBRIS_HOME/bin/platform
 }
 
+yy-navigateinstaller(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _check_hybris_suffix
+  cd $_HYBRIS_HOME/../installer
+}
+
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  [[ $@ != *'-nolog'* ]] && tail -f $_HYBRIS_LOG_PATH
