@@ -24,6 +24,11 @@ _on_hybris_platform_nolog(){
  (cd $_HYBRIS_HOME/bin/platform && $@)
 }
 
+_on_hybris_installer(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  (cd $_HYBRIS_HOME/../installer && ./install.sh $@)
+}
+
 _on_hybris_process(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local result=`ps -aux | grep hybris`
@@ -154,6 +159,11 @@ yy-navigateinstaller(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _check_hybris_suffix
   cd $_HYBRIS_HOME/../installer
+}
+
+yy-installb2b(){
+  _on_hybris_installer -r b2b_acc setup
+  _on_hybris_installer -r b2b_acc initialize
 }
 
 yy-log(){
