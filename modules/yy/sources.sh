@@ -512,3 +512,7 @@ yy-groovyconsole-showtomcatlogs(){
 yy-groovyconsole-printtomcatlog(){
  _copygroovyfile "printTomcatLog.groovy"
 }
+
+yy-groovyconsole-runcronjob(){
+ _copygroovyfile "runCronJob.groovy"
+}
