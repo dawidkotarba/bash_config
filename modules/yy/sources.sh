@@ -43,7 +43,7 @@ _check_hybris_suffix(){
 
 _get_hybris_process(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  jcmd | grep tanukisoftware | awk {'print $1'}
+  pgrep -f tanukisoftware
 }
 
 _show_notification_if_hybris_started(){
