@@ -100,7 +100,8 @@ _get_mysql_container_name(){
 
 _kill_hybris_processes(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- ps aux | grep hybris | grep -v $_HYBRIS_LOG | grep -v vim | awk '{print $2}' | xargs kill
+ local hybris_process=`_get_hybris_process`
+ kill $hybris_process
 }
 
 _stop_hybris_server(){
@@ -227,16 +228,12 @@ yy-start(){
 
 yy-stop(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- echo_info "Before kill:"
- yy-ps
- local kill_executions=5
- for i in {1..$kill_executions}
- do
- _kill_hybris_processes
- done
- echo_info "After kill ($kill_executions times):"
- yy-ps
  _stop_hybris_server
+}
+
+yy-kill(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _kill_hybris_processes
 }
 
 yy-jvisualvm(){
