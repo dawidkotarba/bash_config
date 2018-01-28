@@ -33,7 +33,14 @@ rpi-wifiadd(){
 }
 
 rpi-ping(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   while read ip; do
    ping -c2 $ip
   done <$_RPI_HOSTS
+}
+
+rpi-wget(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ checkarg $1 "URL"
+ wget -bcq $1
 }
