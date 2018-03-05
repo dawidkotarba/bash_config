@@ -213,6 +213,11 @@ yy-logcat(){
  cat $_HYBRIS_LOG_PATH
 }
 
+yy-loglnav(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ lnav $_HYBRIS_LOG_PATH
+}
+
 yy-logtomcat(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs less -n +F)
