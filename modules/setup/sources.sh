@@ -75,7 +75,7 @@ setup-alien(){
 
 setup-tools(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptinstall lnav htop glances tilda clipit synapse tig meld filezilla retext xclip tree mtr radiotray
+  _aptinstall htop glances tilda clipit synapse tig meld filezilla retext xclip tree mtr radiotray
 }
 
 setup-node(){
