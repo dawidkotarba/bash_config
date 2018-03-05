@@ -1,4 +1,7 @@
 # HYBRIS
+### required apps ####
+_requires lnav
+
 ### consts ###
 _HYBRIS_LOG=log/y.log
 

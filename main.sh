@@ -102,6 +102,17 @@ _print_column(){
   tr -s "$delimiter" | cut -d "$delimiter" -f $column
 }
 
+_requires(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  for app in $@; do
+    local app_present=`dpkg --list | grep -w $app | awk '{print $2}'`
+    if [[ ! $app_present ]]
+      then
+        echo_err "Application [$app] is required but missing."
+    fi
+  done
+}
+
 ### OPENCONNECT VPN ###
 _openconnect_vpn(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
