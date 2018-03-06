@@ -84,16 +84,16 @@ _start_hybris_mysql(){
   [[ ! $_HYBRIS_MYSQL_RUNNING ]] && yy-dockermysqlstart && _is_hybris_mysql_running
 }
 
-_is_hsqldb_used(){
+_is_mysql_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local entry_line=`grep "db.url=" $_HYBRIS_LOCAL_PROPERTIES | grep -v "#.*db.url=" | tail -1 | grep hsqldb`
+  local entry_line=`grep "db.driver=com.mysql.jdbc.Driver" $_HYBRIS_LOCAL_PROPERTIES`
   [[ $entry_line ]] && echo 1 || echo 0
 }
 
 _start_mysql_if_used(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local is_hsqldb=`_is_hsqldb_used`
-  [[ "$is_hsqldb" == 0 ]] && _start_hybris_mysql
+  local is_hsqldb=`_is_mysql_used`
+  [[ $_is_mysql_used ]] && _start_hybris_mysql
 }
 
 _get_mysql_container_name(){
