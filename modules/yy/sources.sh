@@ -1,6 +1,6 @@
 # HYBRIS
 ### required apps ####
-_requires lnav
+_requires lnav docker
 
 ### consts ###
 _HYBRIS_LOG=log/y.log
@@ -104,7 +104,10 @@ _get_mysql_container_name(){
 _kill_hybris_processes(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local hybris_process=`_get_hybris_process`
- kill $hybris_process
+ if [[ $hybris_process ]]
+  then kill -9 $hybris_process
+  else echo_info "hybris is not running"
+ fi
 }
 
 _stop_hybris_server(){
