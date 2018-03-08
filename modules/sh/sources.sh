@@ -118,7 +118,11 @@ sh-refresh(){
 
 sh-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  cd $_SHELL_CONFIG_PATH
+  local module=$1
+  if [[ $module ]]
+   then cd $_SHELL_CONFIG_PATH/modules/$module
+   else cd $_SHELL_CONFIG_PATH
+  fi
 }
 
 sh-updatehelp(){
