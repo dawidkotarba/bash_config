@@ -156,6 +156,18 @@ yy-navigateconfig(){
  cd $_HYBRIS_CONFIG_PATH
 }
 
+yy-navigatedata(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
+ cd $_HYBRIS_HOME/data
+}
+
+yy-navigatelog(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _check_hybris_suffix
+ cd $_HYBRIS_HOME/log
+}
+
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _check_hybris_suffix
