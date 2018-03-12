@@ -1,4 +1,6 @@
 # shell config edition
+_requires tig
+
 _getmodulepath(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "module name"
@@ -85,6 +87,16 @@ sh-show(){
 sh-diff(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   (cd $_SHELL_CONFIG_PATH && git diff)
+}
+
+sh-tig(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  (cd $_SHELL_CONFIG_PATH && tig)
+}
+
+sh-tis(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  (cd $_SHELL_CONFIG_PATH && tis)
 }
 
 sh-commit(){
