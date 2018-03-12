@@ -64,8 +64,16 @@ _source_modules(){
  for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh); do _source_if_exists "$file"; done
  for file in $(find $_SHELL_MODULES_PATH -type f -name sources.sh); do _source_if_exists "$file"; done
 }
+
+_source_tmp(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _source_if_exists $_SHELL_MODULES_PATH/tmp/sources.sh
+}
+
 echo_pretty "Sourcing modules:"
 _source_modules
+echo_pretty "Sourcing again tmp to override existing funstions"
+_source_tmp
 
 ### PATH AND AUTOSTART ###
 echo_pretty "Sourcing path and autostart:"
