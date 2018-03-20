@@ -2,7 +2,8 @@
 kk-server(){
 [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  local port=7070
- echo_info "Starting python server on $port"
+ local hostname=`hostname`
+ echo_info "Running python server: http://$hostname:$port"
  #python -m SimpleHTTPServer $port
  python3 -m http.server $port
 }
@@ -10,9 +11,8 @@ kk-server(){
 kk-share(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local share_folder="Shared"
-  local hostname=`hostname`
   if [[ ! -d "$share_folder" ]]; then cd && mkdir $share_folder; fi
-  (cd ~/$share_folder && echo_ok "Running python server in $share_folder folder: http://$hostname:7070" && kk-server)
+  (cd ~/$share_folder && kk-server)
 }
 alias share='kk-share'
 
