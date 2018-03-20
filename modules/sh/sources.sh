@@ -1,6 +1,16 @@
 # shell config edition
 _requires tig
 
+_pull-cloned-apps(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ for app in $(ls $_SHELL_APPS_PATH);
+  do
+   local app_path="$_SHELL_APPS_PATH/$app"
+   git -C $app_path reset HEAD --hard
+   git -C $app_path pull
+  done
+}
+
 _getmodulepath(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "module name"
@@ -76,6 +86,11 @@ sh-edithelp(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local module_name=$1
   _editfile "help.sh" $module_name
+}
+
+sh-pull(){
+  git -C $_SHELL_CONFIG_PATH pull
+  _pull-cloned-apps
 }
 
 sh-show(){
