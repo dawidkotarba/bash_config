@@ -9,7 +9,7 @@ _HYBRIS_LOG=log/y.log
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  rm -f $_HYBRIS_LOG_PATH
- (cd $_HYBRIS_HOME/bin/platform && $@ >> $_HYBRIS_LOG_PATH &)
+ (cd $_HYBRIS_HOME/bin/platform && $@ > $_HYBRIS_LOG_PATH &)
  _show_notification_if_hybris_started &
  sleep 1
  yy-log $@
