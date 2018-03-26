@@ -150,8 +150,10 @@
     save = "!f() { git stash save $1; }; f"
     #sshow = "!f() { git stash show stash^{/$*} -p; }; f"
     load = "!f() { git stash apply stash^{/$*}; }; f"
-
 		last = "log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso -10"
+
+		# Author helpers
+		resetauthor = "commit --amend --reset-author --no-edit"
 
 [apply]
     whitespace = nowarn
@@ -161,3 +163,6 @@
     autocorrect = 1
 [credential]
 	helper = store
+[user]
+	name = Dawid Kotarba
+	email = dawidkotarba
