@@ -403,9 +403,19 @@ yy-antupdatesystem(){
  _ant_on_hybris_platform updatesystem $@
 }
 
-yy-antjunit(){
+yy-antyunitupdate(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  _ant_on_hybris_platform yunitinit
+}
+
+yy-antyunitinit(){
+ [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ _ant_on_hybris_platform yunitinit
+}
+
+yy-antunittests(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _ant_on_hybris_platform unittests
 }
 
 yy-antextgen(){
