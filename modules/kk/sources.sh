@@ -44,6 +44,13 @@ kk-replaceinpath(){
   find . -type f | xargs sed -i "s/$1/$2/g"
 }
 
+kk-findpath(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  local folder_name=$1
+  find . -path "*/$folder_name"
+}
+alias findpath='kk-findpath'
+
 kk-ip(){
   ifconfig | grep 'inet addr'
 }
