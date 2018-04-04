@@ -84,6 +84,11 @@ setup-node(){
   _aptinstall nodejs nodejs-legacy
 }
 
+setup-funny(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptinstall figlet cmatrix
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
