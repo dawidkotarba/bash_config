@@ -66,6 +66,10 @@ kk-writeimageinstructions(){
   echo_info "i.e. sudo dd if=/home/dawidkotarba/Downloads/ubuntu-17.10-desktop-amd64.iso of=/dev/sdb bs=4M && sync"
 }
 
+kk-remountrw(){
+  mount -o remount,rw /
+}
+
 ### DOCKER ###
 kk-dockerstart(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
