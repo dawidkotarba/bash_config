@@ -29,7 +29,7 @@ setup-pidgin(){
 
 setup-evolution(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptinstall evolution evolution-ews
+  _aptinstall evolution evolution-plugins evolution-ews
 }
 
 setup-atom(){
