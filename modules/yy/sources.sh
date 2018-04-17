@@ -2,16 +2,12 @@
 ### required apps ####
 _requires lnav docker
 
-### consts ###
-_HYBRIS_LOG=log/y.log
-
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  rm -f $_HYBRIS_LOG_PATH
  (cd $_HYBRIS_HOME/bin/platform && $@ > $_HYBRIS_LOG_PATH &)
  _show_notification_if_hybris_started &
- sleep 1
  yy-log $@
 }
 
@@ -58,6 +54,11 @@ _get_hybris_folder(){
     _check_hybris_suffix
     echo $_HYBRIS_HOME
   fi
+}
+
+_get_hybris_log_path(){
+  local log_file=`yy-navigate && cd log/tomcat && ls -lt | grep console | head -1 | awk '{print $9}'`
+  echo $_HYBRIS_HOME/log/tomcat/$log_file
 }
 
 _show_notification_if_hybris_started(){
@@ -132,7 +133,7 @@ yy-setsuffix(){
  checkarg $1 "hybris suffix"
  _HYBRIS_FOLDER_SUFFIX=$1
  _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
- _HYBRIS_LOG_PATH=$_HYBRIS_HOME/$_HYBRIS_LOG
+ _HYBRIS_LOG_PATH=`_get_hybris_log_path`
  _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
  _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
  _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
@@ -205,12 +206,8 @@ yy-installb2b(){
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- [[ $@ != *'-nolog'* ]] && less -n +F $_HYBRIS_LOG_PATH
-}
-
-yy-logclean(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  > $_HYBRIS_LOG_PATH
+ local log_path=`_get_hybris_log_path`
+ [[ $@ != *'-nolog'* ]] && less -n +F $log_path
 }
 
 yy-grep(){
@@ -249,11 +246,6 @@ yy-logcat(){
 yy-loglnav(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  lnav $_HYBRIS_LOG_PATH
-}
-
-yy-logtomcat(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- (yy-navigate && cd log/tomcat && ls -lt | grep console | tail -1 | awk '{print $9}' | xargs less -n +F)
 }
 
 yy-setantenv(){
