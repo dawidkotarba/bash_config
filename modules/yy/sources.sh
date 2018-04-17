@@ -206,7 +206,7 @@ yy-installb2b(){
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- [[ $@ != *'-nolog'* ]] && less -n +F $_HYBRIS_LOG_PATH
+ [[ $@ != *'-nolog'* ]] && lnav $_HYBRIS_LOG_PATH
 }
 
 yy-grep(){
@@ -222,11 +222,6 @@ yy-logerrorgrep(){
  grep -E 'ERROR|WARN' $_HYBRIS_LOG_PATH
 }
 
-yy-logerrortail(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  less -n +F $_HYBRIS_LOG_PATH | grep -E 'ERROR|WARN'
-}
-
 yy-logless(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  less $_HYBRIS_LOG_PATH
@@ -240,11 +235,6 @@ yy-logvim(){
 yy-logcat(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
  cat $_HYBRIS_LOG_PATH
-}
-
-yy-loglnav(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- lnav $_HYBRIS_LOG_PATH
 }
 
 yy-setantenv(){
