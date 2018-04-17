@@ -57,6 +57,7 @@ _get_hybris_folder(){
 }
 
 _get_hybris_log_path(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   local log_file=`yy-navigate && cd log/tomcat && ls -lt | grep console | head -1 | awk '{print $9}'`
   echo $_HYBRIS_HOME/log/tomcat/$log_file
 }
@@ -75,6 +76,7 @@ _show_notification_if_hybris_started(){
 }
 
 _get_context_creation_error(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   echo `cat $_HYBRIS_LOG_PATH | grep "Error creating bean with name" | head -n1`
 }
 
