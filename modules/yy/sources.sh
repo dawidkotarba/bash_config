@@ -206,8 +206,7 @@ yy-installb2b(){
 
 yy-log(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- local log_path=`_get_hybris_log_path`
- [[ $@ != *'-nolog'* ]] && less -n +F $log_path
+ [[ $@ != *'-nolog'* ]] && less -n +F $_HYBRIS_LOG_PATH
 }
 
 yy-grep(){
