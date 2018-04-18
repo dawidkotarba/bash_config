@@ -2,6 +2,13 @@
 ### required apps ####
 _requires lnav docker
 
+### constants ###
+# put hybris home as variable:
+# export HYBRIS_HOME=/home/yourusername/_repository/hybris_sfx/hybris
+# otherwise the folder will be deducted from suffix. Use yy-init:
+# yy-init sfx
+# "sfx" suffix will point to /home/yourusername/_repository/hybris_sfx/hybris
+
 ### generic ###
 _on_hybris_platform(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
@@ -37,23 +44,12 @@ _on_hybris_process(){
 
 _check_hybris_suffix(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  [[ ! $_HYBRIS_FOLDER_SUFFIX ]] && echo_err "HYBRIS SUFFIX NOT SET!"
+  [[ ! $_HYBRIS_FOLDER_SUFFIX ]] && echo_err "hybris suffix is not set!"
 }
 
 _get_hybris_process(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   pgrep -f tanukisoftware
-}
-
-_get_hybris_folder(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  if [[ $hybris_suffix ]]
-   then echo $_REPOSITORY_PATH/hybris_$hybris_suffix/hybris
-  else
-    _check_hybris_suffix
-    echo $_HYBRIS_HOME
-  fi
 }
 
 _get_hybris_log_path(){
@@ -130,11 +126,18 @@ _stop_hybris_server(){
 }
 
 ### yy namespace ###
-yy-setsuffix(){
+yy-init(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- checkarg $1 "hybris suffix"
  _HYBRIS_FOLDER_SUFFIX=$1
- _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
+
+ if [[ $_HYBRIS_FOLDER_SUFFIX ]]
+  then _HYBRIS_HOME=$_REPOSITORY_PATH/hybris_$_HYBRIS_FOLDER_SUFFIX/hybris
+  elif [[ $HYBRIS_HOME ]]
+  then
+  _HYBRIS_HOME=$HYBRIS_HOME
+  _HYBRIS_FOLDER_SUFFIX="y"
+ fi
+
  _HYBRIS_LOG_PATH=`_get_hybris_log_path`
  _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
  _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
@@ -154,51 +157,37 @@ yy-ps(){
 
 yy-navigate(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder
+  cd $_HYBRIS_HOME
 }
 
 yy-navigatecustom(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/bin/custom
+  cd $_HYBRIS_HOME/bin/custom
 }
 
 yy-navigateconfig(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/config
+  cd $_HYBRIS_HOME/config
 }
 
 yy-navigatedata(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/data
+  cd $_HYBRIS_HOME/data
 }
 
 yy-navigatelog(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/log
+  cd $_HYBRIS_HOME/log
 }
 
 yy-navigateplatform(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/bin/platform
+  cd $_HYBRIS_HOME/bin/platform
 }
 
 yy-navigateinstaller(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  local hybris_suffix=$1
-  local hybris_folder=`_get_hybris_folder $hybris_suffix`
-  cd $hybris_folder/../installer
+  cd $_HYBRIS_HOME/../installer
 }
 
 yy-installb2b(){
