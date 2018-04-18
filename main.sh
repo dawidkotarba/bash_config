@@ -63,12 +63,12 @@ _source_modules(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
 
  # source modules and help files except tmp
- for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh | grep -v $_TEMP_MODULE_PATH); do _source_if_exists "$file"; done
- for file in $(find $_SHELL_MODULES_PATH -type f -name sources.sh | grep -v $_TEMP_MODULE_PATH); do _source_if_exists "$file"; done
+ for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh | grep -v $_OVERRIDE_MODULE_PATH); do _source_if_exists "$file"; done
+ for file in $(find $_SHELL_MODULES_PATH -type f -name sources.sh | grep -v $_OVERRIDE_MODULE_PATH); do _source_if_exists "$file"; done
 
- # source tmp module for overriding existing aliases/functions
- _source_if_exists $_TEMP_MODULE_PATH/help.sh
- _source_if_exists $_TEMP_MODULE_PATH/sources.sh
+ # source override module for overriding existing aliases/functions
+ _source_if_exists $_OVERRIDE_MODULE_PATH/help.sh
+ _source_if_exists $_OVERRIDE_MODULE_PATH/sources.sh
 }
 
 echo_pretty "Sourcing modules:"
