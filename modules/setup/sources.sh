@@ -75,7 +75,7 @@ setup-alien(){
 
 setup-tools(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptinstall silversearcher-ag htop lnav glances tilda clipit synapse tig meld filezilla retext xclip tree mtr radiotray pinta
+  _aptinstall silversearcher-ag htop lnav glances tilda clipit synapse tig meld filezilla retext xclip tree mtr radiotray pinta gnome-tweak-tool
 }
 
 setup-node(){
