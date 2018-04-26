@@ -37,6 +37,11 @@ kk-killall(){
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
 
+kk-fixpermissions(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  chmod -R a+rX .
+}
+
 kk-replaceinpath(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "old text"
