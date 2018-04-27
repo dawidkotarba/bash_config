@@ -95,6 +95,11 @@ setup-funny(){
   _aptinstall figlet cmatrix
 }
 
+setup-icons-moka(){
+  _aptrepository ppa:moka/stable
+  _aptinstall moka-icon-theme
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
