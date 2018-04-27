@@ -22,6 +22,11 @@ setup-ranger(){
   ranger --copy-config=all
 }
 
+setup-autokey(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptinstall autokey-common autokey-gtk
+}
+
 setup-pidgin(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall pidgin pidgin-sipe
