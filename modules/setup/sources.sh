@@ -97,11 +97,13 @@ setup-rpi-docker(){
 
 # Oracle JDK
 setup-jdk8(){
-  sudo add-apt-repository ppa:webupd8team/java
-  sudo apt-get install oracle-java8-installer
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptrepository ppa:webupd8team/java
+  _aptinstall oracle-java8-installer
 }
 
 setup-jdk9(){
-  sudo add-apt-repository ppa:webupd8team/java
-  sudo apt-get install oracle-java9-installer
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptrepository ppa:webupd8team/java
+  _aptinstall oracle-java9-installer
 }
