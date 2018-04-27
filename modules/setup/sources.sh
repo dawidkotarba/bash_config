@@ -97,6 +97,7 @@ setup-funny(){
 
 setup-icons-moka(){
   _aptrepository ppa:moka/stable
+  _aptinstall gnome-tweak-tool
   _aptinstall moka-icon-theme
 }
 
