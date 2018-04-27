@@ -39,7 +39,8 @@ kk-killall(){
 
 kk-fixpermissions(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  chmod -R a+rX .
+  find . -type d | xargs chmod 755
+  find . -type f | xargs chmod 644
 }
 
 kk-replaceinpath(){
