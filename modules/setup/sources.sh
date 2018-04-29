@@ -7,7 +7,7 @@ _aptinstall(){
    apt install $@
 }
 
-_aptrepository(){
+_addaptrepository(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   checkarg $1 "Repository to be added"
   echo_info "Adding repository: $1"
@@ -52,7 +52,7 @@ setup-atom(){
 
 setup-flux(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptrepository ppa:nathan-renniewaldock/flux
+  _addaptrepository ppa:nathan-renniewaldock/flux
   _aptinstall fluxgui
 }
 
@@ -101,10 +101,18 @@ setup-funny(){
   _aptinstall figlet cmatrix
 }
 
+# themes and icons
 setup-icons-moka(){
-  _aptrepository ppa:moka/stable
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _addaptrepository ppa:moka/stable
   _aptinstall gnome-tweak-tool
   _aptinstall moka-icon-theme
+}
+
+setup-theme-communitheme(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _addaptrepository ppa:communitheme/ppa
+  _aptinstall ubuntu-communitheme-session
 }
 
 # Raspberry PI
@@ -116,14 +124,14 @@ setup-rpi-docker(){
 # Oracle JDK
 setup-jdk8(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptrepository ppa:webupd8team/java
+  _addaptrepository ppa:webupd8team/java
   _aptinstall oracle-java8-installer
   _aptinstall oracle-java8-set-default
 }
 
 setup-jdk9(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptrepository ppa:webupd8team/java
+  _addaptrepository ppa:webupd8team/java
   _aptinstall oracle-java9-installer
   _aptinstall oracle-java9-set-default
 }
