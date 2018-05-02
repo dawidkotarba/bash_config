@@ -18,7 +18,7 @@ alias share='kk-share'
 
 kk-upgrade(){
  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
- apt update && apt upgrade -y
+ sudo apt update && sudo apt upgrade -y
  git -C $_SHELL_CONFIG_PATH pull
  _pull-cloned-apps
 }
