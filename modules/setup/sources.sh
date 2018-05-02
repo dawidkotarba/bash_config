@@ -80,7 +80,7 @@ setup-alien(){
 
 setup-tools(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
-  _aptinstall htop glances tilda clipit synapse vim tree mtr
+  _aptinstall htop glances tilda clipit synapse vim tree mtr nixnote2
   _aptinstall filezilla retext xclip radiotray pinta gnome-tweak-tool gnome-shell-pomodoro
 }
 
