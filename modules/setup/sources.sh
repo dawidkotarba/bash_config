@@ -96,6 +96,11 @@ setup-node(){
   _aptinstall nodejs nodejs-legacy
 }
 
+setup-socials(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  _aptinstall corebird
+}
+
 setup-funny(){
   [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   _aptinstall figlet cmatrix
