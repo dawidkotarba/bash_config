@@ -1,7 +1,7 @@
 ### Java ###
 
 jj-findinjar() {
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "path"
   checkarg $2 "keyword"
   local p=$1
@@ -14,7 +14,7 @@ jj-findinjar() {
 }
 
 jj-newbean(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "full class name"
   local class_name=$1
   if [[ -z $class_name ]] && class_name=`xclip -o`

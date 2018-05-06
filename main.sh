@@ -49,7 +49,7 @@ _source_if_exists(){
 }
 
 _source_forward_declarations(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   grep -rh "\w() *{" $_SHELL_MODULES_PATH | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > $_SHELL_FWD_FILEPATH
   source $_SHELL_FWD_FILEPATH
 }
@@ -57,7 +57,7 @@ echo_pretty "Sourcing forward declarations:"
 _source_forward_declarations
 
 _source_modules(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
 
  # source modules and help files except tmp
  for file in $(find $_SHELL_MODULES_PATH -type f -name help.sh | grep -v $_OVERRIDE_MODULE_PATH); do _source_if_exists "$file"; done

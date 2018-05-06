@@ -1,6 +1,6 @@
 ### kk ###
 kk-server(){
-[[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  local port=7070
  local hostname=`hostname`
  echo_info "Running python server: http://$hostname:$port"
@@ -9,7 +9,7 @@ kk-server(){
 }
 
 kk-share(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   local share_folder="Shared"
   if [[ ! -d "$share_folder" ]]; then cd && mkdir $share_folder; fi
   (cd ~/$share_folder && kk-server)
@@ -17,14 +17,14 @@ kk-share(){
 alias share='kk-share'
 
 kk-upgrade(){
- [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  sudo apt update && sudo apt upgrade -y
  git -C $_SHELL_CONFIG_PATH pull
  _pull-cloned-apps
 }
 
 kk-bak(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "Subject of backup"
  local date=`date | awk '{print $3"-"$2"-"$4}'`
  mv $1 $1_$date
@@ -32,26 +32,26 @@ kk-bak(){
 alias bak='kk-bak'
 
 kk-killall(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   local process_name=$1
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
 
 kk-fixpermissions(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   find . -type d | xargs chmod 755
   find . -type f | xargs chmod 644
 }
 
 kk-replaceinpath(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "old text"
   checkarg $2 "new text"
   find . -type f | xargs sed -i "s/$1/$2/g"
 }
 
 kk-findpath(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   local folder_name=$1
   find . -path "*/$folder_name"
 }
@@ -62,7 +62,7 @@ kk-ip(){
 }
 
 kk-writeimageinstructions(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "image file"
   checkarg $2 "disk number"
 
@@ -78,7 +78,7 @@ kk-remountrw(){
 
 ### DOCKER ###
 kk-dockerstart(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "container name"
   local container_name=$1
   echo_info "Starting docker container: $1"
@@ -87,7 +87,7 @@ kk-dockerstart(){
 }
 
 kk-dockerip(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "container name"
   local container_name=$1
   sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
@@ -95,6 +95,6 @@ kk-dockerip(){
 
 ### NAVIGATE ###
 kk-navigaterepo(){
-  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   cd $_REPOSITORY_PATH
 }
