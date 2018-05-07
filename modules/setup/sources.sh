@@ -4,7 +4,7 @@ _aptinstall(){
    ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
    checkarg $1 "At least one program to install"
    echo_info "Installing: $@"
-   apt install $@
+   sudo apt install $@
 }
 
 _addaptrepository(){
@@ -13,7 +13,7 @@ _addaptrepository(){
   echo_info "Adding repository: $1"
   sudo add-apt-repository $1
   echo_info "apt update..."
-  apt update
+  sudo apt update
 }
 
 setup-ranger(){
@@ -86,7 +86,7 @@ setup-tools(){
 
 setup-dev(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  _aptinstall git tig ant mvn gradle
+  _aptinstall git tig ant maven gradle
   _aptinstall silversearcher-ag lnav meld
 }
 
