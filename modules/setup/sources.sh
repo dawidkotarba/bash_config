@@ -81,7 +81,7 @@ setup-alien(){
 setup-tools(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   _aptinstall htop glances tilda clipit synapse vim tree mtr nixnote2
-  _aptinstall filezilla retext xclip radiotray pinta gnome-tweak-tool gnome-shell-pomodoro
+  _aptinstall filezilla retext xclip radiotray pinta
 }
 
 setup-dev(){
@@ -116,7 +116,7 @@ setup-funny(){
 # ubuntu tools, themes and icons
 setup-ubuntu-tools(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  _aptinstall ubuntu-restricted-extras
+  _aptinstall ubuntu-restricted-extras gnome-tweak-tool gnome-shell-pomodoro network-manager-openconnect-gnome
 }
 
 setup-icons-moka(){
