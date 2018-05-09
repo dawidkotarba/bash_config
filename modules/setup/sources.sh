@@ -113,7 +113,11 @@ setup-funny(){
   _aptinstall figlet cmatrix
 }
 
-# themes and icons
+# ubuntu tools, themes and icons
+setup-ubuntu-tools(){
+  _aptinstall ubuntu-restricted-extras
+}
+
 setup-icons-moka(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   _addaptrepository ppa:moka/stable
