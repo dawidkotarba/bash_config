@@ -115,6 +115,7 @@ setup-funny(){
 
 # ubuntu tools, themes and icons
 setup-ubuntu-tools(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   _aptinstall ubuntu-restricted-extras
 }
 
