@@ -51,12 +51,6 @@ _get_hybris_process(){
   pgrep -f tanukisoftware
 }
 
-_get_hybris_log_path(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  local log_file=`yy-navigate && cd log/tomcat && ls -lt | grep console | head -1 | awk '{print $9}'`
-  echo $_HYBRIS_HOME/log/tomcat/$log_file
-}
-
 _show_notification_if_hybris_started(){
   [[ ! -f $_HYBRIS_LOG_PATH ]] && echo_err "Cannot find $_HYBRIS_LOG" && return
   local is_process_running_in_background=`jobs | grep _show_notification_if_hybris_started`
@@ -137,7 +131,8 @@ yy-init(){
   _HYBRIS_FOLDER_SUFFIX="y"
  fi
 
- _HYBRIS_LOG_PATH=`_get_hybris_log_path`
+ [[ ! -f $_HYBRIS_HOME/log/y.log ]] && touch $_HYBRIS_HOME/log/y.log
+ _HYBRIS_LOG_PATH=$_HYBRIS_HOME/log/y.log
  _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
  _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
  _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
