@@ -106,10 +106,11 @@ _get_mysql_container_name(){
 
 _kill_hybris_processes(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+ ps aux | grep hybris | grep -v lnav |_print_column " " 2 | xargs kill -9 2>/dev/null
  local hybris_process=`_get_hybris_process`
  if [[ $hybris_process ]]
-  then kill -9 $hybris_process
-  else echo_info "hybris is not running"
+  then echo_err "hybris is still running!"
+  else echo_info "hybris is not running" && echo "\nHYBRIS KILLED!" >> $_HYBRIS_LOG_PATH
  fi
 }
 
