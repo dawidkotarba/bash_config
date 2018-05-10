@@ -113,6 +113,11 @@ setup-funny(){
   _aptinstall figlet cmatrix
 }
 
+setup-android(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+  _aptinstall android-tools-adb android-tools-fastboot adb
+}
+
 # ubuntu tools, themes and icons
 setup-ubuntu-tools(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
