@@ -153,7 +153,7 @@ setup-jdk8(){
 
 setup-jdk9(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  _addaptrepository ppa:webupd8team/java
+  _addaptrepository ppa:webupd9team/java
   _aptinstall oracle-java9-installer
   _aptinstall oracle-java9-set-default
 }
