@@ -15,6 +15,7 @@ alias ll='ls -alh'
 alias l.='ls -d .*'
 alias ll.='ls -lhd .*'
 alias du='du -h'
+alias rmf='rm -rf'
 
 # net aliases
 alias ports='netstat -tulanp'
