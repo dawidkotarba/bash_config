@@ -51,6 +51,12 @@ _get_hybris_process(){
   pgrep -f tanukisoftware
 }
 
+_get_last_tomcat_log_path(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+  local log_file=`yy-navigate && cd log/tomcat && ls -lt | grep console | head -1 | awk '{print $9}'`
+  echo $_HYBRIS_HOME/log/tomcat/$log_file
+}
+
 _show_notification_if_hybris_started(){
   [[ ! -f $_HYBRIS_LOG_PATH ]] && echo_err "Cannot find $_HYBRIS_LOG" && return
   local is_process_running_in_background=`jobs | grep _show_notification_if_hybris_started`
@@ -193,6 +199,11 @@ yy-installb2b(){
 yy-log(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  [[ $@ != *'-nolog'* ]] && lnav $_HYBRIS_LOG_PATH
+}
+
+yy-logtomcat(){
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+ [[ $@ != *'-nolog'* ]] && lnav `_get_last_tomcat_log_path`
 }
 
 yy-grep(){
