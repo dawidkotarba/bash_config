@@ -1,7 +1,8 @@
 ### kk ###
 kk-server(){
 ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
- local port=7070
+ local port=$1
+ [[ ! $port ]] && port=7070
  local hostname=`hostname`
  echo_info "Running python server: http://$hostname:$port"
  #python -m SimpleHTTPServer $port
