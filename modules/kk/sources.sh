@@ -25,8 +25,8 @@ kk-upgrade(){
 }
 
 kk-bak(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  checkarg $1 "Subject of backup"
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+ checkarg $1 "Subject of backup"
  local date=`date | awk '{print $3"-"$2"-"$4}'`
  mv $1 $1_$date
 }
@@ -34,6 +34,7 @@ alias bak='kk-bak'
 
 kk-killall(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+  checkarg $1 "process name"
   local process_name=$1
   ps aux | grep $process_name | awk '{print $2}' | xargs kill
 }
@@ -53,6 +54,7 @@ kk-replaceinpath(){
 
 kk-findpath(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+  checkarg $1 "Folder name"
   local folder_name=$1
   find . -path "*/$folder_name"
 }
