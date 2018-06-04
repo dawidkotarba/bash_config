@@ -12,7 +12,7 @@ _requires lnav docker
 ### generic ###
 _on_hybris_platform(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
- (cd $_HYBRIS_HOME/bin/platform && $@ > $_HYBRIS_LOG_PATH &)
+ (cd $_HYBRIS_PLATFORM && $@ > $_HYBRIS_LOG_PATH &)
  _show_notification_if_hybris_started &
  yy-log $@
 }
@@ -20,13 +20,13 @@ _on_hybris_platform(){
 _ant_on_hybris_platform(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  _show_notification_if_hybris_started &
- (cd $_HYBRIS_HOME/bin/platform && ant $@)
+ (cd $_HYBRIS_PLATFORM && ant $@)
 }
 
 _on_hybris_platform_nolog(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  _show_notification_if_hybris_started &
- (cd $_HYBRIS_HOME/bin/platform && $@)
+ (cd $_HYBRIS_PLATFORM && $@)
 }
 
 _on_hybris_installer(){
@@ -143,6 +143,7 @@ yy-init(){
  _HYBRIS_CONFIG_PATH=$_HYBRIS_HOME/config
  _HYBRIS_LOCAL_PROPERTIES=$_HYBRIS_CONFIG_PATH/local.properties
  _HYBRIS_CUSTOM_PROPERTIES=$_HYBRIS_CONFIG_PATH/custom.properties
+ _HYBRIS_PLATFORM=$_HYBRIS_HOME/bin/platform
 }
 
 yy-ps(){
@@ -183,7 +184,7 @@ yy-navigatelog(){
 
 yy-navigateplatform(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
-  cd $_HYBRIS_HOME/bin/platform
+  cd $_HYBRIS_PLATFORM
 }
 
 yy-navigateinstaller(){
@@ -326,6 +327,11 @@ yy-configmergecustomproperties(){
   fi
 }
 
+yy-wrapperconfig(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
+  (cd $_HYBRIS_PLATFORM && vim tomcat/conf/wrapper.conf)
+}
+
 yy-createproject(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   checkarg $1 "hybris project folder suffix"
@@ -417,14 +423,14 @@ yy-antunittests(){
 yy-antextgen(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $_HYBRIS_HOME/bin/platform
+ cd $_HYBRIS_PLATFORM
  ant extgen
 }
 
 yy-antmodulegen(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  _check_hybris_suffix
- cd $_HYBRIS_HOME/bin/platform
+ cd $_HYBRIS_PLATFORM
  ant modulegen
 }
 
@@ -457,7 +463,7 @@ yy-antkill(){
 yy-copydbdriver(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
  _check_hybris_suffix
- cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $_HYBRIS_HOME/bin/platform/lib/dbdriver
+ cp ~/APPS/Hybris/mysql/mysql-connector-java-5.1.35-bin.jar $_HYBRIS_PLATFORM/lib/dbdriver
 }
 
 yy-dockermysqlstart(){
