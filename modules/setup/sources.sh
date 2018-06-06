@@ -56,7 +56,7 @@ setup-flux(){
   _aptinstall fluxgui
 }
 
-setup-ssh(){
+setup-sshserver(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   _aptinstall openssh-client openssh-server
   sudo systemctl restart sshd.service
@@ -81,7 +81,7 @@ setup-alien(){
 setup-tools(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   _aptinstall htop glances tilda clipit synapse vim tree mtr nixnote2
-  _aptinstall filezilla retext xclip radiotray pinta net-tools
+  _aptinstall filezilla retext xclip radiotray pinta net-tools sshpass
 }
 
 setup-dev(){
