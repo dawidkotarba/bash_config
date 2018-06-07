@@ -61,6 +61,7 @@ kk-findpath(){
 alias findpath='kk-findpath'
 
 kk-ip(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   ifconfig | grep 'inet addr'
 }
 
@@ -76,6 +77,7 @@ kk-writeimageinstructions(){
 }
 
 kk-remountrw(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help $funcstack[1] && return
   mount -o remount,rw /
 }
 
