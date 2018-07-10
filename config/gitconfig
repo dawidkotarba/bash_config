@@ -39,9 +39,9 @@
     cof = checkout -f
     br = branch -vv
     ci = commit
-		cim = commit -m
+	cim = commit -m
     st = status
-		cp = cherry-pick
+	cp = cherry-pick
 
     #BETTER VERSIONS OF BASIC COMMANDS
 
@@ -54,11 +54,11 @@
     unstage = reset HEAD --
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1 => \\2/' | grep -v 'alias'| awk 'BEGIN { FS = \"=>\" }{ printf(\"%-20s=>%s\\n\", $1,$2)}'|sort
     makegitrepo = !git init && git add . && git commit -m \"initial commit\"
-		pushrefs = push origin HEAD:refs/for/master
+	pushrefs = push origin HEAD:refs/for/master
 
-		# AUTOSQUASH
-		fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
-		squash = !sh -c 'REV=$(git rev-parse $1) && git commit --squash $@ && git rebase -i --autosquash $REV^' -
+	# AUTOSQUASH
+	fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
+	squash = !sh -c 'REV=$(git rev-parse $1) && git commit --squash $@ && git rebase -i --autosquash $REV^' -
 
     #BASIC HISTORY VIEWING
 
@@ -109,8 +109,8 @@
     # Ignore files only locally
     hide = update-index --assume-unchanged
     unhide = update-index --no-assume-unchanged
-		unhide-all = update-index --really-refresh
-		hidden = !git ls-files -v | grep "^[[:lower:]]"
+	unhide-all = update-index --really-refresh
+	hidden = !git ls-files -v | grep "^[[:lower:]]"
 
     #OTHER
 
@@ -143,17 +143,17 @@
     # Fetch PR from GitHub by number/id
     fetchpr = "!sh -c 'git fetch origin pull/$0/head:pr/$0'"
 
-		amend = "commit -a --amend -C HEAD"
-		pushall = "push && push --tags"
+	amend = "commit -a --amend -C HEAD"
+	pushall = "push && push --tags"
 
     # stash helpers
     save = "!f() { git stash save $1; }; f"
     #sshow = "!f() { git stash show stash^{/$*} -p; }; f"
     load = "!f() { git stash apply stash^{/$*}; }; f"
-		last = "log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso -10"
+	last = "log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso -10"
 
-		# Author helpers
-		resetauthor = "commit --amend --reset-author --no-edit"
+	# Author helpers
+	resetauthor = "commit --amend --reset-author --no-edit"
 
 [apply]
     whitespace = nowarn
