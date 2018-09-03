@@ -163,6 +163,3 @@
     autocorrect = 1
 [credential]
 	helper = store
-[user]
-	name = Dawid Kotarba
-	email = dawidkotarba
