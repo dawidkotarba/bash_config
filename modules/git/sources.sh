@@ -4,11 +4,11 @@ _git_add_commit_folder(){
  checkarg $1 "folder name"
  local folder_name=$1
  local modified_files=`(cd $1 && git ls-files -m)`
- if [[ $modified_files ]]
+ if [[ ${modified_files} ]]
   then
-    local joined_modified_files=`_join "," $modified_files`
+    local joined_modified_files=`_join "," ${modified_files}`
     local git_message="Update: $joined_modified_files"
-    git -C $folder_name commit -a -m "$git_message"
+    git -C ${folder_name} commit -a -m "$git_message"
     echo_info "$git_message"
   else
     echo_warn "Nothing to commit."
@@ -20,7 +20,7 @@ _gitmakediff(){
  local diff_file_path=~/diff
  for commit in "$@"
   do
-   git show $commit >> $diff_file_path
+   git show ${commit} >> ${diff_file_path}
   done
 }
 
@@ -44,13 +44,13 @@ git-branch(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "pattern"
   local pattern=$1;
-  local remote_branch_names=`git br -r | grep $pattern | awk '{print $1}'`
-  for remote_branch_name in $remote_branch_names
+  local remote_branch_names=`git br -r | grep ${pattern} | awk '{print $1}'`
+  for remote_branch_name in ${remote_branch_names}
    do
-    local local_branch_name=`echo $remote_branch_name | sed -r 's/^.{7}//'`
+    local local_branch_name=`echo ${remote_branch_name} | sed -r 's/^.{7}//'`
     echo_info "Doing: git checkout -b $local_branch_name $remote_branch_name"
     git checkout -f
-    git checkout -b $local_branch_name $remote_branch_name
+    git checkout -b ${local_branch_name} ${remote_branch_name}
    done
 }
 
@@ -62,10 +62,10 @@ git-deletebranches(){
 git-difftask(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local pattern=$1
-  local commits=$(git llog | grep -i kotarba | grep $pattern | awk '{print $1}')
+  local commits=$(git llog | grep -i kotarba | grep ${pattern} | awk '{print $1}')
   local cmd="git-makediff $commits"
   echo_info "Execute below:"
-  echo _gitmakediff $commits
+  echo _gitmakediff ${commits}
 }
 
 git-pushrefs(){

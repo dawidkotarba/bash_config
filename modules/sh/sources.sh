@@ -3,11 +3,11 @@ _requires tig
 
 _pull-cloned-apps(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
- for app in $(ls $_SHELL_APPS_PATH);
+ for app in $(ls ${_SHELL_APPS_PATH});
   do
-   local app_path="$_SHELL_APPS_PATH/$app"
-   git -C $app_path reset HEAD --hard
-   git -C $app_path pull
+   local app_path="${_SHELL_APPS_PATH}/$app"
+   git -C ${app_path} reset HEAD --hard
+   git -C ${app_path} pull
   done
 }
 
@@ -15,7 +15,7 @@ _getmodulepath(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "module name"
   local module_name=$1
-  echo $_SHELL_MODULES_PATH/$module_name
+  echo ${_SHELL_MODULES_PATH}/${module_name}
 }
 
 _getmodulefilespath(){
@@ -31,7 +31,7 @@ _editfile(){
  local file_name=$1
  local module_name=$2
  local file_path="$(_getmodulepath $2)/$1"
- [[ -f $file_path ]] && (echo_ok "Opening editor..." && atom $file_path) || echo_err "No such file: $file_path"
+ [[ -f ${file_path} ]] && (echo_ok "Opening editor..." && atom ${file_path}) || echo_err "No such file: $file_path"
 }
 
 _filetoclipboard(){
@@ -42,7 +42,7 @@ alias clip='_filetoclipboard'
 
 sh-newfunction(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  clip $_SHELL_NEW_FUNCTION_FILEPATH
+  clip ${_SHELL_NEW_FUNCTION_FILEPATH}
   echo_ok "Function template copied to clipboard"
 }
 
@@ -65,63 +65,63 @@ sh-newmodule(){
  checkarg $1 "module name"
  local modulename=$1
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
- [[ ! -d $modulepath ]] && mkdir $modulepath
- echo "### help ###" >  $modulepath/help.sh
- echo "### $modulename ###" > $modulepath/sources.sh
- mkdir $modulepath/files
+ [[ ! -d ${modulepath} ]] && mkdir ${modulepath}
+ echo "### help ###" >  ${modulepath}/help.sh
+ echo "### $modulename ###" > ${modulepath}/sources.sh
+ mkdir ${modulepath}/files
 }
 
 sh-source(){
   echo_info "Refreshing..."
-  source $_SHELL_MAIN_FILEPATH
+  source ${_SHELL_MAIN_FILEPATH}
 }
 
 sh-edit(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local module_name=$1
-  _editfile "sources.sh" $module_name
+  _editfile "sources.sh" ${module_name}
 }
 
 sh-edithelp(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local module_name=$1
-  _editfile "help.sh" $module_name
+  _editfile "help.sh" ${module_name}
 }
 
 sh-pull(){
-  git -C $_SHELL_CONFIG_PATH pull
+  git -C ${_SHELL_CONFIG_PATH} pull
   _pull-cloned-apps
 }
 
 sh-show(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  local module_name=$1
- [[ $module_name ]] && less $_SHELL_MODULES_PATH/$module_name/sources.sh || less $_SHELL_MAIN_FILEPATH
+ [[ ${module_name} ]] && less ${_SHELL_MODULES_PATH}/${module_name}/sources.sh || less ${_SHELL_MAIN_FILEPATH}
 }
 
 sh-diff(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  (cd $_SHELL_CONFIG_PATH && git diff)
+  (cd ${_SHELL_CONFIG_PATH} && git diff)
 }
 
 sh-tig(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  (cd $_SHELL_CONFIG_PATH && tig)
+  (cd ${_SHELL_CONFIG_PATH} && tig)
 }
 
 sh-tis(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  (cd $_SHELL_CONFIG_PATH && tis)
+  (cd ${_SHELL_CONFIG_PATH} && tis)
 }
 
 sh-commit(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
- _git_add_commit_folder $_SHELL_CONFIG_PATH
+ _git_add_commit_folder ${_SHELL_CONFIG_PATH}
 }
 
 sh-push(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
- git -C $_SHELL_CONFIG_PATH push
+ git -C ${_SHELL_CONFIG_PATH} push
 }
 
 sh-commitpush(){
@@ -132,13 +132,13 @@ sh-commitpush(){
 
 sh-revert(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  git -C $_SHELL_CONFIG_PATH checkout -f
+  git -C ${_SHELL_CONFIG_PATH} checkout -f
 }
 
 sh-refresh(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   echo_info "Rebasing latest shell config..."
-  (cd $_SHELL_CONFIG_PATH && git stash && git pull --rebase && git stash apply)
+  (cd ${_SHELL_CONFIG_PATH} && git stash && git pull --rebase && git stash apply)
   echo_info "refreshing..."
   exec zsh
 }
@@ -146,19 +146,19 @@ sh-refresh(){
 sh-navigate(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local module=$1
-  if [[ $module ]]
-   then cd $_SHELL_CONFIG_PATH/modules/$module
-   else cd $_SHELL_CONFIG_PATH
+  if [[ ${module} ]]
+   then cd ${_SHELL_CONFIG_PATH}/modules/${module}
+   else cd ${_SHELL_CONFIG_PATH}
   fi
 }
 
 sh-updatehelp(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local functions=`grep -rh "\w() *{" sources.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
-  [[ ! -f help.sh ]] && (echo $functions >> help.sh) && return
+  [[ ! -f help.sh ]] && (echo ${functions} >> help.sh) && return
   while read f
   do
    local help_for_function_exists=`grep "$f" help.sh`
-   [[ -z $help_for_function_exists ]] && (echo $f >> help.sh)
-  done <<< $functions
+   [[ -z ${help_for_function_exists} ]] && (echo ${f} >> help.sh)
+  done <<< ${functions}
 }

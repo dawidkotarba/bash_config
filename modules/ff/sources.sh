@@ -4,7 +4,7 @@ _findfile(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "Search argument"
   local result=`find . -name "*$1*" -type f`
-  echo $result
+  echo ${result}
 }
 
 _fuzzyfind(){

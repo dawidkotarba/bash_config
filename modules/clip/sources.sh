@@ -12,7 +12,7 @@ _get-date(){
 clip-file(){
   [[ "$1" == "-h" ]] && show_help ${funcstack[1]} && return
   local file_name=$1
-  _filetoclipboard $file_name
+  _filetoclipboard ${file_name}
 }
 
 clip-targets(){

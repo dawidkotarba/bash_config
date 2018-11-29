@@ -2,25 +2,25 @@
 kk-server(){
 ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  local port=$1
- [[ ! $port ]] && port=7070
+ [[ ! ${port} ]] && port=7070
  local hostname=`hostname`
  echo_info "Running python server: http://$hostname:$port"
  #python -m SimpleHTTPServer $port
- python3 -m http.server $port
+ python3 -m http.server ${port}
 }
 
 kk-share(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   local share_folder="Shared"
-  if [[ ! -d "$share_folder" ]]; then cd && mkdir $share_folder; fi
-  (cd ~/$share_folder && kk-server)
+  if [[ ! -d "$share_folder" ]]; then cd && mkdir ${share_folder}; fi
+  (cd ~/${share_folder} && kk-server)
 }
 alias share='kk-share'
 
 kk-upgrade(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  sudo apt update && sudo apt upgrade -y
- git -C $_SHELL_CONFIG_PATH pull
+ git -C ${_SHELL_CONFIG_PATH} pull
  _pull-cloned-apps
 }
 
@@ -28,7 +28,7 @@ kk-bak(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  checkarg $1 "Subject of backup"
  local date=`date | awk '{print $3"-"$2"-"$4}'`
- mv $1 $1_$date
+ mv $1 $1_${date}
 }
 alias bak='kk-bak'
 
@@ -36,7 +36,7 @@ kk-killall(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "process name"
   local process_name=$1
-  ps aux | grep $process_name | awk '{print $2}' | xargs kill
+  ps aux | grep ${process_name} | awk '{print $2}' | xargs kill
 }
 
 kk-fixpermissions(){
@@ -87,19 +87,19 @@ kk-dockerstart(){
   checkarg $1 "container name"
   local container_name=$1
   echo_info "Starting docker container: $1"
-  sudo docker start $container_name
-  kk-dockerip $container_name
+  sudo docker start ${container_name}
+  kk-dockerip ${container_name}
 }
 
 kk-dockerip(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "container name"
   local container_name=$1
-  sudo docker inspect $container_name | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
+  sudo docker inspect ${container_name} | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
 }
 
 ### NAVIGATE ###
 kk-navigaterepo(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  cd $_REPOSITORY_PATH
+  cd ${_REPOSITORY_PATH}
 }

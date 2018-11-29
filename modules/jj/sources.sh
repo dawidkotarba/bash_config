@@ -6,9 +6,9 @@ jj-findinjar() {
   checkarg $2 "keyword"
   local p=$1
   local keyword=$2
-  for jar in $(find $p -name "*.jar"); do
+  for jar in $(find ${p} -name "*.jar"); do
     if [[ $(unzip -v ${jar} | grep "$keyword") ]]; then
-      echo "$(basename $jar)"
+      echo "$(basename ${jar})"
     fi
   done
 }
@@ -18,6 +18,6 @@ jj-newbean(){
   checkarg $1 "full class name"
   local class_name=$1
   if [[ -z $class_name ]] && class_name=`xclip -o`
-  python $_SHELL_MODULES_PATH/jj/files/spring_newbean.py $class_name | xclip -selection clipboard
+  python ${_SHELL_MODULES_PATH}/jj/files/spring_newbean.py ${class_name} | xclip -selection clipboard
 }
 alias bean=jj-newbean
