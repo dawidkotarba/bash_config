@@ -15,6 +15,6 @@ show_help(){
 }
 
 checkarg(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack}[1] && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   [[ "$#" -eq 1 ]] && echo_err "$1 is not set!"
 }
