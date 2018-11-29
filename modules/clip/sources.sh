@@ -9,7 +9,14 @@ _get-date(){
   echo `date +%Y-%m-%d_%T`
 }
 
+clip-file(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
+  local file_name=$1
+  _filetoclipboard $file_name
+}
+
 clip-targets(){
+  [[ "$1" == "-h" ]] && show_help $funcstack[1] && return
   xclip -selection clipboard -t TARGETS -o
 }
 
