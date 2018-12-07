@@ -1,14 +1,6 @@
 ### clip ###
 _requires xclip
 
-_get-desktop-path(){
-  echo `xdg-user-dir DESKTOP`
-}
-
-_get-date(){
-  echo `date +%Y-%m-%d_%T`
-}
-
 clip-file(){
   [[ "$1" == "-h" ]] && show_help ${funcstack[1]} && return
   local file_name=$1

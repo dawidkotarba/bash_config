@@ -48,6 +48,14 @@ _pathrm() {
   PATH="$(echo $PATH | sed -e "s;\(^\|:\)${1%/}\(:\|\$\);\1\2;g" -e 's;^:\|:$;;g' -e 's;::;:;g')"
 }
 
+_get-desktop-path(){
+  echo `xdg-user-dir DESKTOP`
+}
+
+_get-date(){
+  date +%Y-%m-%d_%T
+}
+
 # app checks
 _requires(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
