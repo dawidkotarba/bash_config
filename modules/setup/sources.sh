@@ -84,6 +84,11 @@ setup-tools(){
   _aptinstall filezilla retext xclip radiotray pinta net-tools sshpass
 }
 
+setup-deepin(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall deepin-screenshot
+}
+
 setup-dev(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall git tig ant maven gradle
@@ -135,6 +140,11 @@ setup-theme-communitheme(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _addaptrepository ppa:communitheme/ppa
   _aptinstall ubuntu-communitheme-session
+}
+
+setup-mysql(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall mysql-client mysql-server mysql-workbench
 }
 
 # Raspberry PI
