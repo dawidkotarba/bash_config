@@ -147,6 +147,12 @@ setup-mysql(){
   _aptinstall mysql-client mysql-server mysql-workbench
 }
 
+setup-pomodoro(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _addaptrepository ppa:atareao/atareao
+  _aptinstall pomodoro-indicator
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
