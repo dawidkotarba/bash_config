@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source constants.sh
 source shared/echo.sh
 CONFIG=${_CONFIG_PATH}
