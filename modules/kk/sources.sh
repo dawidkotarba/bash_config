@@ -82,7 +82,7 @@ kk-remountrw(){
 }
 
 kk-ramdisk(){
-  [[ "$1" == "-h" ]] && show_help ${funcstack[1]} && return
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "size in GB"
   local size=$(($1 * 1024))
   local path="/mnt/ramdisk"
@@ -90,6 +90,10 @@ kk-ramdisk(){
   sudo mount -t tmpfs tmpfs ${path} -o size=${size}
 }
 
+kk-screenshot(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  gnome-screenshot -a -c
+}
 
 ### DOCKER ###
 kk-dockerstart(){
