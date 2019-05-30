@@ -14,7 +14,7 @@ _on_hybris_platform(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  (cd ${_HYBRIS_PLATFORM} && $@ > ${_HYBRIS_LOG_PATH} &)
  _show_notification_if_hybris_started &
- yy-logtomcat $@
+ yy-log $@
 }
 
 _ant_on_hybris_platform(){
