@@ -80,7 +80,7 @@ setup-alien(){
 
 setup-tools(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall htop glances tilda clipit synapse vim tree mtr nixnote2
+  _aptinstall htop glances tilda clipit parcellite synapse vim tree mtr nixnote2
   _aptinstall filezilla retext xclip radiotray pinta net-tools sshpass
 }
 
