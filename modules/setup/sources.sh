@@ -16,6 +16,12 @@ _addaptrepository(){
   sudo apt update
 }
 
+setup-unattended-upgrades(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall unattended-upgrades
+  sudo dpkg-reconfigure --priority=low unattended-upgrades
+}
+
 setup-ranger(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall ranger caca-utils highlight atool w3m poppler-utils mediainfo
