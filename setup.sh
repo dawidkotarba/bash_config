@@ -28,46 +28,68 @@ clean-folder(){
  fi
 }
 
-show-dialog(){
-  whiptail --backtitle "Setup script" --title "Setup script option:" --yesno "$1" 7 60
+# Whiptail configuration
+export NEWT_COLORS='root=,black
+    roottext=red,white
+    entry=red,white'
+SETUP_WINDOW_TITLE="Shell configuration setup"
+WINDOW_HEIGHT=10
+WINDOW_WIDTH=100
+
+function show_info_box(){
+    whiptail --title "Info:" --backtitle "${SETUP_WINDOW_TITLE}" --msgbox "$1" ${WINDOW_HEIGHT} ${WINDOW_WIDTH}
+}
+
+function show_yesno_box(){
+    whiptail --title "Conditional action:" --backtitle "${SETUP_WINDOW_TITLE}" --yesno "$1" ${WINDOW_HEIGHT} ${WINDOW_WIDTH}
+}
+
+function show_input_box(){
+    whiptail --title "User input:" --backtitle "${SETUP_WINDOW_TITLE}" --inputbox "$1" ${WINDOW_HEIGHT} ${WINDOW_WIDTH} 3>&1 1>&2 2>&3
+}
+
+function wait_for_keypress(){
+  local color=`tput setaf 4`
+  local reset=`tput sgr0`
+  local message="Press any key to continue..."
+
+  if [[ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]]; then
+     read "?${color}${message}${reset}"
+  elif [[ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]]; then
+     read -p "${color}${message}${reset}"
+  else
+     read -p "${color}${message}${reset}"
+  fi
 }
 
 ### EXECUTION ###
-show-dialog "Create symbolic links for applications configs (git, vim, tilda)?"; response=$?
-case ${response} in
-  0)
+if show_yesno_box "Create symbolic links for applications configs (git, vim, tilda)?"; then
   echo_info "Creating symlinks..."
   create_symlink ${CONFIG}/gitconfig ~/.gitconfig
   create_symlink ${CONFIG}/vim ~/.vim
   create_symlink ${CONFIG}/vimrc ~/.vimrc
   create_symlink ${CONFIG}/tilda ~/.config/tilda
-esac
+fi
 
-show-dialog "Clone terminal tools from git?"; response=$?
-case ${response} in
-  0)
+if show_yesno_box "Clone terminal tools from git?"; then
   clean-folder ${_SHELL_APPS_PATH}
   clone_app https://github.com/nojhan/liquidprompt.git
   clone_app https://github.com/rupa/z.git
   clone_app https://github.com/zsh-users/zsh-syntax-highlighting.git
   clone_app https://github.com/zsh-users/zsh-autosuggestions.git
-esac
+fi
 
-show-dialog "Install zsh shell?"; response=$?
-case ${response} in
-  0) sudo apt install zsh
-esac
+if show_yesno_box "Install zsh shell?"; then
+  sudo apt install zsh
+fi
 
-show-dialog "Install oh-my-zsh?"; response=$?
-case ${response} in
-  0) sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-esac
+if show_yesno_box "Install oh-my-zsh?"; then
+  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+fi
 
-show-dialog "Add configuration entries to .zshrc?"; response=$?
-case ${response} in
-  0)
-  sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
+if show_yesno_box "Add configuration entries to .zshrc?"; then
+ sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
-esac
-tput clear
-echo_info "Setup complete."
+fi
+
+show_info_box "Setup complete:)"
