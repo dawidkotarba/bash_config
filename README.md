@@ -1,6 +1,7 @@
 # shell_config
 
 Some aliases for zsh shell making my life easier :)
+
 Installation:
 1. Clone to home folder
 2. Execute setup.sh
