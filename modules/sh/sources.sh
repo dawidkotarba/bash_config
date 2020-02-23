@@ -71,6 +71,15 @@ sh-newmodule(){
  mkdir ${modulepath}/files
 }
 
+sh-archivemodule(){
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+ checkarg $1 "module name"
+ local modulename=$1
+ local modulepath="$_SHELL_MODULES_PATH/$modulename"
+ local archivemodulepath="$_SHELL_MODULES_ARCHIVED_PATH/$modulename"
+ mv ${modulepath} ${archivemodulepath}
+}
+
 sh-source(){
   echo_info "Refreshing..."
   source ${_SHELL_MAIN_FILEPATH}
