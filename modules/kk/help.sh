@@ -13,3 +13,6 @@ _help_kk_fixpermissions=
 _help_kk_findpath=
 _help_kk_writeimageinstructions=
 _help_kk_remountrw=
+_help_kk_ramdisk=
+_help_kk_screenshot=
+_help_kk_adduser=
