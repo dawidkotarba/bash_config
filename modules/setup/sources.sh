@@ -7,13 +7,18 @@ _aptinstall(){
    sudo apt install $@
 }
 
+_aptupdate(){
+   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+   sudo apt update
+   echo_info "apt update..."
+}
+
 _addaptrepository(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "Repository to be added"
   echo_info "Adding repository: $1"
   sudo add-apt-repository $1
-  echo_info "apt update..."
-  sudo apt update
+  _aptupdate
 }
 
 setup-unattended-upgrades(){
@@ -45,6 +50,8 @@ setup-evolution(){
 
 setup-atom(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+  _aptupdate
   _aptinstall atom
 
   echo_info "Installing: plugins"
