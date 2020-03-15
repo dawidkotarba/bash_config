@@ -30,3 +30,4 @@ _help_setup_rpi_docker=
 _help_setup_jdk8=
 _help_setup_jdk9=
 _help__aptupdate=
+_help_setup_easystroke=

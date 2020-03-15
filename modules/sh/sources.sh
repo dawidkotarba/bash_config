@@ -31,7 +31,7 @@ _editfile(){
  local file_name=$1
  local module_name=$2
  local file_path="$(_getmodulepath $2)/$1"
- [[ -f ${file_path} ]] && (echo_ok "Opening ${file_path}" && nohup idea ${file_path} >/dev/null 2>&1 &) || echo_err "No such file: ${file_path}"
+ [[ -f ${file_path} ]] && (echo_ok "Opening ${file_path}" && nohup xed ${file_path} >/dev/null 2>&1 &) || echo_err "No such file: ${file_path}"
 }
 
 _filetoclipboard(){
