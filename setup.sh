@@ -63,12 +63,13 @@ function wait_for_keypress(){
 }
 
 ### EXECUTION ###
-if show_yesno_box "Create symbolic links for applications configs (git, vim, tilda)?"; then
+if show_yesno_box "Create symbolic links for applications configs (git, vim, tilda, easystroke)?"; then
   echo_info "Creating symlinks..."
   create_symlink ${CONFIG}/gitconfig ~/.gitconfig
   create_symlink ${CONFIG}/vim ~/.vim
   create_symlink ${CONFIG}/vimrc ~/.vimrc
   create_symlink ${CONFIG}/tilda ~/.config/tilda
+  create_symlink ${CONFIG}/easystroke ~/.easystroke
 fi
 
 if show_yesno_box "Clone terminal tools from git?"; then
