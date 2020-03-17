@@ -63,6 +63,11 @@ function wait_for_keypress(){
 }
 
 ### EXECUTION ###
+if show_yesno_box "Install git?"; then
+  sudo apt install git
+fi
+
+
 if show_yesno_box "Create symbolic links for applications configs (git, vim, tilda, easystroke)?"; then
   echo_info "Creating symlinks..."
   create_symlink ${CONFIG}/gitconfig ~/.gitconfig
@@ -88,8 +93,12 @@ if show_yesno_box "Install oh-my-zsh?"; then
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 fi
 
+if show_yesno_box "Clone Oh my ZSH plugins?"; then
+  git clone https://github.com/MichaelAquilina/zsh-auto-notify.git $ZSH_CUSTOM/plugins/auto-notify
+fi
+
 if show_yesno_box "Add configuration entries to .zshrc?"; then
- sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
+ sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp auto-notify)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
 fi
 
