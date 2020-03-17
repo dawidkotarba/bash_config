@@ -6,12 +6,14 @@ _aptinstall(){
    echo_info "Installing: $@"
    sudo apt install $@
 }
+alias aptinstall=_aptinstall
 
 _aptupdate(){
    ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
    sudo apt update
    echo_info "apt update..."
 }
+alias aptupdate=_aptupdate
 
 _addaptrepository(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
