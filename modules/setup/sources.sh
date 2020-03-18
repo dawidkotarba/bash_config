@@ -8,6 +8,14 @@ _aptinstall(){
 }
 alias aptinstall=_aptinstall
 
+_aptremove(){
+   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+   checkarg $1 "At least one program to remove"
+   echo_info "Removing: $@"
+   sudo apt remove $@
+}
+alias aptremove=_aptremove
+
 _aptupdate(){
    ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
    sudo apt update
