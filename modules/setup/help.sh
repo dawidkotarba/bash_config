@@ -33,3 +33,4 @@ _help__aptupdate=
 _help_setup_easystroke=
 _help__aptremove=
 _help_setup_ruby=
+_help_setup_jekyll=

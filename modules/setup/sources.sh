@@ -129,6 +129,11 @@ setup-ruby(){
   _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake jekyll
 }
 
+setup-jekyll(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  setup-ruby
+  _aptinstall jekyll bundler
+}
 
 setup-socials(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
