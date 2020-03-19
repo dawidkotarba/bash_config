@@ -124,6 +124,12 @@ setup-node(){
   _aptinstall nodejs nodejs-legacy
 }
 
+setup-ruby(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake jekyll
+}
+
+
 setup-socials(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall corebird
