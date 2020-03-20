@@ -32,6 +32,20 @@ kk-bak(){
 }
 alias bak='kk-bak'
 
+kk-prefixallfiles(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  checkarg $1 "prefix must be set"
+  local prefix=$1
+  for f in * ; do mv -- "${f}" "${prefix}${f}" ; done
+}
+
+kk-suffixallfiles(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  checkarg $1 "suffix must be set"
+  local suffix=$1
+  for f in * ; do mv -- "${f}" "${f}${suffix}" ; done
+}
+
 kk-killall(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "process name"
