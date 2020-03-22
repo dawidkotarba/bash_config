@@ -469,13 +469,13 @@ yy-copydbdriver(){
 yy-dockermysqlstart(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _check_hybris_suffix
-  kk-dockerstart $(_get_mysql_container_name)
+  util-dockerstart $(_get_mysql_container_name)
 }
 
 yy-dockermysqlip(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _check_hybris_suffix
-  kk-dockerip $(_get_mysql_container_name)
+  util-dockerip $(_get_mysql_container_name)
 }
 
 yy-dockermysqlcreate(){
