@@ -4,3 +4,5 @@ _help_rpi_wifiscan='Scans wifi'
 _help_rpi_wifiadd='Saves wifi ssid/password. Usage: rpi-wifiadd testingssid testingpassword'
 _help_rpi_clusterupgrade=
 _help_rpi_clusterinstall=
+_help_rpi_ping=
+_help_rpi_wget=

@@ -163,11 +163,22 @@ sh-navigate(){
 
 sh-updatehelp(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  local functions=`grep -rh "\w() *{" sources.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
-  [[ ! -f help.sh ]] && (echo ${functions} >> help.sh) && return
-  while read f
-  do
-   local help_for_function_exists=`grep "$f" help.sh`
-   [[ -z ${help_for_function_exists} ]] && (echo ${f} >> help.sh)
-  done <<< ${functions}
+  local current_path=`pwd`
+  echo "current_path $current_path"
+
+  for file in ${_SHELL_MODULES_PATH}/*; do
+    if [[ -d "$file" ]]; then
+      cd ${file}
+      echo "Updating help from ${file} module."
+      local functions=`grep -rh "\w() *{" sources.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
+      [[ ! -f help.sh ]] && (echo ${functions} >> help.sh) && return
+      while read f
+      do
+       local help_for_function_exists=`grep "$f" help.sh`
+       [[ -z ${help_for_function_exists} ]] && (echo ${f} >> help.sh)
+      done <<< ${functions}
+    fi
+   done
+
+   cd ${current_path}
 }

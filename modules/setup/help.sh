@@ -34,3 +34,5 @@ _help_setup_easystroke=
 _help__aptremove=
 _help_setup_ruby=
 _help_setup_jekyll=
+_help_setup_deepinscreenshot=
+_help_setup_essentials=
