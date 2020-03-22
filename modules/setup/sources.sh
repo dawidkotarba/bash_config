@@ -4,7 +4,7 @@ _aptinstall(){
    ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
    checkarg $1 "At least one program to install"
    echo_info "Installing: $@"
-   sudo apt install $@
+   sudo apt install -y $@
 }
 alias aptinstall=_aptinstall
 
@@ -12,7 +12,7 @@ _aptremove(){
    ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
    checkarg $1 "At least one program to remove"
    echo_info "Removing: $@"
-   sudo apt remove $@
+   sudo apt remove -y $@
 }
 alias aptremove=_aptremove
 
@@ -31,21 +31,10 @@ _addaptrepository(){
   _aptupdate
 }
 
-setup-unattended-upgrades(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall unattended-upgrades
-  sudo dpkg-reconfigure --priority=low unattended-upgrades
-}
-
 setup-ranger(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall ranger caca-utils highlight atool w3m poppler-utils mediainfo
   ranger --copy-config=all
-}
-
-setup-autokey(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall autokey-common autokey-gtk
 }
 
 setup-pidgin(){
@@ -73,12 +62,6 @@ setup-atom(){
   apm install linter-lesshint sort-lines editorconfig emmet
 }
 
-setup-flux(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _addaptrepository ppa:nathan-renniewaldock/flux
-  _aptinstall fluxgui
-}
-
 setup-sshserver(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall openssh-client openssh-server
@@ -90,24 +73,7 @@ setup-openconnect(){
   _aptinstall openconnect network-manager-openconnect-gnome
 }
 
-setup-fuzzy(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
-  sudo dpkg -i fzy_0.9-1_amd64.deb
-}
-
-setup-alien(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall alien dpkg-dev debhelper build-essential
-}
-
-setup-tools(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall htop glances tilda clipit parcellite synapse vim tree mtr nixnote2
-  _aptinstall filezilla retext xclip radiotray pinta net-tools sshpass
-}
-
-setup-deepin(){
+setup-deepinscreenshot(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall deepin-screenshot
 }
@@ -157,25 +123,6 @@ setup-android(){
   _aptinstall android-tools-adb android-tools-fastboot adb
 }
 
-# ubuntu tools, themes and icons
-setup-ubuntu-tools(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall ubuntu-restricted-extras gnome-tweak-tool gnome-shell-pomodoro network-manager-openconnect-gnome
-}
-
-setup-icons-moka(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _addaptrepository ppa:moka/stable
-  _aptinstall gnome-tweak-tool
-  _aptinstall moka-icon-theme
-}
-
-setup-theme-communitheme(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _addaptrepository ppa:communitheme/ppa
-  _aptinstall ubuntu-communitheme-session
-}
-
 setup-mysql(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall mysql-client mysql-server mysql-workbench
@@ -194,22 +141,41 @@ setup-chrome(){
   rm google-chrome-stable_current_amd64.deb
 }
 
-setup-easystroke(){
+setup-essentials(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _aptinstall easystroke
+  # monitoring
+  _aptinstall htop glances 
+  
+  # Linux essentials
+  _aptinstall tilda vim tree mtr net-tools 
+
+  # SSH
+  _aptinstall sshpass
+  setup-sshserver
+
+  # Clipboard managers, mouse gestures
+  _aptinstall easystroke clipit parcellite
+
+  # autokey
+  _aptinstall autokey-common autokey-gtk
+
+  # notes, markdown
+  _aptinstall nixnote2 retext
+
+  # alien
+  _aptinstall alien dpkg-dev debhelper build-essential
+
+  # ranger
+  setup-ranger
+
+  # others
+  _aptinstall filezilla pinta radiotray synapse
 }
 
 # Raspberry PI
 setup-rpi-docker(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   curl -sSL https://get.docker.com | sh
-}
-
-# Oracle JDK
-setup-jdk8(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  _addaptrepository ppa:webupd8team/java
-  _aptinstall oracle-java8-installer
 }
 
 setup-jdk9(){
