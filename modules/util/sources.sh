@@ -17,12 +17,13 @@ util-share(){
 }
 alias share='util-share'
 
-util-aptupgrade(){
+util-upgrade(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  sudo apt update && sudo apt upgrade -y
  git -C ${_SHELL_CONFIG_PATH} pull
  _pull-cloned-apps
 }
+alias upgrade='util-upgrade'
 
 util-bak(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
