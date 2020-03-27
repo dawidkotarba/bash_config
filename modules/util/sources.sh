@@ -74,6 +74,22 @@ util-findpath(){
 }
 alias findpath='util-findpath'
 
+util-tar-compress(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  checkarg $1 "Folder/file name"
+  local folder=$1
+  tar -zcvf ${folder}.tar.gz ${folder}
+}
+alias tar-compress='util-tar-compress'
+
+util-tar-extract(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  checkarg $1 "Folder/file name"
+  local folder=$1
+  tar -zxvf ${folder}
+}
+alias tar-extract='util-tar-extract'
+
 util-ip(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   ifconfig | grep 'inet addr'
