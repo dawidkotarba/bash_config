@@ -27,7 +27,7 @@ util-aptupgrade(){
 util-bak(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  checkarg $1 "Subject of backup"
- local date=`date | awk '{print $3"-"$2"-"$4}'`
+ local date=`date | awk '{print $2"-"$3"-"$5}'`
  mv $1 $1_${date}
 }
 alias bak='util-bak'
