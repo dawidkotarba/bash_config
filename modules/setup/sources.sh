@@ -68,6 +68,11 @@ setup-sshserver(){
   sudo systemctl restart sshd.service
 }
 
+setup-remmina(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall remmina remmina-plugin-vnc remmina-plugin-rdp
+}
+
 setup-openconnect(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall openconnect network-manager-openconnect-gnome
@@ -167,6 +172,9 @@ setup-essentials(){
 
   # ranger
   setup-ranger
+
+  # remmina - RDP
+  setup-remmina
 
   # others
   _aptinstall filezilla pinta radiotray synapse

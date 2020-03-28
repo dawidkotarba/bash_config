@@ -18,3 +18,5 @@ _help_util_screenshot=
 _help_util_adduser=
 _help_util_prefixallfiles=
 _help_util_suffixallfiles=
+_help_util_tar_compress=
+_help_util_tar_extract=
