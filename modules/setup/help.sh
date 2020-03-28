@@ -37,3 +37,4 @@ _help_setup_jekyll=
 _help_setup_deepinscreenshot=
 _help_setup_essentials=
 _help_setup_remmina=
+_help_setup_openvpn=

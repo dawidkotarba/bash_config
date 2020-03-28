@@ -78,6 +78,11 @@ setup-openconnect(){
   _aptinstall openconnect network-manager-openconnect-gnome
 }
 
+setup-openvpn(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _aptinstall openvpn network-manager-openvpn-gnome resolvconf
+}
+
 setup-deepinscreenshot(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   _aptinstall deepin-screenshot
@@ -175,6 +180,9 @@ setup-essentials(){
 
   # remmina - RDP
   setup-remmina
+
+  # VPN
+  setup-openvpn
 
   # others
   _aptinstall filezilla pinta radiotray synapse
