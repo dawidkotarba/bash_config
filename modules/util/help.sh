@@ -6,7 +6,6 @@ _help_util_killall=''
 _help_util_replaceinpath=''
 _help_util_dockerstart='Starts a docker container with provided name'
 _help_util_dockerip='Prints IP of provided docker container'
-_help_util_navigaterepo=''
 _help_util_ip=
 _help_util_share=
 _help_util_fixpermissions=

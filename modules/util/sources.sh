@@ -143,12 +143,6 @@ util-dockerip(){
   sudo docker inspect ${container_name} | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
 }
 
-### NAVIGATE ###
-util-navigaterepo(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  cd ${_REPOSITORY_PATH}
-}
-
 util-adduser(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   checkarg $1 "username"
