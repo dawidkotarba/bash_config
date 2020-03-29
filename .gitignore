@@ -1,7 +1,10 @@
+# Idea files
+/.idea
+*.iml
+
 /apps
 /modules/tmp
 /path.sh
 /.fwd
 /autostart.sh
-/.idea
 /config/vim/.netrwhist
