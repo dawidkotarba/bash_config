@@ -1,6 +1,5 @@
 ### navigate ###
 
-nav-repo(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  cd ${_REPOSITORY_PATH}
-}
+alias nav-repo="cd ${_REPOSITORY_PATH}"
+alias nav-shellconfig="sh-navigate"
+alias nav-desktop="cd /home/dawid/Pulpit"
