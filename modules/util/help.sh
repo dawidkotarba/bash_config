@@ -19,3 +19,4 @@ _help_util_prefixallfiles=
 _help_util_suffixallfiles=
 _help_util_tar_compress=
 _help_util_tar_extract=
+_help_util_checksum=
