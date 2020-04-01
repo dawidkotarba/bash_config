@@ -1,3 +1,4 @@
+printf "-> ["
 ########################
 # Settings and aliases #
 ########################
@@ -24,7 +25,14 @@ source ${_SHELL_SHARED_PATH}/utils.sh
 ######################
 ## MODULES SOURCING ##
 ######################
+_show_step_counter(){
+ local color=`tput setaf 2`
+ local reset=`tput sgr0`
+ local dot="="
+ printf "${color}${dot}${reset}"
+}
 _source_if_exists(){
+ _show_step_counter
  local file=$1
  if [[ -f ${file} ]]
   then
@@ -36,6 +44,7 @@ _source_if_exists(){
 }
 
 _source_forward_declarations(){
+  _show_step_counter
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   grep -rh "\w() *{" ${_SHELL_MODULES_PATH} | tr -d " " | xargs -I {} echo -e "{}\n:\n}" > ${_SHELL_FWD_FILEPATH}
   source ${_SHELL_FWD_FILEPATH}
@@ -44,6 +53,7 @@ echo_pretty "Sourcing forward declarations:"
 _source_forward_declarations
 
 _source_modules(){
+ _show_step_counter
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
 
  # source modules and help files except tmp
@@ -54,7 +64,6 @@ _source_modules(){
  _source_if_exists ${_OVERRIDE_MODULE_PATH}/help.sh
  _source_if_exists ${_OVERRIDE_MODULE_PATH}/sources.sh
 }
-
 echo_pretty "Sourcing modules:"
 _source_modules
 
@@ -81,3 +90,5 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 
 # zsh settings
 zstyle ':completion:*' special-dirs true
+
+printf "]\n"
