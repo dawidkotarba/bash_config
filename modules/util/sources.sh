@@ -1,4 +1,15 @@
 ### util ###
+
+function repeat(){
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+ checkarg $1 "repeat time must be set"
+ local i max
+ max=$1; shift;
+ for ((i=1; i <= max ; i++)); do
+  eval "$@";
+ done
+}
+
 util-server(){
 ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
  local port=$1
