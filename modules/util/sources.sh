@@ -127,6 +127,18 @@ util-screenshot(){
   gnome-screenshot -a -c
 }
 
+util-checksum(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  checkarg $1 "filename"
+  echo "cksum: `cksum $1`"
+  echo "md5sum: `md5sum $1`"
+  echo "sha224sum: `sha224sum $1`"
+  echo "sha256sum: `sha256sum $1`"
+  echo "sha384sum: `sha384sum $1`"
+  echo "sha512sum: `sha512sum $1`"
+}
+alias checksum='util-checksum'
+
 ### DOCKER ###
 util-dockerstart(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return

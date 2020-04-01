@@ -10,20 +10,6 @@ HISTFILESIZE=99999
 export TERM='xterm-256color'
 export VISUAL=vim
 
-### ALIASES ###
-alias ll='ls -alh'
-alias l.='ls -d .*'
-alias ll.='ls -lhd .*'
-alias du='du -h'
-alias rmf='rm -rf'
-
-# net aliases
-alias ports='netstat -tulanp'
-alias ping='ping -c 5'
-
-# apps
-alias r='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
-
 ######################
 ## INITIAL SOURCING ##
 ######################
