@@ -24,3 +24,5 @@ _help_sh_diff=
 _help_sh_tig=
 _help_sh_tis=
 _help_sh_updatehelp=
+_help_sh_validate=
+_help_sh_st=

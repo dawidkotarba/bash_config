@@ -81,8 +81,14 @@ sh-archivemodule(){
 }
 
 sh-source(){
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   echo_info "Refreshing..."
   source ${_SHELL_MAIN_FILEPATH}
+}
+
+sh-validate(){
+ ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+ repeat 3 sh-source
 }
 
 sh-edit(){
@@ -111,6 +117,11 @@ sh-show(){
 sh-diff(){
   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
   (cd ${_SHELL_CONFIG_PATH} && git diff)
+}
+
+sh-st(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  (cd ${_SHELL_CONFIG_PATH} && git status)
 }
 
 sh-tig(){
