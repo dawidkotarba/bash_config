@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+echo "Validating scripts:"
+./validate.sh
+
+# $? stores exit value of the last command
+if [ $? -ne 0 ]; then
+ echo "Cannot validate scripts."
+ exit 1
+fi

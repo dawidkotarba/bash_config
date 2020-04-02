@@ -67,6 +67,10 @@ if show_yesno_box "Install git?"; then
   sudo apt install git
 fi
 
+if show_yesno_box "Install git hooks?"; then
+  (cd githooks; ./install.sh)
+fi
+
 
 if show_yesno_box "Create symbolic links for applications configs (git, vim, tilda, easystroke)?"; then
   echo_info "Creating symlinks..."

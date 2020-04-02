@@ -32,11 +32,11 @@ _show_step_counter(){
  printf "${color}${dot}${reset}"
 }
 _source_if_exists(){
- _show_step_counter
  local file=$1
  if [[ -f ${file} ]]
   then
    source ${file}
+   _show_step_counter
    echo_debug "--> Sourced $file"
   else
    echo_err "--> Cannot source $file"
