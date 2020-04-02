@@ -55,7 +55,7 @@ setup-atom(){
 
   echo_info "Installing: plugins"
   apm install minimap highlight-selected simple-drag-drop-text git-plus merge-conflicts
-  apm install color-picker pigments file-icons intellij-idea-keymap
+  apm install color-picker pigments file-icons intellij-idea-keymap linter-shellcheck
 
   #js
   apm install atom-beautify linter-csslint linter-htmlhint linter-eslint linter-less
