@@ -1,54 +1,54 @@
 ### setup ###
 
 _aptinstall(){
-   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-   checkarg $1 "At least one program to install"
+   _check_help $1 && _show_help ${funcstack[1]} && return
+   _check_arg $1 "At least one program to install"
    echo_info "Installing: $@"
    sudo apt install -y $@
 }
 alias aptinstall=_aptinstall
 
 _aptremove(){
-   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-   checkarg $1 "At least one program to remove"
+   _check_help $1 && _show_help ${funcstack[1]} && return
+   _check_arg $1 "At least one program to remove"
    echo_info "Removing: $@"
    sudo apt remove -y $@
 }
 alias aptremove=_aptremove
 
 _aptupdate(){
-   ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+   _check_help $1 && _show_help ${funcstack[1]} && return
    sudo apt update
    echo_info "apt update..."
 }
 alias aptupdate=_aptupdate
 
 _addaptrepository(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  checkarg $1 "Repository to be added"
+  _check_help $1 && _show_help ${funcstack[1]} && return
+  _check_arg $1 "Repository to be added"
   echo_info "Adding repository: $1"
   sudo add-apt-repository $1
   _aptupdate
 }
 
 setup-ranger(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall ranger caca-utils highlight atool w3m poppler-utils mediainfo
   ranger --copy-config=all
 }
 
 setup-pidgin(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall pidgin pidgin-sipe
 }
 
 setup-evolution(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall evolution evolution-plugins evolution-ews
 }
 
 setup-atom(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
   _aptupdate
   _aptinstall atom
@@ -63,99 +63,99 @@ setup-atom(){
 }
 
 setup-sshserver(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall openssh-client openssh-server
   sudo systemctl restart sshd.service
 }
 
 setup-remmina(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall remmina remmina-plugin-vnc remmina-plugin-rdp
 }
 
 setup-openconnect(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall openconnect network-manager-openconnect-gnome
 }
 
 setup-openvpn(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall openvpn network-manager-openvpn-gnome resolvconf
 }
 
 setup-deepinscreenshot(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall deepin-screenshot
 }
 
 setup-dev(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall git tig ant maven gradle
   _aptinstall silversearcher-ag lnav meld
 }
 
 setup-node(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   _aptinstall nodejs nodejs-legacy
 }
 
 setup-ruby(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake jekyll
 }
 
 setup-jekyll(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   setup-ruby
   _aptinstall jekyll bundler
 }
 
 setup-socials(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall corebird
 }
 
 setup-ripgrep(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
   sudo dpkg -i ripgrep_0.8.1_amd64.deb
   rm ripgrep_0.8.1_amd64.deb
 }
 
 setup-funny(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall figlet cmatrix
 }
 
 setup-android(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall android-tools-adb android-tools-fastboot adb
 }
 
 setup-mysql(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _aptinstall mysql-client mysql-server mysql-workbench
 }
 
 setup-pomodoro(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _addaptrepository ppa:atareao/atareao
   _aptinstall pomodoro-indicator
 }
 
 setup-chrome(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   sudo dpkg -i google-chrome-stable_current_amd64.deb
   rm google-chrome-stable_current_amd64.deb
 }
 
 setup-essentials(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   # monitoring
-  _aptinstall htop glances 
-  
+  _aptinstall htop glances
+
   # Linux essentials
   _aptinstall tilda vim tree mtr net-tools shellcheck
 
@@ -190,12 +190,12 @@ setup-essentials(){
 
 # Raspberry PI
 setup-rpi-docker(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   curl -sSL https://get.docker.com | sh
 }
 
 setup-jdk9(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
+  _check_help $1 && _show_help ${funcstack[1]} && return
   _addaptrepository ppa:webupd9team/java
   _aptinstall oracle-java9-installer
 }

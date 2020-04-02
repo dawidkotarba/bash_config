@@ -1,9 +1,9 @@
 ### Java ###
 
 java-findinjar() {
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  checkarg $1 "path"
-  checkarg $2 "keyword"
+  _check_help $1 && _show_help ${funcstack[1]} && return
+  _check_arg $1 "path"
+  _check_arg $2 "keyword"
   local p=$1
   local keyword=$2
   for jar in $(find ${p} -name "*.jar"); do
@@ -14,8 +14,8 @@ java-findinjar() {
 }
 
 java-newbean(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && show_help ${funcstack[1]} && return
-  checkarg $1 "full class name"
+  _check_help $1 && _show_help ${funcstack[1]} && return
+  _check_arg $1 "full class name"
   local class_name=$1
   if [[ -z $class_name ]] && class_name=`xclip -o`
   python ${_SHELL_MODULES_PATH}/jj/files/spring_newbean.py ${class_name} | xclip -selection clipboard
