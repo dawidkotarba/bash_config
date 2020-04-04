@@ -6,8 +6,9 @@
 HELP_SUFFIX=_help_
 
 # Functions:
-_check_help(){
-  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]])
+
+_help(){
+  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && _show_help ${funcstack[2]}
 }
 
 _show_help(){
@@ -18,6 +19,6 @@ _show_help(){
 }
 
 _check_arg(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   [[ "$#" -eq 1 ]] && echo_err "$1 is not set!"
 }

@@ -2,7 +2,7 @@
 _requires tig
 
 _pull-cloned-apps(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  for app in $(ls ${_SHELL_APPS_PATH});
   do
    local app_path="${_SHELL_APPS_PATH}/$app"
@@ -12,20 +12,20 @@ _pull-cloned-apps(){
 }
 
 _getmodulepath(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "module name"
   local module_name=$1
   echo ${_SHELL_MODULES_PATH}/${module_name}
 }
 
 _getmodulefilespath(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "module name"
   echo "$(_getmodulepath $1)/files"
 }
 
 _editfile(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  _check_arg $1 "file name"
  _check_arg $2 "module name"
  local file_name=$1
@@ -35,33 +35,33 @@ _editfile(){
 }
 
 _filetoclipboard(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   cat $1 | xclip -selection clipboard
 }
 alias clip='_filetoclipboard'
 
 sh-newfunction(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   clip ${_SHELL_NEW_FUNCTION_FILEPATH}
   echo_ok "Function template copied to clipboard"
 }
 
 sh-newhelp(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
-  local help_code_line='_check_help $1 && _show_help ${funcstack[1]} && return'
+  _help $1 && return
+  local help_code_line='_help $1 && return'
   echo "$help_code_line" | xclip -selection clipboard
   echo_ok "Help template copied to clipboard"
 }
 
 sh-newcheck(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local check_code_line='_check_arg $1 "paramName"'
   echo "$check_code_line" | xclip -selection clipboard
   echo_ok "Check template copied to clipboard"
 }
 
 sh-newmodule(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  _check_arg $1 "module name"
  local modulename=$1
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
@@ -72,7 +72,7 @@ sh-newmodule(){
 }
 
 sh-archivemodule(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  _check_arg $1 "module name"
  local modulename=$1
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
@@ -81,24 +81,24 @@ sh-archivemodule(){
 }
 
 sh-source(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
   echo_info "Refreshing..."
   source ${_SHELL_MAIN_FILEPATH}
 }
 
 sh-validate(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  repeat 3 sh-source
 }
 
 sh-edit(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local module_name=$1
   _editfile "sources.sh" ${module_name}
 }
 
 sh-edithelp(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local module_name=$1
   _editfile "help.sh" ${module_name}
 }
@@ -109,54 +109,54 @@ sh-pull(){
 }
 
 sh-show(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  local module_name=$1
  [[ ${module_name} ]] && less ${_SHELL_MODULES_PATH}/${module_name}/sources.sh || less ${_SHELL_MAIN_FILEPATH}
 }
 
 sh-diff(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   (cd ${_SHELL_CONFIG_PATH} && git diff)
 }
 
 sh-st(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   (cd ${_SHELL_CONFIG_PATH} && git status)
 }
 
 sh-tig(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   (cd ${_SHELL_CONFIG_PATH} && tig)
 }
 
 sh-tis(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   (cd ${_SHELL_CONFIG_PATH} && tis)
 }
 
 sh-commit(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
  _git_add_commit_folder ${_SHELL_CONFIG_PATH}
 }
 
 sh-push(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  git -C ${_SHELL_CONFIG_PATH} push
 }
 
 sh-commitpush(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   sh-commit
   sh-push
 }
 
 sh-revert(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   git -C ${_SHELL_CONFIG_PATH} checkout -f
 }
 
 sh-refresh(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   echo_info "Rebasing latest shell config..."
   (cd ${_SHELL_CONFIG_PATH} && git stash && git pull --rebase && git stash apply)
   echo_info "refreshing..."
@@ -164,7 +164,7 @@ sh-refresh(){
 }
 
 sh-navigate(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local module=$1
   if [[ ${module} ]]
    then cd ${_SHELL_CONFIG_PATH}/modules/${module}
@@ -173,7 +173,7 @@ sh-navigate(){
 }
 
 sh-updatehelp(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local current_path=`pwd`
   echo "current_path $current_path"
 

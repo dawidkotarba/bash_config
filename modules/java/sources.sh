@@ -1,7 +1,7 @@
 ### Java ###
 
 java-findinjar() {
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "path"
   _check_arg $2 "keyword"
   local p=$1
@@ -14,7 +14,7 @@ java-findinjar() {
 }
 
 java-newbean(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "full class name"
   local class_name=$1
   if [[ -z $class_name ]] && class_name=`xclip -o`

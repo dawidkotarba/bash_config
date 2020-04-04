@@ -1,7 +1,7 @@
 ### setup ###
 
 _aptinstall(){
-   _check_help $1 && _show_help ${funcstack[1]} && return
+   _help $1 && return
    _check_arg $1 "At least one program to install"
    echo_info "Installing: $@"
    sudo apt install -y $@
@@ -9,7 +9,7 @@ _aptinstall(){
 alias aptinstall=_aptinstall
 
 _aptremove(){
-   _check_help $1 && _show_help ${funcstack[1]} && return
+   _help $1 && return
    _check_arg $1 "At least one program to remove"
    echo_info "Removing: $@"
    sudo apt remove -y $@
@@ -17,14 +17,14 @@ _aptremove(){
 alias aptremove=_aptremove
 
 _aptupdate(){
-   _check_help $1 && _show_help ${funcstack[1]} && return
+   _help $1 && return
    sudo apt update
    echo_info "apt update..."
 }
 alias aptupdate=_aptupdate
 
 _addaptrepository(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "Repository to be added"
   echo_info "Adding repository: $1"
   sudo add-apt-repository $1
@@ -32,23 +32,23 @@ _addaptrepository(){
 }
 
 setup-ranger(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall ranger caca-utils highlight atool w3m poppler-utils mediainfo
   ranger --copy-config=all
 }
 
 setup-pidgin(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall pidgin pidgin-sipe
 }
 
 setup-evolution(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall evolution evolution-plugins evolution-ews
 }
 
 setup-atom(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
   _aptupdate
   _aptinstall atom
@@ -63,96 +63,96 @@ setup-atom(){
 }
 
 setup-sshserver(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall openssh-client openssh-server
   sudo systemctl restart sshd.service
 }
 
 setup-remmina(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall remmina remmina-plugin-vnc remmina-plugin-rdp
 }
 
 setup-openconnect(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall openconnect network-manager-openconnect-gnome
 }
 
 setup-openvpn(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall openvpn network-manager-openvpn-gnome resolvconf
 }
 
 setup-deepinscreenshot(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall deepin-screenshot
 }
 
 setup-dev(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall git tig ant maven gradle
   _aptinstall silversearcher-ag lnav meld
 }
 
 setup-node(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   _aptinstall nodejs nodejs-legacy
 }
 
 setup-ruby(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake jekyll
 }
 
 setup-jekyll(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   setup-ruby
   _aptinstall jekyll bundler
 }
 
 setup-socials(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall corebird
 }
 
 setup-ripgrep(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
   sudo dpkg -i ripgrep_0.8.1_amd64.deb
   rm ripgrep_0.8.1_amd64.deb
 }
 
 setup-funny(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall figlet cmatrix
 }
 
 setup-android(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall android-tools-adb android-tools-fastboot adb
 }
 
 setup-mysql(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _aptinstall mysql-client mysql-server mysql-workbench
 }
 
 setup-pomodoro(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _addaptrepository ppa:atareao/atareao
   _aptinstall pomodoro-indicator
 }
 
 setup-chrome(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   sudo dpkg -i google-chrome-stable_current_amd64.deb
   rm google-chrome-stable_current_amd64.deb
 }
 
 setup-essentials(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   # monitoring
   _aptinstall htop glances
 
@@ -190,12 +190,12 @@ setup-essentials(){
 
 # Raspberry PI
 setup-rpi-docker(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   curl -sSL https://get.docker.com | sh
 }
 
 setup-jdk9(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _addaptrepository ppa:webupd9team/java
   _aptinstall oracle-java9-installer
 }

@@ -1,7 +1,7 @@
 ### util ###
 
 function repeat(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  _check_arg $1 "repeat time must be set"
  local i max
  max=$1; shift;
@@ -11,7 +11,7 @@ function repeat(){
 }
 
 util-server(){
-_check_help $1 && _show_help ${funcstack[1]} && return
+_help $1 && return
  local port=$1
  [[ ! ${port} ]] && port=7070
  local hostname=`hostname`
@@ -22,7 +22,7 @@ _check_help $1 && _show_help ${funcstack[1]} && return
 alias server="util-server"
 
 util-share(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   local share_folder="Shared"
   if [[ ! -d "$share_folder" ]]; then cd && mkdir ${share_folder}; fi
   (cd ~/${share_folder} && util-server)
@@ -30,7 +30,7 @@ util-share(){
 alias share='util-share'
 
 util-upgrade(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  sudo apt update && sudo apt upgrade -y
  git -C ${_SHELL_CONFIG_PATH} pull
  _pull-cloned-apps
@@ -38,7 +38,7 @@ util-upgrade(){
 alias upgrade='util-upgrade'
 
 util-bak(){
- _check_help $1 && _show_help ${funcstack[1]} && return
+ _help $1 && return
  _check_arg $1 "Subject of backup"
  local date=`date | awk '{print $2"-"$3"-"$5}'`
  mv $1 $1_${date}
@@ -46,41 +46,41 @@ util-bak(){
 alias bak='util-bak'
 
 util-prefixallfiles(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "prefix must be set"
   local prefix=$1
   for f in * ; do mv -- "${f}" "${prefix}${f}" ; done
 }
 
 util-suffixallfiles(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "suffix must be set"
   local suffix=$1
   for f in * ; do mv -- "${f}" "${f}${suffix}" ; done
 }
 
 util-killall(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "process name"
   local process_name=$1
   ps aux | grep ${process_name} | awk '{print $2}' | xargs kill
 }
 
 util-fixpermissions(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   find . -type d | xargs chmod 755
   find . -type f | xargs chmod 644
 }
 
 util-replaceinpath(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "old text"
   _check_arg $2 "new text"
   find . -type f | xargs sed -i "s/$1/$2/g"
 }
 
 util-findpath(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "Folder name"
   local folder_name=$1
   find . -path "*/$folder_name"
@@ -88,7 +88,7 @@ util-findpath(){
 alias findpath='util-findpath'
 
 util-tar-compress(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zcvf ${folder}.tar.gz ${folder}
@@ -96,7 +96,7 @@ util-tar-compress(){
 alias tar-compress='util-tar-compress'
 
 util-tar-extract(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zxvf ${folder}
@@ -104,12 +104,12 @@ util-tar-extract(){
 alias tar-extract='util-tar-extract'
 
 util-ip(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   ifconfig | grep 'inet addr'
 }
 
 util-writeimageinstructions(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "image file"
   _check_arg $2 "disk number"
 
@@ -120,12 +120,12 @@ util-writeimageinstructions(){
 }
 
 util-remountrw(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   mount -o remount,rw /
 }
 
 util-ramdisk(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "size in GB"
   local size=$(($1 * 1024))
   local path="/mnt/ramdisk"
@@ -134,12 +134,12 @@ util-ramdisk(){
 }
 
 util-screenshot(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   gnome-screenshot -a -c
 }
 
 util-checksum(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "filename"
   echo "cksum: `cksum $1`"
   echo "md5sum: `md5sum $1`"
@@ -152,7 +152,7 @@ alias checksum='util-checksum'
 
 ### DOCKER ###
 util-dockerstart(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "container name"
   local container_name=$1
   echo_info "Starting docker container: $1"
@@ -161,14 +161,14 @@ util-dockerstart(){
 }
 
 util-dockerip(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "container name"
   local container_name=$1
   sudo docker inspect ${container_name} | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
 }
 
 util-adduser(){
-  _check_help $1 && _show_help ${funcstack[1]} && return
+  _help $1 && return
   _check_arg $1 "username"
   local username=$1
   sudo adduser ${username}
