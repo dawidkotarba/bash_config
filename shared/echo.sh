@@ -52,5 +52,5 @@ echo_err(){
  ([[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]) && echo_info "Echo in red" && return
  local color=`tput setaf 1`
  local reset=`tput sgr0`
- [[ ${CURRENT_LOG_LVL} -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}"
+ [[ ${CURRENT_LOG_LVL} -le $LOG_LVL_ERROR ]] && echo "${color}$@${reset}" >>/dev/stderr
 }

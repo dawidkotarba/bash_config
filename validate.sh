@@ -1,2 +1,4 @@
 #!/usr/bin/env zsh
-source main.sh; sh-validate | grep 'Cannot source' && exit 1 || exit 0
+
+ERROR=$(zsh main.sh 2>&1 >/dev/null)
+[[ ! -z "$ERROR" ]] && exit 1 || exit 0
