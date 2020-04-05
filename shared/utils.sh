@@ -5,11 +5,13 @@
 # Popups and notifications
 _show_popup(){
   _help $1 && return
+  _requires zenity
   zenity --info --text "$1"
 }
 
 _show_notification(){
   _help $1 && return
+  _requires notify-osd
   notify-send "$1"
 }
 
@@ -49,7 +51,11 @@ _pathrm() {
 }
 
 _get-desktop-path(){
-  echo `xdg-user-dir DESKTOP`
+  echo $(xdg-user-dir DESKTOP)
+}
+
+_get-script-path(){
+  echo "$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 }
 
 _get-date(){
