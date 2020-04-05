@@ -15,9 +15,9 @@ export VISUAL=vim
 ## INITIAL SOURCING ##
 ######################
 # source paths to main directories and help
-MAIN_PATH=~/shell_config
-source ${MAIN_PATH}/constants.sh
-source ${MAIN_PATH}/help.sh
+SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+source ${SCRIPTPATH}/constants.sh
+source ${SCRIPTPATH}/help.sh
 source ${_SHELL_SHARED_PATH}/echo.sh
 source ${_SHELL_SHARED_PATH}/checks.sh
 source ${_SHELL_SHARED_PATH}/utils.sh
