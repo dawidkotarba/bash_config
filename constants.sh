@@ -1,5 +1,4 @@
 ### Paths of directories ###
-_SHELL_CONFIG_PATH=~/shell_config
 _SHELL_SHARED_PATH=$_SHELL_CONFIG_PATH/shared
 _SHELL_MODULES_PATH=$_SHELL_CONFIG_PATH/modules
 _SHELL_MODULES_ARCHIVED_PATH=$_SHELL_CONFIG_PATH/modules_archived

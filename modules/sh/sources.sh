@@ -1,6 +1,4 @@
 # shell config edition
-_requires tig
-
 _pull-cloned-apps(){
  _help $1 && return
  for app in $(ls ${_SHELL_APPS_PATH});
@@ -126,6 +124,7 @@ sh-st(){
 
 sh-tig(){
   _help $1 && return
+  _requires tig
   (cd ${_SHELL_CONFIG_PATH} && tig)
 }
 

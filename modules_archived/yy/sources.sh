@@ -1,6 +1,5 @@
 # HYBRIS
 ### required apps ####
-_requires lnav docker
 
 ### constants ###
 # put hybris home as variable:
@@ -112,6 +111,7 @@ _get_mysql_container_name(){
 
 _kill_hybris_processes(){
  _help $1 && return
+ _requires lnav
  ps aux | grep hybris | grep -v lnav |_print_column " " 2 | xargs kill -9 2>/dev/null
  local hybris_process=`_get_hybris_process`
  if [[ ${hybris_process} ]]
@@ -199,11 +199,13 @@ yy-installb2b(){
 
 yy-log(){
  _help $1 && return
+ _requires lnav
  [[ $@ != *'-nolog'* ]] && lnav ${_HYBRIS_LOG_PATH}
 }
 
 yy-logtomcat(){
  _help $1 && return
+ _requires lnav
  [[ $@ != *'-nolog'* ]] && lnav `_get_last_tomcat_log_path`
 }
 
@@ -480,6 +482,7 @@ yy-dockermysqlip(){
 
 yy-dockermysqlcreate(){
   _help $1 && return
+  _requires docker
   _check_hybris_suffix
   local mysql_version=""
   [[ $1 ]] && mysql_version=:$1

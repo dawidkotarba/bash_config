@@ -9,6 +9,5 @@ install:
 
 script:
   - zsh --version
-  - mv constants_travis.sh constants.sh
   - zsh main.sh
   - zsh validate.sh
