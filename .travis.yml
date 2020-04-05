@@ -9,4 +9,5 @@ install:
 
 script:
   - zsh --version
+  - echo "_SHELL_CONFIG_PATH=/home/travis/build/dawidkotarba/shell_config" >> autostart.sh
   - zsh validate.sh
