@@ -150,6 +150,20 @@ util-checksum(){
 }
 alias checksum='util-checksum'
 
+util-adduser(){
+  _help $1 && return
+  _check_arg $1 "username"
+  local username=$1
+  sudo adduser ${username}
+  sudo usermod -aG sudo ${username}
+}
+
+util-copydate(){
+  _help $1 && return
+  echo `date +%F` | xclip -sel clip
+}
+alias checksum='util-copydate'
+
 ### DOCKER ###
 util-dockerstart(){
   _help $1 && return
@@ -165,12 +179,4 @@ util-dockerip(){
   _check_arg $1 "container name"
   local container_name=$1
   sudo docker inspect ${container_name} | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
-}
-
-util-adduser(){
-  _help $1 && return
-  _check_arg $1 "username"
-  local username=$1
-  sudo adduser ${username}
-  sudo usermod -aG sudo ${username}
 }
