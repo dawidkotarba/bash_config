@@ -1,6 +1,7 @@
 prefix-functionname(){
-  [[ "$1" == "-h" ]] && _show_help ${funcstack[1]} && return
-  _check_arg $1 "ParamName"
+  _help $1 && return
+  _check_arg $1 "parameter name"
   local first_variable=$1
   # function body here
 }
+alias functionname='prefix-functionnamed'
