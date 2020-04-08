@@ -40,7 +40,7 @@ alias clip='_filetoclipboard'
 
 sh-newfunction(){
   _help $1 && return
-  clip ${_SHELL_NEW_FUNCTION_FILEPATH}
+  clip "${_SHELL_MODULES_PATH}/sh/files/newfunction.sh"
   echo_ok "Function template copied to clipboard"
 }
 
