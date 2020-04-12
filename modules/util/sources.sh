@@ -164,6 +164,13 @@ util-copydate(){
 }
 alias checksum='util-copydate'
 
+util-syslog(){
+  _help $1 && return
+  _requires lnav
+  lnav /var/log/syslog
+}
+alias syslog='util-syslog'
+
 ### DOCKER ###
 util-dockerstart(){
   _help $1 && return
