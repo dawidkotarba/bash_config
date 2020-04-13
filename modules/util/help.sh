@@ -21,3 +21,5 @@ _help_util_tar_compress=
 _help_util_tar_extract=
 _help_util_checksum=
 _help_functionrepeat=
+_help_util_copydate=
+_help_util_syslog=
