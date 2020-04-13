@@ -1,21 +1,33 @@
 ### nav ###
 
-function nav-repo(){
+nav-repo(){
   _help $1 && return
   cd ${_REPOSITORY_PATH}
 }
 
-function nav-shellconfig(){
+nav-shellconfig(){
   _help $1 && return
   sh-navigate
 }
 
-function nav-desktop(){
+nav-desktop(){
   _help $1 && return
   cd /home/dawid/Pulpit
 }
 
-function nav-pliki(){
+nav-pliki(){
   _help $1 && return
   cd /media/dawid/Pliki
+}
+
+nav-goals(){
+  _help $1 && return
+  nav-repo
+  cd personal-goals
+}
+
+nav-diary(){
+  _help $1 && return
+  nav-goals
+  cd diary
 }

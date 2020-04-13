@@ -1,17 +1,5 @@
 ### goals ###
 
-nav-goals(){
-  _help $1 && return
-  nav-repo
-  cd personal-goals
-}
-
-nav-diary(){
-  _help $1 && return
-  nav-goals
-  cd diary
-}
-
 goals-edit(){
   _help $1 && return
   nav-diary
@@ -35,4 +23,10 @@ goals-commitpush(){
   _help $1 && return
   goals-commit
   goals-push
+}
+
+goals-diff(){
+  _help $1 && return
+  nav-goals
+  git diff
 }
