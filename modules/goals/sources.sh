@@ -12,23 +12,43 @@ nav-diary(){
   cd diary
 }
 
-goals-edit-lastweek(){
+goals-editlastweek(){
   _help $1 && return
   nav-diary
   ./edit_lastweek.sh
 }
 
-goals-edit-thisweek(){
+goals-editthisweek(){
   _help $1 && return
   nav-diary
   ./edit_thisweek.sh
 }
 
-goals-edit-nextweek(){
+goals-editnextweek(){
   _help $1 && return
   nav-diary
   ./edit_nextweek.sh
 }
+
+goals-diff(){
+  _help $1 && return
+  nav-goals
+  git diff
+}
+
+goals-createthisweek(){
+  _help $1 && return
+  nav-diary
+  ./create_thisweek.sh
+}
+alias goals-new="goals-createthisweek"
+
+goals-createnextweek(){
+  _help $1 && return
+  nav-diary
+  ./create_nextweek.sh
+}
+alias goals-new-nextweek="goals-newnextweek"
 
 goals-commit(){
   _help $1 && return
@@ -48,23 +68,3 @@ goals-commitpush(){
   goals-commit
   goals-push
 }
-
-goals-diff(){
-  _help $1 && return
-  nav-goals
-  git diff
-}
-
-goals-create-thisweek(){
-  _help $1 && return
-  nav-diary
-  ./create_thisweek.sh
-}
-alias goals-new="goals-create-thisweek"
-
-goals-create-nextweek(){
-  _help $1 && return
-  nav-diary
-  ./create_nextweek.sh
-}
-alias goals-new-nextweek="goals-new-nextweek"
