@@ -19,15 +19,3 @@ nav-pliki(){
   _help $1 && return
   cd /media/dawid/Pliki
 }
-
-nav-goals(){
-  _help $1 && return
-  nav-repo
-  cd personal-goals
-}
-
-nav-diary(){
-  _help $1 && return
-  nav-goals
-  cd diary
-}

@@ -1,5 +1,17 @@
 ### goals ###
 
+nav-goals(){
+  _help $1 && return
+  nav-repo
+  cd personal-goals
+}
+
+nav-diary(){
+  _help $1 && return
+  nav-goals
+  cd diary
+}
+
 goals-edit-lastweek(){
   _help $1 && return
   nav-diary
