@@ -60,7 +60,7 @@ goals-create-thisweek(){
   nav-diary
   ./create_thisweek.sh
 }
-alias goals-new="goals-create"
+alias goals-new="goals-create-thisweek"
 
 goals-create-nextweek(){
   _help $1 && return
