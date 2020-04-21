@@ -1,9 +1,9 @@
 ### goals ###
 
-goals-edit(){
+goals-edit-lastweek(){
   _help $1 && return
   nav-diary
-  ./edit.sh
+  ./edit_lastweek.sh
 }
 
 goals-edit-thisweek(){
@@ -43,10 +43,10 @@ goals-diff(){
   git diff
 }
 
-goals-create(){
+goals-create-thisweek(){
   _help $1 && return
   nav-diary
-  ./create.sh
+  ./create_thisweek.sh
 }
 alias goals-new="goals-create"
 
