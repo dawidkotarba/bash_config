@@ -30,6 +30,13 @@ goals-editnextweek(){
   ./edit_nextweek.sh
 }
 
+goals-editbooks(){
+  _help $1 && return
+  _requires atom
+  nav-goals
+  atom books.md
+}
+
 goals-diff(){
   _help $1 && return
   nav-goals
