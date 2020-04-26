@@ -151,6 +151,13 @@ setup-chrome(){
   rm google-chrome-stable_current_amd64.deb
 }
 
+setup-wireshark(){
+  _help $1 && return
+  _aptinstall wireshark
+  sudo dpkg-reconfigure wireshark-common
+  sudo adduser $USER wireshark
+}
+
 setup-essentials(){
   _help $1 && return
   # monitoring
