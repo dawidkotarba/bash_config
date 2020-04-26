@@ -44,7 +44,7 @@ setup-pidgin(){
 
 setup-evolution(){
   _help $1 && return
-  _aptinstall evolution evolution-plugins evolution-ews
+  _aptinstall evolution evolution-plugins evolution-ews evolution-indicator
 }
 
 setup-atom(){
