@@ -11,6 +11,11 @@ nav-diary(){
   nav-goals
   cd diary
 }
+goals-editreadme(){
+  _help $1 && return
+  nav-goals
+  atom README.md
+}
 
 goals-editlastweek(){
   _help $1 && return
