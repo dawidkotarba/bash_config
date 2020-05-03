@@ -171,6 +171,14 @@ util-syslog(){
 }
 alias syslog='util-syslog'
 
+util-onyx(){
+  _help $1 && return
+  _check_arg $1 "host number"
+  _requires google-chrome
+  nohup google-chrome http://192.168.0.$1:8083/ &
+}
+alias onyx='util-onyx'
+
 ### DOCKER ###
 util-dockerstart(){
   _help $1 && return
