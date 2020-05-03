@@ -23,6 +23,12 @@ goals-editlastweek(){
   ./edit_lastweek.sh
 }
 
+goals-editlast(){
+  _help $1 && return
+  nav-diary
+  ./edit_last.sh
+}
+
 goals-editthisweek(){
   _help $1 && return
   nav-diary
