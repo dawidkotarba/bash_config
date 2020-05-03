@@ -37,6 +37,15 @@ _print_column(){
   tr -s "$delimiter" | cut -d "$delimiter" -f $column
 }
 
+_print_column_space(){
+  _help $1 && return
+  local delimiter=" "
+  local column=$1
+  tr -s "$delimiter" | cut -d "$delimiter" -f $column
+}
+
+alias column='_print_column_space'
+
 # path utils
 _pathadd() {
   _help $1 && return
