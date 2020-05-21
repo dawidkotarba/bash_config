@@ -158,6 +158,11 @@ setup-wireshark(){
   sudo adduser $USER wireshark
 }
 
+setup-acetoneiso(){
+  _help $1 && return
+  _aptinstall acetoneiso fuseiso mencoder
+}
+
 setup-essentials(){
   _help $1 && return
   # monitoring
