@@ -197,7 +197,7 @@ setup-essentials(){
   setup-openvpn
 
   # others
-  _aptinstall filezilla pinta radiotray synapse
+  _aptinstall filezilla pinta radiotray synapse iptux
 }
 
 # Raspberry PI
