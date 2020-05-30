@@ -6,3 +6,5 @@ _help_git_deletebranches='Deletes all local branches except develop'
 _help_git_difftask=''
 _help_git_pushrefs='Git pushrefs to specified branch. Usage: git-pushrefs release_0.1'
 _help__git_add_commit_folder=
+_help_git_deletemergedlocal='Delete all merged branches to master/develop locally'
+_help_git_deletemergedremote='Delete all merged branches to master/develop locally and remotely'

@@ -15,6 +15,7 @@ _git_add_commit_folder(){
  fi
 }
 
+# Creates a diff file from commits with provided pattern
 _gitmakediff(){
  _help $1 && return
  local diff_file_path=~/diff
@@ -24,6 +25,7 @@ _gitmakediff(){
   done
 }
 
+# Sets up the git username/email. Usage: git-config "email@email.com" "User Name"
 git-config(){
   _help $1 && return
   _check_arg $1 "email"
@@ -34,12 +36,14 @@ git-config(){
 }
 alias git-configdawidkotarba='git-config dawidkotarba dawidkotarba'
 
+# Finds parents of current branch
 git-parent(){
  _help $1 && return
  current_branch=`git rev-parse --abbrev-ref HEAD`
  git show-branch -a | ag '\*' | ag -v "$current_branch" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
 }
 
+# Creates local branches for all found remote branches with provided pattern
 git-branch(){
   _help $1 && return
   _check_arg $1 "pattern"
@@ -54,9 +58,16 @@ git-branch(){
    done
 }
 
-git-deletebranches(){
+# Delete all merged branches to master/develop locally
+git-deletemergedlocal(){
   _help $1 && return
-  git checkout develop && git branch | grep -v develop | awk '{print $1}' | grep -v '*' | xargs git branch -D
+  git branch --merged | grep -v '\*\|master\|develop' | xargs -n 1 git branch -d
+}
+
+# Delete all merged branches to master/develop locally and remotely
+git-deletemergedremote(){
+  _help $1 && return
+  git branch -r --merged | grep -v '\*\|master\|develop' | sed 's/origin\///' | xargs -n 1 git push --delete origin
 }
 
 git-difftask(){
@@ -68,6 +79,7 @@ git-difftask(){
   echo _gitmakediff ${commits}
 }
 
+# Git pushrefs to specified branch. Usage: git-pushrefs release_0.1
 git-pushrefs(){
   _help $1 && return
   _check_arg $1 "branchName"
