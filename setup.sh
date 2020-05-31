@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+_SHELL_CONFIG_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 source constants.sh
 source shared/echo.sh
 CONFIG=${_CONFIG_PATH}
@@ -20,7 +21,7 @@ clean-folder(){
  if [[ ! -d "$destination" ]]
   then
    echo_info "Folder $destination is not present. Creating a folder..."
-   mkdir ${destination}
+   mkdir -p ${destination}
    echo_info "Folder created."
   else
    echo_info "Folder exists. Purging."
