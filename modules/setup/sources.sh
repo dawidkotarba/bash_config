@@ -169,7 +169,7 @@ setup-essentials(){
   _aptinstall htop glances
 
   # Linux essentials
-  _aptinstall tilda vim tree mtr net-tools shellcheck snapd
+  _aptinstall tilda vim tree mtr net-tools shellcheck snapd samba
 
   # SSH
   _aptinstall sshpass
