@@ -40,3 +40,4 @@ _help_setup_remmina=
 _help_setup_openvpn=
 _help_setup_wireshark=
 _help_setup_acetoneiso=
+_help_setup_woeusb="Tool to install Windows on USB"

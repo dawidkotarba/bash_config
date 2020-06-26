@@ -211,3 +211,10 @@ setup-jdk9(){
   _addaptrepository ppa:webupd9team/java
   _aptinstall oracle-java9-installer
 }
+
+# Tool to install Windows on USB
+setup-woeusb(){
+  _help $1 && return
+  _addaptrepository ppa:nilarimogard/webupd8
+  _aptinstall woeusb
+}
