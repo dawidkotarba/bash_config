@@ -192,3 +192,10 @@ sh-updatehelp(){
 
    cd ${current_path}
 }
+
+sh-what(){
+  _help $1 && return
+  _check_arg $1 "Function name pattern"
+  local pattern=$1
+  grep '()' ${_SHELL_FWD_FILEPATH} | grep ${pattern}
+}
