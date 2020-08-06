@@ -210,6 +210,7 @@ setup-yubikey(){
   _help $1 && return
   _addaptrepository ppa:yubico/stable
   _aptinstall yubikey-personalization-gui yubikey-personalization yubikey-manager yubioath-desktop
+  _aptinstall pcscd scdaemon gnupg2 pcsc-tools
 }
 
 # Raspberry PI
