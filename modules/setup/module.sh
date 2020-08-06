@@ -4,6 +4,8 @@ _aptinstall(){
    _help $1 && return
    _check_arg $1 "At least one program to install"
    echo_info "Installing: $@"
+   # Install each program in loop instead at once by $@
+   # to prevent failing chain installations
    for program in "$@"
    do
       sudo apt install -y "$program"
