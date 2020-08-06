@@ -206,6 +206,12 @@ setup-essentials(){
   _aptinstall filezilla pinta synapse iptux
 }
 
+setup-yubikey(){
+  _help $1 && return
+  _addaptrepository ppa:yubico/stable
+  _aptinstall yubikey-personalization-gui yubikey-personalization yubikey-manager yubioath-desktop
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   _help $1 && return
