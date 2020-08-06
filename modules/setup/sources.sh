@@ -4,7 +4,10 @@ _aptinstall(){
    _help $1 && return
    _check_arg $1 "At least one program to install"
    echo_info "Installing: $@"
-   sudo apt install -y $@
+   for program in "$@"
+   do
+      sudo apt install -y "$program"
+   done
 }
 alias aptinstall=_aptinstall
 
