@@ -1,15 +1,4 @@
 printf "-> ["
-########################
-# Settings and aliases #
-########################
-
-# Default settings
-HISTSIZE=99999
-HISTFILESIZE=99999
-
-### EXPORTS ###
-export TERM='xterm-256color'
-export VISUAL=vim
 
 ######################
 ## INITIAL SOURCING ##
@@ -21,6 +10,21 @@ source ${_SHELL_CONFIG_PATH}/help.sh
 source ${_SHELL_SHARED_PATH}/echo.sh
 source ${_SHELL_SHARED_PATH}/checks.sh
 source ${_SHELL_SHARED_PATH}/utils.sh
+
+# CURRENT_LOG_LVL: 0 - info, 1 - warn, 2 - error
+CURRENT_LOG_LVL=1
+
+########################
+# Settings and aliases #
+########################
+
+# Default settings
+HISTSIZE=99999
+HISTFILESIZE=99999
+
+### EXPORTS ###
+export TERM='xterm-256color'
+export VISUAL=vim
 
 ######################
 ## MODULES SOURCING ##
@@ -79,11 +83,11 @@ _source_modules(){
 
  # source modules and help files except tmp
  for file in $(find ${_SHELL_MODULES_PATH} -type f -name help.sh | grep -v ${_OVERRIDE_MODULE_PATH}); do _source_mandatory "$file"; done
- for file in $(find ${_SHELL_MODULES_PATH} -type f -name sources.sh | grep -v ${_OVERRIDE_MODULE_PATH}); do _source_mandatory "$file"; done
+ for file in $(find ${_SHELL_MODULES_PATH} -type f -name module.sh | grep -v ${_OVERRIDE_MODULE_PATH}); do _source_mandatory "$file"; done
 
  # source override module for overriding existing aliases/functions
  _source_mandatory ${_OVERRIDE_MODULE_PATH}/help.sh
- _source_mandatory ${_OVERRIDE_MODULE_PATH}/sources.sh
+ _source_mandatory ${_OVERRIDE_MODULE_PATH}/module.sh
 }
 echo_pretty "Sourcing modules:"
 _source_modules

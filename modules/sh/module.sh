@@ -65,7 +65,7 @@ sh-newmodule(){
  local modulepath="$_SHELL_MODULES_PATH/$modulename"
  [[ ! -d ${modulepath} ]] && mkdir ${modulepath}
  echo "### help ###" >  ${modulepath}/help.sh
- echo "### $modulename ###" > ${modulepath}/sources.sh
+ echo "### $modulename ###" > ${modulepath}/module.sh
  mkdir ${modulepath}/files
 }
 
@@ -92,7 +92,7 @@ sh-validate(){
 sh-edit(){
   _help $1 && return
   local module_name=$1
-  _editfile "sources.sh" ${module_name}
+  _editfile "module.sh" ${module_name}
 }
 
 sh-edithelp(){
@@ -109,7 +109,7 @@ sh-pull(){
 sh-show(){
  _help $1 && return
  local module_name=$1
- [[ ${module_name} ]] && less ${_SHELL_MODULES_PATH}/${module_name}/sources.sh || less ${_SHELL_MAIN_FILEPATH}
+ [[ ${module_name} ]] && less ${_SHELL_MODULES_PATH}/${module_name}/module.sh || less ${_SHELL_MAIN_FILEPATH}
 }
 
 sh-diff(){
@@ -180,7 +180,7 @@ sh-updatehelp(){
     if [[ -d "$file" ]]; then
       cd ${file}
       echo "Updating help from ${file} module."
-      local functions=`grep -rh "\w() *{" sources.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
+      local functions=`grep -rh "\w() *{" module.sh | tr -d " " | tr -d "(){" | xargs -I {} echo -e "$HELP_SUFFIX{}=" | tr - _`
       [[ ! -f help.sh ]] && (echo ${functions} >> help.sh) && return
       while read f
       do
