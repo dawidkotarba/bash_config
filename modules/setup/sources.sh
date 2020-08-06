@@ -169,7 +169,7 @@ setup-essentials(){
   _aptinstall htop glances
 
   # Linux essentials
-  _aptinstall tilda vim tree mtr net-tools shellcheck snapd samba
+  _aptinstall tilda vim tree mtr net-tools shellcheck samba
 
   # SSH
   _aptinstall sshpass
@@ -197,7 +197,7 @@ setup-essentials(){
   setup-openvpn
 
   # others
-  _aptinstall filezilla pinta radiotray synapse iptux
+  _aptinstall filezilla pinta synapse iptux
 }
 
 # Raspberry PI

@@ -103,7 +103,7 @@ if show_yesno_box "Clone Oh my ZSH plugins?"; then
 fi
 
 if show_yesno_box "Add configuration entries to .zshrc?"; then
- sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp auto-notify)" ~/.zshrc
+ sed -i "/^plugins=.*/c plugins=(git svn mvn gradle encode64 docker sudo tig urltools web-search history-substring-search cp)" ~/.zshrc
   [[ -z $(grep "source ~/shell_config/main.sh" ~/.zshrc) ]] && (echo "source ~/shell_config/main.sh" >> ~/.zshrc)
 fi
 
