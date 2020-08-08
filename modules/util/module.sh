@@ -195,3 +195,22 @@ util-dockerip(){
   local container_name=$1
   sudo docker inspect ${container_name} | grep '"IPAddress"' | tail -n1 | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*"
 }
+
+### GPG
+gpg-encrypt(){
+  _help $1 && return
+  _check_arg $1 "email"
+  _check_arg $2 "file name"
+  local email=$1
+  local file_name=$2
+  gpg2 --card-status
+  gpg2 --encrypt --recipient ${email} --output ${file_name}.gpg ${file_name}
+}
+
+gpg-decrypt(){
+  _help $1 && return
+  _check_arg $1 "file name"
+  local file_name=$1
+  gpg2 --card-status
+  gpg2 --decrypt --output ${file_name}_decrypted ${file_name}
+}
