@@ -135,6 +135,7 @@ sh-tis(){
 
 sh-commit(){
   _help $1 && return
+  sh-updatehelp
  _git_add_commit_folder ${_SHELL_CONFIG_PATH}
 }
 

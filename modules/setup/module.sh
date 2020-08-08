@@ -202,6 +202,9 @@ setup-essentials(){
   # VPN
   setup-openvpn
 
+  #yubikey
+  setup-yubikey
+
   # others
   _aptinstall filezilla pinta synapse iptux
 }
@@ -211,6 +214,11 @@ setup-yubikey(){
   _addaptrepository ppa:yubico/stable
   _aptinstall yubikey-personalization-gui yubikey-personalization yubikey-manager yubioath-desktop
   _aptinstall pcscd scdaemon gnupg2 pcsc-tools
+}
+
+setup-docker(){
+  _help $1 && return
+  _aptinstall docker-compose
 }
 
 # Raspberry PI
