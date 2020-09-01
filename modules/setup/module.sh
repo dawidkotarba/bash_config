@@ -209,6 +209,13 @@ setup-essentials(){
   _aptinstall filezilla pinta synapse iptux
 }
 
+setup-signal(){
+  _help $1 && return
+  curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+  echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+  sudo apt update && _aptinstall signal-desktop
+}
+
 setup-yubikey(){
   _help $1 && return
   _addaptrepository ppa:yubico/stable
