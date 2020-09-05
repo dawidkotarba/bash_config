@@ -26,3 +26,5 @@ _help_util_syslog=
 _help_util_onyx=
 _help_gpg_encrypt='i.e. gpg-encrypt dawidkotarba@email.pl text.txt'
 _help_gpg_decrypt='i.e. gpg-decrypt text.txt.gpg'
+_help_util_tarball=
+_help_util_untarball=

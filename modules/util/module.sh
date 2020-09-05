@@ -87,21 +87,21 @@ util-findpath(){
 }
 alias findpath='util-findpath'
 
-util-tar-compress(){
+util-tarball(){
   _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zcvf ${folder}.tar.gz ${folder}
 }
-alias tar-compress='util-tar-compress'
+alias tarball='util-tarball'
 
-util-tar-extract(){
+util-untarball(){
   _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zxvf ${folder}
 }
-alias tar-extract='util-tar-extract'
+alias untarball='util-untarball'
 
 util-ip(){
   _help $1 && return
