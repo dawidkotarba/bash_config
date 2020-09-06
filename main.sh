@@ -96,6 +96,7 @@ _source_modules
 echo_pretty "Sourcing path and autostart:"
 _source_mandatory ${_SHELL_PATH_FILEPATH}
 _source_mandatory ${_SHELL_AUTOSTART_FILEPATH}
+_source_optional ${_USER_MODULE_FILEPATH}
 
 ### APPS ###
 echo_pretty "Sourcing apps:"

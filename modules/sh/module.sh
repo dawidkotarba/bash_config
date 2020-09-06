@@ -69,6 +69,12 @@ sh-newmodule(){
  mkdir ${modulepath}/files
 }
 
+sh-newusermodule(){
+ _help $1 && return
+ touch ${_USER_MODULE_FILEPATH}
+ echo "User module ${_USER_MODULE_FILEPATH} has been created."
+}
+
 sh-archivemodule(){
  _help $1 && return
  _check_arg $1 "module name"
