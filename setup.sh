@@ -94,7 +94,7 @@ if show_yesno_box "Install zsh shell?"; then
   sudo apt install zsh
 fi
 
-if show_yesno_box "Install oh-my-zsh?"; then
+if show_yesno_box "Install oh-my-zsh? If yes, exit the ZSH shell once the installation is complete to come back to this script."; then
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 fi
 
