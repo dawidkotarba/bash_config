@@ -193,6 +193,9 @@ setup-essentials(){
   # alien
   _aptinstall alien dpkg-dev debhelper build-essential
 
+  # dev
+  setup-dev
+
   # ranger
   setup-ranger
 
