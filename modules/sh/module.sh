@@ -107,6 +107,14 @@ sh-edithelp(){
   _editfile "help.sh" ${module_name}
 }
 
+sh-view(){
+  _help $1 && return
+  local module_name=$1
+  local file_path="$(_getmodulepath ${module_name})/module.sh"
+  less ${file_path}
+}
+alias sh-less='sh-view'
+
 sh-pull(){
   git -C ${_SHELL_CONFIG_PATH} pull
   _pull-cloned-apps
