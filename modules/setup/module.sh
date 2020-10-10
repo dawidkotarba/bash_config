@@ -212,6 +212,11 @@ setup-essentials(){
   _aptinstall filezilla pinta synapse iptux
 }
 
+setup-environment-xubuntu(){
+  _help $1 && return
+  _aptinstall xubuntu-desktop
+}
+
 setup-signal(){
   _help $1 && return
   curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -

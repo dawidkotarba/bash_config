@@ -44,3 +44,4 @@ _help_setup_woeusb="Tool to install Windows on USB"
 _help_setup_yubikey=
 _help_setup_docker=
 _help_setup_signal=
+_help_setup_environment_xubuntu=
