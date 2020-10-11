@@ -42,6 +42,11 @@ setup-ranger(){
   ranger --copy-config=all
 }
 
+setup-doublecmd(){
+  _help $1 && return
+  _aptinstall doublecmd-gtk doublecmd-common
+}
+
 setup-pidgin(){
   _help $1 && return
   _aptinstall pidgin pidgin-sipe
@@ -198,6 +203,9 @@ setup-essentials(){
 
   # ranger
   setup-ranger
+
+  # Double Commander
+  setup-doublecmd
 
   # remmina - RDP
   setup-remmina
