@@ -113,13 +113,13 @@ setup-node(){
 
 setup-ruby(){
   _help $1 && return
-  _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake jekyll
+  _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake
 }
 
 setup-jekyll(){
   _help $1 && return
   setup-ruby
-  _aptinstall jekyll bundler
+  _aptinstall bundler
 }
 
 setup-socials(){
