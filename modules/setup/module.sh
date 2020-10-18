@@ -217,7 +217,7 @@ setup-essentials(){
   setup-yubikey
 
   # others
-  _aptinstall filezilla pinta synapse iptux
+  _aptinstall filezilla pinta synapse iptux klavaro
 }
 
 setup-environment-xubuntu(){
