@@ -244,6 +244,18 @@ setup-docker(){
   _aptinstall docker-compose
 }
 
+setup-docker-jenkins(){
+  _help $1 && return
+  local container_name="jenkins-local"
+  local port="8081"
+  docker image pull jenkins/jenkins:lts
+  docker volume create jenkinsvol
+  docker container run -d -p ${port}:8080 -v jenkinsvol:/var/jenkins_home --name ${container_name} jenkins/jenkins:lts
+  echo "Jenkins admin password:"
+  docker container exec ${container_name} sh -c "cat /var/jenkins_home/secrets/initialAdminPassword"
+  echo "Jenkins will run on ${port} with name "
+}
+
 # Raspberry PI
 setup-rpi-docker(){
   _help $1 && return
