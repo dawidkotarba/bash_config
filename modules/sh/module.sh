@@ -214,3 +214,4 @@ sh-what(){
   local pattern=$1
   grep '()' ${_SHELL_FWD_FILEPATH} | grep ${pattern}
 }
+alias what='sh-what'
