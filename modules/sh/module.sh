@@ -75,6 +75,11 @@ sh-newusermodule(){
  echo "User module ${_USER_MODULE_FILEPATH} has been created."
 }
 
+sh-editusermodule(){
+ _help $1 && return
+ atom ${_USER_MODULE_FILEPATH}
+}
+
 sh-archivemodule(){
  _help $1 && return
  _check_arg $1 "module name"
