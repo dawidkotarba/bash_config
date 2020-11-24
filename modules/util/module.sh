@@ -171,6 +171,12 @@ util-syslog(){
 }
 alias syslog='util-syslog'
 
+util-suspend(){
+  _help $1 && return
+  systemctl suspend
+}
+alias cu='util-suspend'
+
 util-onyx(){
   _help $1 && return
   _check_arg $1 "host number"
