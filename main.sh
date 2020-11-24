@@ -82,12 +82,8 @@ _source_modules(){
  _show_step_counter
 
  # source modules and help files except tmp
- for file in $(find ${_SHELL_MODULES_PATH} -type f -name help.sh | grep -v ${_OVERRIDE_MODULE_PATH}); do _source_mandatory "$file"; done
- for file in $(find ${_SHELL_MODULES_PATH} -type f -name module.sh | grep -v ${_OVERRIDE_MODULE_PATH}); do _source_mandatory "$file"; done
-
- # source override module for overriding existing aliases/functions
- _source_mandatory ${_OVERRIDE_MODULE_PATH}/help.sh
- _source_mandatory ${_OVERRIDE_MODULE_PATH}/module.sh
+ for file in $(find ${_SHELL_MODULES_PATH} -type f -name help.sh); do _source_mandatory "$file"; done
+ for file in $(find ${_SHELL_MODULES_PATH} -type f -name module.sh); do _source_mandatory "$file"; done
 }
 echo_pretty "Sourcing modules:"
 _source_modules
