@@ -217,6 +217,11 @@ sh-what(){
   _help $1 && return
   _check_arg $1 "Function name pattern"
   local pattern=$1
-  grep '()' ${_SHELL_FWD_FILEPATH} | grep ${pattern} | rev | cut -c 4- | rev
+
+  grep '()' ${_SHELL_FWD_FILEPATH} | grep ${pattern} | rev | cut -c 4- | rev | while read -r command ; do
+    echo "-> $command"
+    eval "$command --help"
+    echo
+  done
 }
 alias what='sh-what'
