@@ -30,3 +30,4 @@ _help_sh_what='Shows all functions with given pattern'
 _help_sh_newusermodule='Create a file for functions in user directory'
 _help_sh_view=
 _help_sh_editusermodule=
+_help_sh_how=

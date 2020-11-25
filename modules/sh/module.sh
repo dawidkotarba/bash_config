@@ -225,3 +225,11 @@ sh-what(){
   done
 }
 alias what='sh-what'
+
+sh-how(){
+  _help $1 && return
+  _check_arg $1 "Function name"
+  local function=$1
+  type -f $function
+}
+alias how='sh-how'
