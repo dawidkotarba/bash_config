@@ -275,7 +275,7 @@ setup-woeusb(){
   _aptinstall woeusb
 }
 
-setup-restore-ag(){
+setup-restore-agu(){
   _help $1 && return
   setup-essentials
   setup-ranger

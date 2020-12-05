@@ -48,3 +48,4 @@ _help_setup_environment_xubuntu=
 _help_setup_doublecmd=
 _help_setup_docker_jenkins=
 _help_setup_restore_ag=
+_help_setup_restore_agu=
