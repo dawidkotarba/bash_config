@@ -274,3 +274,15 @@ setup-woeusb(){
   _addaptrepository ppa:nilarimogard/webupd8
   _aptinstall woeusb
 }
+
+setup-restore-ag(){
+  _help $1 && return
+  setup-essentials
+  setup-ranger
+  setup-doublecmd
+  setup-atom
+  setup-sshserver
+  setup-yubikey
+  setup-chrome
+  setup-signal
+}
