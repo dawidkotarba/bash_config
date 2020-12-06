@@ -49,3 +49,6 @@ _help_setup_doublecmd=
 _help_setup_docker_jenkins=
 _help_setup_restore_ag=
 _help_setup_restore_agu=
+_help_setup_enpass=
+_help_setup_new_daw=
+_help_setup_new_agu=

@@ -94,11 +94,6 @@ setup-openvpn(){
   _aptinstall openvpn network-manager-openvpn-gnome resolvconf
 }
 
-setup-deepinscreenshot(){
-  _help $1 && return
-  _aptinstall deepin-screenshot
-}
-
 setup-dev(){
   _help $1 && return
   _aptinstall git tig ant maven gradle
@@ -275,7 +270,32 @@ setup-woeusb(){
   _aptinstall woeusb
 }
 
-setup-restore-agu(){
+setup-enpass(){
+  _help $1 && return
+  sudo echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
+  wget -O - https://apt.enpass.io/keys/enpass-linux.key | sudo apt-key add -
+  _aptupdate
+  _aptinstall enpass
+}
+
+setup-new-daw(){
+  _help $1 && return
+  setup-essentials
+  setup-dev
+  setup-node
+  setup-ruby
+  setup-jekyll
+  setup-ranger
+  setup-doublecmd
+  setup-atom
+  setup-sshserver
+  setup-yubikey
+  setup-chrome
+  setup-signal
+  setup-enpass
+}
+
+setup-new-agu(){
   _help $1 && return
   setup-essentials
   setup-ranger
@@ -285,4 +305,5 @@ setup-restore-agu(){
   setup-yubikey
   setup-chrome
   setup-signal
+  setup-enpass
 }
