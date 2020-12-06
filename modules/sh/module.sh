@@ -123,6 +123,7 @@ alias sh-less='sh-view'
 sh-pull(){
   git -C ${_SHELL_CONFIG_PATH} pull
   _pull-cloned-apps
+  sh-source
 }
 
 sh-show(){
