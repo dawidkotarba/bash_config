@@ -272,10 +272,12 @@ setup-woeusb(){
 
 setup-enpass(){
   _help $1 && return
-  sudo echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
-  wget -O - https://apt.enpass.io/keys/enpass-linux.key | sudo apt-key add -
+  sudo -i
+  echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
+  wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
   _aptupdate
   _aptinstall enpass
+  exit
 }
 
 setup-new-daw(){
