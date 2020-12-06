@@ -169,52 +169,6 @@ setup-acetoneiso(){
   _aptinstall acetoneiso fuseiso mencoder
 }
 
-setup-essentials(){
-  _help $1 && return
-  # monitoring
-  _aptinstall htop glances
-
-  # Linux essentials
-  _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip imagemagick flameshot
-
-  # SSH
-  _aptinstall sshpass
-  setup-sshserver
-
-  # Clipboard managers, mouse gestures
-  _aptinstall easystroke clipit parcellite
-
-  # autokey
-  _aptinstall autokey-common autokey-gtk
-
-  # notes, markdown
-  _aptinstall nixnote2 retext
-
-  # alien
-  _aptinstall alien dpkg-dev debhelper build-essential
-
-  # dev
-  setup-dev
-
-  # ranger
-  setup-ranger
-
-  # Double Commander
-  setup-doublecmd
-
-  # remmina - RDP
-  setup-remmina
-
-  # VPN
-  setup-openvpn
-
-  #yubikey
-  setup-yubikey
-
-  # others
-  _aptinstall filezilla pinta synapse iptux klavaro
-}
-
 setup-environment-xubuntu(){
   _help $1 && return
   _aptinstall xubuntu-desktop
@@ -285,6 +239,52 @@ setup-brave-browser(){
   echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
   _aptupdate
   _aptinstall brave-browser
+}
+
+setup-essentials(){
+  _help $1 && return
+  # monitoring
+  _aptinstall htop glances
+
+  # Linux essentials
+  _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip imagemagick flameshot
+
+  # SSH
+  _aptinstall sshpass
+  setup-sshserver
+
+  # Clipboard managers, mouse gestures
+  _aptinstall easystroke clipit parcellite
+
+  # autokey
+  _aptinstall autokey-common autokey-gtk
+
+  # notes, markdown
+  _aptinstall nixnote2 retext
+
+  # alien
+  _aptinstall alien dpkg-dev debhelper build-essential
+
+  # dev
+  setup-dev
+
+  # ranger
+  setup-ranger
+
+  # Double Commander
+  setup-doublecmd
+
+  # remmina - RDP
+  setup-remmina
+
+  # VPN
+  setup-openvpn
+
+  #yubikey
+  setup-yubikey
+
+  # others
+  _aptinstall filezilla pinta synapse iptux klavaro
 }
 
 setup-new-daw(){
