@@ -273,9 +273,18 @@ setup-woeusb(){
 setup-enpass(){
   _help $1 && return
   sudo echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
-  sudo wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
+  wget -O - https://apt.enpass.io/keys/enpass-linux.key | sudo apt-key add -
   _aptupdate
   _aptinstall enpass
+}
+
+setup-brave-browser(){
+  _help $1 && return
+  _aptinstall apt-transport-https curl gnupg
+  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  _aptupdate
+  _aptinstall brave-browser
 }
 
 setup-new-daw(){

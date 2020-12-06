@@ -52,3 +52,4 @@ _help_setup_restore_agu=
 _help_setup_enpass=
 _help_setup_new_daw=
 _help_setup_new_agu=
+_help_setup_brave_browser=
