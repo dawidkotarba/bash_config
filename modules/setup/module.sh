@@ -264,6 +264,9 @@ setup-essentials(){
   # alien
   _aptinstall alien dpkg-dev debhelper build-essential
 
+  # Tool for Logitech devices
+  _aptinstall solaar
+
   # dev
   setup-dev
 
