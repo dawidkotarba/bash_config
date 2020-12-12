@@ -289,6 +289,18 @@ setup-essentials(){
   _aptinstall filezilla pinta synapse iptux klavaro
 }
 
+setup-logitech-m570(){
+  _help $1 && return
+  _aptinstall solaar
+  sudo echo $'Section "InputClass"\nIdentifier "Logitech M570"\nMatchProduct "Logitech M570"\nDriver "libinput"\nOption "ScrollMethod" "button"\nOption "ScrollButton" "3"\nOption "MiddleEmulation" "on"\nEndSection' > /usr/share/X11/xorg.conf.d/99-M570Logitech.conf
+}
+
+setup-logitech-m575(){
+  _help $1 && return
+  _aptinstall solaar
+  sudo echo $'Section "InputClass"\nIdentifier "Logitech ERGO M575"\nMatchProduct "Logitech ERGO M575"\nDriver "libinput"\nOption "ScrollMethod" "button"\nOption "ScrollButton" "3"\nOption "MiddleEmulation" "on"\nEndSection' > /usr/share/X11/xorg.conf.d/99-M575Logitech.conf
+}
+
 setup-new-daw(){
   _help $1 && return
   setup-essentials
@@ -304,6 +316,7 @@ setup-new-daw(){
   setup-chrome
   setup-signal
   setup-enpass
+  setup-logitech-m570
 }
 
 setup-new-agu(){
@@ -317,4 +330,5 @@ setup-new-agu(){
   setup-chrome
   setup-signal
   setup-enpass
+  setup-logitech-m575
 }
