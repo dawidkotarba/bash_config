@@ -247,13 +247,14 @@ setup-essentials(){
 
   # Linux essentials
   _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip imagemagick flameshot
+  _aptinstall grub-customizer
 
   # SSH
   _aptinstall sshpass
   setup-sshserver
 
   # Clipboard managers, mouse gestures
-  _aptinstall easystroke clipit parcellite
+  _aptinstall easystroke parcellite
 
   # autokey
   _aptinstall autokey-common autokey-gtk
