@@ -55,3 +55,4 @@ _help_setup_new_agu=
 _help_setup_brave_browser=
 _help_setup_logitech_m570=
 _help_setup_logitech_m575=
+_help_setup_calibre=

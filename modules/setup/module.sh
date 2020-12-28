@@ -47,6 +47,13 @@ setup-doublecmd(){
   _aptinstall doublecmd-gtk doublecmd-common
 }
 
+# Install calibre from the site to fix issues with Linux Mint 20
+setup-calibre(){
+  _help $1 && return
+  # _aptinstall calibre
+  sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+}
+
 setup-pidgin(){
   _help $1 && return
   _aptinstall pidgin pidgin-sipe
@@ -248,7 +255,7 @@ setup-essentials(){
 
   # Linux essentials
   _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip
-  _aptinstall grub-customizer calibre
+  _aptinstall grub-customizer
 
   # Images
   _aptinstall gthumb imagemagick flameshot
@@ -272,26 +279,16 @@ setup-essentials(){
   # Tool for Logitech devices
   _aptinstall solaar
 
-  # dev
-  setup-dev
-
-  # ranger
-  setup-ranger
-
-  # Double Commander
-  setup-doublecmd
-
-  # remmina - RDP
-  setup-remmina
-
-  # VPN
-  setup-openvpn
-
-  #yubikey
-  setup-yubikey
-
   # others
   _aptinstall filezilla pinta synapse iptux klavaro
+
+  setup-dev
+  setup-ranger
+  setup-doublecmd
+  setup-remmina
+  setup-openvpn
+  setup-yubikey
+  setup-calibre
 }
 
 setup-logitech-m570(){
