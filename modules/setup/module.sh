@@ -242,13 +242,13 @@ setup-brave-browser(){
 
 setup-essentials(){
   _help $1 && return
-  
+
   # monitoring
   _aptinstall htop glances
 
   # Linux essentials
   _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip
-  _aptinstall grub-customizer
+  _aptinstall grub-customizer calibre
 
   # Images
   _aptinstall gthumb imagemagick flameshot
