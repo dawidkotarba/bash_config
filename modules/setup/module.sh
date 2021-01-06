@@ -230,6 +230,11 @@ setup-woeusb(){
   _aptinstall woeusb
 }
 
+setup-unison(){
+  _help $1 && return
+  _aptinstall unison unison-gtk
+}
+
 setup-enpass(){
   _help $1 && return
   sudo echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
@@ -289,6 +294,7 @@ setup-essentials(){
   setup-openvpn
   setup-yubikey
   setup-calibre
+  setup-unison
 }
 
 setup-logitech-m570(){
