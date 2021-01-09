@@ -252,6 +252,13 @@ setup-brave-browser(){
   _aptinstall brave-browser
 }
 
+setup-obs-studio(){
+  _help $1 && return
+  _aptinstall ffmpeg
+  _addaptrepository ppa:obsproject/obs-studio
+  _aptinstall obs-studio
+}
+
 setup-essentials(){
   _help $1 && return
 
