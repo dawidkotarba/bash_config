@@ -218,15 +218,10 @@ setup-rpi-docker(){
   curl -sSL https://get.docker.com | sh
 }
 
-setup-jdk8(){
+setup-sdkman(){
   _help $1 && return
-  _aptinstall openjdk-8-jre openjdk-8-jdk
-}
-
-setup-jdk9(){
-  _help $1 && return
-  _addaptrepository ppa:webupd9team/java
-  _aptinstall oracle-java9-installer
+  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
 }
 
 setup-woeusb(){
