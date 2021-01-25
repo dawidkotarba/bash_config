@@ -118,6 +118,12 @@ setup-ruby(){
   _aptinstall ruby-full rubygems build-essential zlib1g-dev liblzma-dev cmake
 }
 
+setup-python3(){
+  _help $1 && return
+  _aptinstall python3.8 python3.8-dev python3.8-distutils python3.8-venv
+  _aptinstall python3-pip
+}
+
 setup-jekyll(){
   _help $1 && return
   setup-ruby
@@ -323,6 +329,7 @@ setup-new-daw(){
   setup-node
   setup-ruby
   setup-jekyll
+  setup-python3
   setup-ranger
   setup-doublecmd
   setup-atom

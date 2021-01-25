@@ -59,3 +59,4 @@ _help_setup_calibre=
 _help_setup_unison=
 _help_setup_obs_studio=
 _help_setup_sdkman=
+_help_setup_python3=
