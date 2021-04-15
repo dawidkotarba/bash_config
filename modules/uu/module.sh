@@ -10,7 +10,7 @@ function repeat(){
  done
 }
 
-util-server(){
+uu-server(){
 _help $1 && return
  local port=$1
  [[ ! ${port} ]] && port=7070
@@ -19,96 +19,96 @@ _help $1 && return
  #python -m SimpleHTTPServer $port
  python3 -m http.server ${port}
 }
-alias server="util-server"
+alias server="uu-server"
 
-util-share(){
+uu-share(){
   _help $1 && return
   local share_folder="Shared"
   if [[ ! -d "$share_folder" ]]; then cd && mkdir ${share_folder}; fi
-  (cd ~/${share_folder} && util-server)
+  (cd ~/${share_folder} && uu-server)
 }
-alias share='util-share'
+alias share='uu-share'
 
-util-upgrade(){
+uu-upgrade(){
  _help $1 && return
  sudo apt update && sudo apt upgrade -y
  git -C ${_SHELL_CONFIG_PATH} pull
  _pull-cloned-apps
 }
-alias upgrade='util-upgrade'
+alias upgrade='uu-upgrade'
 
-util-bak(){
+uu-bak(){
  _help $1 && return
  _check_arg $1 "Subject of backup"
  local date=`date | awk '{print $2"-"$3"-"$5}'`
  mv $1 $1_${date}
 }
-alias bak='util-bak'
+alias bak='uu-bak'
 
-util-prefixallfiles(){
+uu-prefixallfiles(){
   _help $1 && return
   _check_arg $1 "prefix must be set"
   local prefix=$1
   for f in * ; do mv -- "${f}" "${prefix}${f}" ; done
 }
 
-util-suffixallfiles(){
+uu-suffixallfiles(){
   _help $1 && return
   _check_arg $1 "suffix must be set"
   local suffix=$1
   for f in * ; do mv -- "${f}" "${f}${suffix}" ; done
 }
 
-util-killall(){
+uu-killall(){
   _help $1 && return
   _check_arg $1 "process name"
   local process_name=$1
   ps aux | grep ${process_name} | awk '{print $2}' | xargs kill
 }
 
-util-fixpermissions(){
+uu-fixpermissions(){
   _help $1 && return
   find . -type d | xargs chmod 755
   find . -type f | xargs chmod 644
 }
 
-util-replaceinpath(){
+uu-replaceinpath(){
   _help $1 && return
   _check_arg $1 "old text"
   _check_arg $2 "new text"
   find . -type f | xargs sed -i "s/$1/$2/g"
 }
 
-util-findpath(){
+uu-findpath(){
   _help $1 && return
   _check_arg $1 "Folder name"
   local folder_name=$1
   find . -path "*/$folder_name"
 }
-alias findpath='util-findpath'
+alias findpath='uu-findpath'
 
-util-tarball(){
+uu-tarball(){
   _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zcvf ${folder}.tar.gz ${folder}
 }
-alias tarball='util-tarball'
+alias tarball='uu-tarball'
 
-util-untarball(){
+uu-untarball(){
   _help $1 && return
   _check_arg $1 "Folder/file name"
   local folder=$1
   tar -zxvf ${folder}
 }
-alias untarball='util-untarball'
+alias untarball='uu-untarball'
 
-util-ip(){
+uu-ip(){
   _help $1 && return
   ifconfig | grep 'inet addr'
 }
 
-util-writeimageinstructions(){
+uu-writeimageinstructions(){
   _help $1 && return
   _check_arg $1 "image file"
   _check_arg $2 "disk number"
@@ -119,12 +119,12 @@ util-writeimageinstructions(){
   echo_info "i.e. sudo dd if=/home/dawidkotarba/Downloads/ubuntu-17.10-desktop-amd64.iso of=/dev/sdb bs=4M && sync"
 }
 
-util-remountrw(){
+uu-remountrw(){
   _help $1 && return
   mount -o remount,rw /
 }
 
-util-ramdisk(){
+uu-ramdisk(){
   _help $1 && return
   _check_arg $1 "size in GB"
   local size=$(($1 * 1024))
@@ -133,12 +133,12 @@ util-ramdisk(){
   sudo mount -t tmpfs tmpfs ${path} -o size=${size}
 }
 
-util-screenshot(){
+uu-screenshot(){
   _help $1 && return
   gnome-screenshot -a -c
 }
 
-util-checksum(){
+uu-checksum(){
   _help $1 && return
   _check_arg $1 "filename"
   echo "cksum: `cksum $1`"
@@ -148,9 +148,9 @@ util-checksum(){
   echo "sha384sum: `sha384sum $1`"
   echo "sha512sum: `sha512sum $1`"
 }
-alias checksum='util-checksum'
+alias checksum='uu-checksum'
 
-util-adduser(){
+uu-adduser(){
   _help $1 && return
   _check_arg $1 "username"
   local username=$1
@@ -158,44 +158,44 @@ util-adduser(){
   sudo usermod -aG sudo ${username}
 }
 
-util-copydate(){
+uu-copydate(){
   _help $1 && return
   echo `date +%F` | xclip -sel clip
 }
-alias checksum='util-copydate'
+alias checksum='uu-copydate'
 
-util-syslog(){
+uu-syslog(){
   _help $1 && return
   _requires lnav
   lnav /var/log/syslog
 }
-alias syslog='util-syslog'
+alias syslog='uu-syslog'
 
-util-suspend(){
+uu-suspend(){
   _help $1 && return
   systemctl suspend
 }
-alias cu='util-suspend'
+alias cu='uu-suspend'
 
-util-onyx(){
+uu-onyx(){
   _help $1 && return
   _check_arg $1 "host number"
   _requires google-chrome
   nohup google-chrome http://192.168.0.$1:8083/ &
 }
-alias onyx='util-onyx'
+alias onyx='uu-onyx'
 
 ### DOCKER ###
-util-dockerstart(){
+uu-dockerstart(){
   _help $1 && return
   _check_arg $1 "container name"
   local container_name=$1
   echo_info "Starting docker container: $1"
   sudo docker start ${container_name}
-  util-dockerip ${container_name}
+  uu-dockerip ${container_name}
 }
 
-util-dockerip(){
+uu-dockerip(){
   _help $1 && return
   _check_arg $1 "container name"
   local container_name=$1
