@@ -1,5 +1,7 @@
 ### util ###
 
+alias cuu="sudo shutdown"
+
 function repeat(){
  _help $1 && return
  _check_arg $1 "repeat time must be set"
