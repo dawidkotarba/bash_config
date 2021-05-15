@@ -103,8 +103,19 @@ setup-openvpn(){
 
 setup-dev(){
   _help $1 && return
-  _aptinstall git tig ant maven gradle
+  # Git
+  _aptinstall git git-lfs tig
+
+  # Java build tools
+  _aptinstall ant maven gradle
   _aptinstall silversearcher-ag lnav meld
+
+  # Python
+  setup-python3
+
+  # Ruby and Jekyll
+  setup-ruby
+  setup-jekyll
 }
 
 setup-node(){
