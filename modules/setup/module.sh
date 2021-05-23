@@ -283,7 +283,7 @@ setup-essentials(){
   _aptinstall htop glances
 
   # Linux essentials
-  _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip
+  _aptinstall tilda vim tree mtr net-tools shellcheck samba xclip whois
   _aptinstall grub-customizer
 
   # Images
