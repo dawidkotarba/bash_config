@@ -33,7 +33,7 @@ alias share='uu-share'
 
 uu-upgrade(){
  _help $1 && return
- sudo apt update && sudo apt upgrade -y
+ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
  git -C ${_SHELL_CONFIG_PATH} pull
  _pull-cloned-apps
 }
